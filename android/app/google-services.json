@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "549379790298",
+    "project_id": "carlife-4cff9",
+    "storage_bucket": "carlife-4cff9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549379790298:android:ba29b9c2d735f4dd579ce3",
+        "android_client_info": {
+          "package_name": "ui.tarch64.car_life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549379790298-vo2rqquqirrcfuqk3dqpp937pn30rqn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI7R5L9tDOfjT1ozliR1Y1jxdw3VS0JYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549379790298-vo2rqquqirrcfuqk3dqpp937pn30rqn1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "549379790298-bivibbie62306aohcm816cqcea9qtghp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ua.tarch64.CarLife"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
