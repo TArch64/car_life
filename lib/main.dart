@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+
 import 'firebase_options.dart';
-import 'auth_provider.dart';
+import 'auth_handler.dart';
+import 'car_handler.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,8 +23,11 @@ class MyApp extends StatelessWidget {
       theme: const CupertinoThemeData(
         primaryColor: CupertinoColors.activeBlue
       ),
-      home: AuthProvider(
-        build: () => const CupertinoPageScaffold(child: Text("signed in")),
+      home: AuthHandler(
+        build: (_) => CarHandler(
+          buildCreateCar: (_) => const CupertinoPageScaffold(child: Text('no car')),
+          buildActiveCar:(_) => const CupertinoPageScaffold(child: Text('car created')),
+        ),
       ),
     );
   }
