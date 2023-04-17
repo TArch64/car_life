@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import 'page_loader.dart';
+import 'pages/base/page_loader.dart';
 
 class AuthHandler extends StatefulWidget {
   const AuthHandler({super.key, required this.build});

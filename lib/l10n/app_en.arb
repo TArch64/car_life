@@ -1,0 +1,6 @@
+{
+  "addCarNavigationTitle": "Add your car",
+  "@addCarNavigationTitle": {
+    "description": "Navigation title of add car page"
+  }
+}
