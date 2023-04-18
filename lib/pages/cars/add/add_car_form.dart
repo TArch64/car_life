@@ -13,6 +13,8 @@ class _AddCarFormState extends State<AddCarForm> {
 
   @override
   Widget build(BuildContext context) {
+    var localizations = AppLocalizations.of(context)!;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -21,13 +23,18 @@ class _AddCarFormState extends State<AddCarForm> {
           CupertinoFormSection(
             children: [
               CupertinoTextFormFieldRow(
-                prefix: Text(AppLocalizations.of(context)!.addCarFormNameLabel),
+                prefix: Text(localizations.addCarFormNameLabel),
                 autofocus: true,
               ),
               CupertinoTextFormFieldRow(
-                prefix: Text(AppLocalizations.of(context)!.addCarFormNameMileage),
+                prefix: Text(localizations.addCarFormMileageLabel),
               )
             ]
+          ),
+          const SizedBox(height: 20),
+          CupertinoButton(
+            child: Text(localizations.addCarFormSubmit),
+            onPressed: () {}
           )
         ],
       )

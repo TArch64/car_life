@@ -11,6 +11,7 @@ class AddCarPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageLayout(
       navigationTitle: AppLocalizations.of(context)!.addCarNavigationTitle,
+      inlineNavigationTitle: true,
       backgroundColor: CupertinoColors.secondarySystemBackground,
       child: const AddCarForm()
     );

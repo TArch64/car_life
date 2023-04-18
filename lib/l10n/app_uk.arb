@@ -1,5 +1,6 @@
 {
   "addCarNavigationTitle": "Додайте ваше авто",
   "addCarFormNameLabel": "Назва",
-  "addCarFormNameMileage": "Пробіг"
+  "addCarFormMileageLabel": "Пробіг",
+  "addCarFormSubmit": "Додати"
 }
