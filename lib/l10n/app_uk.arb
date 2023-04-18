@@ -1,3 +1,5 @@
 {
-  "addCarNavigationTitle": "Додайте ваше авто"
+  "addCarNavigationTitle": "Додайте ваше авто",
+  "addCarFormNameLabel": "Назва",
+  "addCarFormNameMileage": "Пробіг"
 }

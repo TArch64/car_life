@@ -1,6 +1,14 @@
 {
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {
-    "description": "Navigation title of add car page"
+    "description": "Add car page > Navigation title"
+  },
+  "addCarFormNameLabel": "Name",
+  "@addCarFormNameLabel": {
+    "description": "Add car page > car name field label"
+  },
+  "addCarFormNameMileage": "Mileage",
+  "@addCarFormNameMileage": {
+    "description": "Add car page > car mileage field label"
   }
 }

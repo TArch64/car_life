@@ -4,10 +4,12 @@ class PageLayout extends StatelessWidget {
   const PageLayout({
     super.key,
     this.navigationTitle,
-    required this.child
+    this.backgroundColor,
+    required this.child,
   });
 
   final String? navigationTitle;
+  final Color? backgroundColor;
   final Widget child;
 
   @override
@@ -18,6 +20,7 @@ class PageLayout extends StatelessWidget {
 
     return CupertinoPageScaffold(
       navigationBar: navigationBar,
+      backgroundColor: backgroundColor,
       child: Padding(
         padding: EdgeInsets.only(
           top: navigationBarOffset + screenPadding.top,
