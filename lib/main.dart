@@ -1,10 +1,10 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'firebase_options.dart';
 import 'auth_handler.dart';
 import 'car_handler.dart';
+import 'localization.dart';
 import 'pages/cars/add/add_car_page.dart';
 
 void main() async {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return CupertinoApp(
       title: 'CarLife',
       theme: const CupertinoThemeData(
-        primaryColor: CupertinoColors.activeBlue
+        primaryColor: CupertinoColors.darkBackgroundGray
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
