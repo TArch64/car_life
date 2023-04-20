@@ -127,12 +127,12 @@ abstract class CarModelDocumentReference
   ///
   /// If no document exists yet, the update will fail.
   Future<void> update({
+    String userId,
+    FieldValue userIdFieldValue,
     String name,
     FieldValue nameFieldValue,
     int mileage,
     FieldValue mileageFieldValue,
-    String userId,
-    FieldValue userIdFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -140,12 +140,12 @@ abstract class CarModelDocumentReference
   /// The update will fail if applied to a document that does not exist.
   void transactionUpdate(
     Transaction transaction, {
+    String userId,
+    FieldValue userIdFieldValue,
     String name,
     FieldValue nameFieldValue,
     int mileage,
     FieldValue mileageFieldValue,
-    String userId,
-    FieldValue userIdFieldValue,
   });
 }
 
@@ -178,13 +178,17 @@ class _$CarModelDocumentReference
   }
 
   Future<void> update({
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? mileage = _sentinel,
     FieldValue? mileageFieldValue,
-    Object? userId = _sentinel,
-    FieldValue? userIdFieldValue,
   }) async {
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
@@ -193,19 +197,15 @@ class _$CarModelDocumentReference
       mileage == _sentinel || mileageFieldValue == null,
       "Cannot specify both mileage and mileageFieldValue",
     );
-    assert(
-      userId == _sentinel || userIdFieldValue == null,
-      "Cannot specify both userId and userIdFieldValue",
-    );
     final json = {
+      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
+      if (userIdFieldValue != null)
+        _$CarModelFieldMap['userId']!: userIdFieldValue,
       if (name != _sentinel) _$CarModelFieldMap['name']!: name as String,
       if (nameFieldValue != null) _$CarModelFieldMap['name']!: nameFieldValue,
       if (mileage != _sentinel) _$CarModelFieldMap['mileage']!: mileage as int,
       if (mileageFieldValue != null)
         _$CarModelFieldMap['mileage']!: mileageFieldValue,
-      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
-      if (userIdFieldValue != null)
-        _$CarModelFieldMap['userId']!: userIdFieldValue,
     };
 
     return reference.update(json);
@@ -213,13 +213,17 @@ class _$CarModelDocumentReference
 
   void transactionUpdate(
     Transaction transaction, {
+    Object? userId = _sentinel,
+    FieldValue? userIdFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? mileage = _sentinel,
     FieldValue? mileageFieldValue,
-    Object? userId = _sentinel,
-    FieldValue? userIdFieldValue,
   }) {
+    assert(
+      userId == _sentinel || userIdFieldValue == null,
+      "Cannot specify both userId and userIdFieldValue",
+    );
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
@@ -228,19 +232,15 @@ class _$CarModelDocumentReference
       mileage == _sentinel || mileageFieldValue == null,
       "Cannot specify both mileage and mileageFieldValue",
     );
-    assert(
-      userId == _sentinel || userIdFieldValue == null,
-      "Cannot specify both userId and userIdFieldValue",
-    );
     final json = {
+      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
+      if (userIdFieldValue != null)
+        _$CarModelFieldMap['userId']!: userIdFieldValue,
       if (name != _sentinel) _$CarModelFieldMap['name']!: name as String,
       if (nameFieldValue != null) _$CarModelFieldMap['name']!: nameFieldValue,
       if (mileage != _sentinel) _$CarModelFieldMap['mileage']!: mileage as int,
       if (mileageFieldValue != null)
         _$CarModelFieldMap['mileage']!: mileageFieldValue,
-      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
-      if (userIdFieldValue != null)
-        _$CarModelFieldMap['userId']!: userIdFieldValue,
     };
 
     transaction.update(reference, json);
@@ -342,6 +342,17 @@ abstract class CarModelQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
+  CarModelQuery whereUserId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  });
   CarModelQuery whereName({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -364,19 +375,20 @@ abstract class CarModelQuery
     List<int>? whereIn,
     List<int>? whereNotIn,
   });
-  CarModelQuery whereUserId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  });
 
   CarModelQuery orderByDocumentId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    CarModelDocumentSnapshot? startAtDocument,
+    CarModelDocumentSnapshot? endAtDocument,
+    CarModelDocumentSnapshot? endBeforeDocument,
+    CarModelDocumentSnapshot? startAfterDocument,
+  });
+
+  CarModelQuery orderByUserId({
     bool descending = false,
     String startAt,
     String startAfter,
@@ -406,18 +418,6 @@ abstract class CarModelQuery
     int startAfter,
     int endAt,
     int endBefore,
-    CarModelDocumentSnapshot? startAtDocument,
-    CarModelDocumentSnapshot? endAtDocument,
-    CarModelDocumentSnapshot? endBeforeDocument,
-    CarModelDocumentSnapshot? startAfterDocument,
-  });
-
-  CarModelQuery orderByUserId({
-    bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
     CarModelDocumentSnapshot? startAtDocument,
     CarModelDocumentSnapshot? endAtDocument,
     CarModelDocumentSnapshot? endBeforeDocument,
@@ -603,6 +603,35 @@ class _$CarModelQuery extends QueryReference<CarModel, CarModelQuerySnapshot>
     );
   }
 
+  CarModelQuery whereUserId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  }) {
+    return _$CarModelQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$CarModelFieldMap['userId']!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
   CarModelQuery whereName({
     String? isEqualTo,
     String? isNotEqualTo,
@@ -661,35 +690,6 @@ class _$CarModelQuery extends QueryReference<CarModel, CarModelQuerySnapshot>
     );
   }
 
-  CarModelQuery whereUserId({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  }) {
-    return _$CarModelQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$CarModelFieldMap['userId']!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
   CarModelQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -702,6 +702,78 @@ class _$CarModelQuery extends QueryReference<CarModel, CarModelQuerySnapshot>
     CarModelDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
+        descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$CarModelQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  CarModelQuery orderByUserId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    CarModelDocumentSnapshot? startAtDocument,
+    CarModelDocumentSnapshot? endAtDocument,
+    CarModelDocumentSnapshot? endBeforeDocument,
+    CarModelDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor.orderBy(_$CarModelFieldMap['userId']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -906,78 +978,6 @@ class _$CarModelQuery extends QueryReference<CarModel, CarModelQuerySnapshot>
     );
   }
 
-  CarModelQuery orderByUserId({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    CarModelDocumentSnapshot? startAtDocument,
-    CarModelDocumentSnapshot? endAtDocument,
-    CarModelDocumentSnapshot? endBeforeDocument,
-    CarModelDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor.orderBy(_$CarModelFieldMap['userId']!,
-        descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$CarModelQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
   @override
   bool operator ==(Object other) {
     return other is _$CarModelQuery &&
@@ -1085,14 +1085,14 @@ CarModel _$CarModelFromJson(Map<String, dynamic> json) => CarModel(
 
 const _$CarModelFieldMap = <String, String>{
   'id': 'id',
+  'userId': 'userId',
   'name': 'name',
   'mileage': 'mileage',
-  'userId': 'userId',
 };
 
 Map<String, dynamic> _$CarModelToJson(CarModel instance) => <String, dynamic>{
       'id': instance.id,
+      'userId': instance.userId,
       'name': instance.name,
       'mileage': instance.mileage,
-      'userId': instance.userId,
     };

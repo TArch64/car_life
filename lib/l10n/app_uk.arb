@@ -2,5 +2,8 @@
   "addCarNavigationTitle": "Додайте ваше авто",
   "addCarFormNameLabel": "Назва",
   "addCarFormMileageLabel": "Пробіг",
-  "addCarFormSubmit": "Додати"
+  "addCarFormSubmit": "Додати",
+
+  "formRequired": "Обовʼязкове поле",
+  "formMinNumber": "Не може бути менше ніж {value}"
 }

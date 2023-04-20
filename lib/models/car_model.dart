@@ -15,9 +15,9 @@ const Serializable = JsonSerializable(
 class CarModel {
   @Id()
   final String id;
-  final String name;
-  final int mileage;
   final String userId;
+  String name;
+  int mileage;
 
   CarModel({
     required this.id,
@@ -25,4 +25,8 @@ class CarModel {
     required this.mileage,
     required this.userId
   });
+
+  factory CarModel.empty() {
+    return CarModel(id: "", mileage: 0, name: "", userId: "");
+  }
 }

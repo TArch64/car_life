@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       home: AuthHandler(
         build: (_) => CarHandler(
-          buildCreateCar: (_) => const AddCarPage(),
+          buildCreateCar: (_) => AddCarPage(),
           buildActiveCar:(_) => const CupertinoPageScaffold(child: Text('car created')),
         ),
       ),

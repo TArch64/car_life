@@ -14,5 +14,14 @@
   "addCarFormSubmit": "Add car",
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
+  },
+
+  "formRequired": "Required field",
+  "@formRequired": {
+    "description": "form > validations > required field"
+  },
+  "formMinNumber": "Can't be less than {value}",
+  "@formMinNumber": {
+    "description": "form > validations > min number value"
   }
 }
