@@ -1,7 +1,7 @@
-import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
+import 'package:car_life/provider.dart';
 
 import 'pages/base/page_loader.dart';
 import 'models/car_model.dart';
@@ -19,9 +19,8 @@ class CarHandler extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<User>(context);
     return FirestoreBuilder(
-      ref: _carsRef.whereUserId(isEqualTo: user.uid),
+      ref: _carsRef.whereUserId(isEqualTo: context.inject<User>().uid),
       builder: (_, snapshot, __) {
         if (snapshot.data == null) {
           return const PageLoader();
@@ -29,7 +28,10 @@ class CarHandler extends StatelessWidget {
         if (snapshot.data!.snapshot.size == 0) {
           return buildCreateCar(context);
         }
-        return buildActiveCar(context);
+        return Provider<CarModel>.value(
+          value: snapshot.data!.snapshot.docs.first.data(),
+          child: buildActiveCar(context),
+        );
       },
     );
   }

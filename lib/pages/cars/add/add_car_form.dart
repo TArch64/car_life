@@ -1,18 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:car_life/localization.dart';
 import 'package:car_life/models/car_model.dart';
+import 'package:car_life/theme.dart';
 import 'package:car_life/validators.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:car_life/pages/base/button_loader.dart';
 
 typedef AddCarSubmitForm = Function();
 
 class AddCarForm extends StatefulWidget {
   final CarModel car;
   final AddCarSubmitForm onSubmit;
+  final bool creating;
 
   const AddCarForm({
     super.key,
     required this.car,
-    required this.onSubmit
+    required this.onSubmit,
+    required this.creating
   });
 
   @override
@@ -53,7 +57,11 @@ class _AddCarFormState extends State<AddCarForm> {
               padding: const EdgeInsets.all(10),
               child: CupertinoButton.filled(
                 onPressed: _submit,
-                child: Text(context.l10n.addCarFormSubmit)
+                child: ButtonLoader(
+                  visible: widget.creating,
+                  color: context.theme.primaryContrastingColor,
+                  child: Text(context.l10n.addCarFormSubmit),
+                ),
               ),
             )
           ],

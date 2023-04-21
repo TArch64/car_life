@@ -15,7 +15,7 @@ const Serializable = JsonSerializable(
 class CarModel {
   @Id()
   final String id;
-  final String userId;
+  String userId;
   String name;
   int mileage;
 

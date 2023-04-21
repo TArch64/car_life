@@ -1,6 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_core/firebase_core.dart';
 
+import 'theme.dart';
 import 'firebase_options.dart';
 import 'auth_handler.dart';
 import 'car_handler.dart';
@@ -22,9 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoApp(
       title: 'CarLife',
-      theme: const CupertinoThemeData(
-        primaryColor: CupertinoColors.darkBackgroundGray
-      ),
+      theme: const AppTheme(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: AuthHandler(
