@@ -9,6 +9,35 @@ class EventsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text("${groupData.fromMileage}");
+    return Row(children: _eventWidgets + [_mileageWidget]);
+  }
+
+  Color get _cellBackgroundColor {
+    return CupertinoColors.secondarySystemBackground.withOpacity(0.25);
+  }
+
+  Widget get _mileageWidget {
+    final mileage = groupData.fromMileage / 1000;
+    final formatted = mileage.toStringAsFixed(mileage.truncateToDouble() == mileage ? 0 : 1);
+    return Expanded(
+      flex: 1,
+      child: Container(
+        decoration: BoxDecoration(color: _cellBackgroundColor),
+        child: Flex(
+          direction: Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [Text(formatted)],
+        ),
+      ),
+    );
+  }
+
+  List<Widget> get _eventWidgets {
+    return [
+      Expanded(
+        flex: 2,
+        child: Container()
+      )
+    ];
   }
 }

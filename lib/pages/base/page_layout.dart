@@ -6,12 +6,14 @@ class PageLayout extends StatelessWidget {
     this.navigationTitle,
     this.inlineNavigationTitle = false,
     this.backgroundColor,
+    this.bottomScreenSafeOffset = false,
     required this.child,
   });
 
   final String? navigationTitle;
   final bool inlineNavigationTitle;
   final Color? backgroundColor;
+  final bool bottomScreenSafeOffset;
   final Widget child;
 
   @override
@@ -27,7 +29,7 @@ class PageLayout extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(
           top: screenPadding.top + navigationBarOffset,
-          bottom: screenPadding.bottom
+          bottom: bottomScreenSafeOffset ? screenPadding.bottom : 0,
         ),
         child: inlineNavigationTitle == null ? child : Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

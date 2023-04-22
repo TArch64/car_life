@@ -1,4 +1,4 @@
-import 'package:car_life/pages/cars/events/events_group_data.dart';
+import 'package:car_life/core/theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
@@ -6,6 +6,7 @@ import 'package:car_life/models/car_model.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import 'events_group.dart';
+import 'events_group_data.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
@@ -34,22 +35,31 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   @override
   Widget build(BuildContext context) {
-    var car = context.inject<CarModel>();
+    final car = context.inject<CarModel>();
+    final borderColor = _borderColor(context);
+
     return PageLayout(
       navigationTitle: car.name,
       child: ListView.builder(
         reverse: true,
         controller: _scrollController,
-        itemBuilder: (context, index) => Container(
+        itemBuilder: (_, index) => Container(
           height: _groupHeight,
           decoration: BoxDecoration(
-            border: index == 0 ? null : const Border(
-              bottom: BorderSide(width: 1, color: CupertinoColors.secondarySystemBackground)
+            border: index == 0 ? null : Border(
+              bottom: BorderSide(width: 1, color: borderColor)
             )
           ),
-          child: EventsGroup(groupData: EventsGroupData(index),)
+          child: EventsGroup(groupData: EventsGroupData(index))
         ),
       )
     );
+  }
+
+  Color _borderColor(BuildContext context) {
+    if (context.isLightTheme) {
+      return CupertinoColors.secondarySystemBackground;
+    }
+    return CupertinoColors.systemBackground.withOpacity(0.2);
   }
 }
