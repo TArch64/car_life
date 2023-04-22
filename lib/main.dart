@@ -1,11 +1,12 @@
+import 'package:car_life/pages/cars/events/events_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'theme.dart';
-import 'firebase_options.dart';
+import 'core/theme.dart';
+import 'core/firebase_options.dart';
 import 'auth_handler.dart';
 import 'car_handler.dart';
-import 'localization.dart';
+import 'core/localization.dart';
 import 'pages/cars/add/add_car_page.dart';
 
 void main() async {
@@ -28,8 +29,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       home: AuthHandler(
         build: (_) => CarHandler(
-          buildCreateCar: (_) => AddCarPage(),
-          buildActiveCar:(_) => const CupertinoPageScaffold(child: Text('car created')),
+          buildCreateCar: (_) => const AddCarPage(),
+          buildActiveCar:(_) => const EventsPage(),
         ),
       ),
     );

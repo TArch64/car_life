@@ -1,6 +1,6 @@
-import 'package:car_life/localization.dart';
 import 'package:car_life/models/car_model.dart';
-import 'package:car_life/provider.dart';
+import 'package:car_life/core/localization.dart';
+import 'package:car_life/core/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 

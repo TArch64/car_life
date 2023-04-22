@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/localization.dart';
 import 'package:car_life/models/car_model.dart';
-import 'package:car_life/theme.dart';
-import 'package:car_life/validators.dart';
+import 'package:car_life/core/localization.dart';
+import 'package:car_life/core/theme.dart';
+import 'package:car_life/core/validators.dart';
 import 'package:car_life/pages/base/button_loader.dart';
 
 typedef AddCarSubmitForm = Function();

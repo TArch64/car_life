@@ -29,12 +29,9 @@ class PageLayout extends StatelessWidget {
           top: screenPadding.top + navigationBarOffset,
           bottom: screenPadding.bottom
         ),
-        child: Column(
+        child: inlineNavigationTitle == null ? child : Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (inlineNavigationTitle != null) inlineNavigationTitle,
-            child
-          ],
+          children: [inlineNavigationTitle, child],
         ),
       ),
     );

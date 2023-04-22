@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
-import 'package:car_life/provider.dart';
+import 'package:car_life/core/provider.dart';
 
 import 'pages/base/page_loader.dart';
 import 'models/car_model.dart';

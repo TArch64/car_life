@@ -1,4 +1,4 @@
-import 'package:car_life/localization.dart';
+import 'package:car_life/core/localization.dart';
 import 'package:flutter/cupertino.dart';
 
 class Validators {
