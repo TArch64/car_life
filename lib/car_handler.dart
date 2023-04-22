@@ -15,7 +15,7 @@ class CarHandler extends StatelessWidget {
 
   final WidgetBuilder buildCreateCar;
   final WidgetBuilder buildActiveCar;
-  final _carsRef = CarModelCollectionReference();
+  final _carsRef = CarCollectionReference();
 
   @override
   Widget build(BuildContext context) {

@@ -15,7 +15,7 @@ class AddCarPage extends StatefulWidget {
 }
 
 class _AddCarPageState extends State<AddCarPage> {
-  final _carsRef = CarModelCollectionReference();
+  final _carsRef = CarCollectionReference();
   final _creatingCar = CarModel.empty();
   bool _creating = false;
 

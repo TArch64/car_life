@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'car_model.dart';
+part of 'event_model.dart';
 
 // **************************************************************************
 // CollectionGenerator
@@ -18,81 +18,81 @@ const _sentinel = _Sentinel();
 /// A collection reference object can be used for adding documents,
 /// getting document references, and querying for documents
 /// (using the methods inherited from Query).
-abstract class CarCollectionReference
+abstract class EventCollectionReference
     implements
-        CarQuery,
-        FirestoreCollectionReference<CarModel, CarQuerySnapshot> {
-  factory CarCollectionReference([
+        EventQuery,
+        FirestoreCollectionReference<EventModel, EventQuerySnapshot> {
+  factory EventCollectionReference([
     FirebaseFirestore? firestore,
-  ]) = _$CarCollectionReference;
+  ]) = _$EventCollectionReference;
 
-  static CarModel fromFirestore(
+  static EventModel fromFirestore(
     DocumentSnapshot<Map<String, Object?>> snapshot,
     SnapshotOptions? options,
   ) {
-    return _$CarModelFromJson({'id': snapshot.id, ...?snapshot.data()});
+    return _$EventModelFromJson({'id': snapshot.id, ...?snapshot.data()});
   }
 
   static Map<String, Object?> toFirestore(
-    CarModel value,
+    EventModel value,
     SetOptions? options,
   ) {
-    return {..._$CarModelToJson(value)}..remove('id');
+    return {..._$EventModelToJson(value)}..remove('id');
   }
 
   @override
-  CollectionReference<CarModel> get reference;
+  CollectionReference<EventModel> get reference;
 
   @override
-  CarDocumentReference doc([String? id]);
+  EventDocumentReference doc([String? id]);
 
   /// Add a new document to this collection with the specified data,
   /// assigning it a document ID automatically.
-  Future<CarDocumentReference> add(CarModel value);
+  Future<EventDocumentReference> add(EventModel value);
 }
 
-class _$CarCollectionReference extends _$CarQuery
-    implements CarCollectionReference {
-  factory _$CarCollectionReference([FirebaseFirestore? firestore]) {
+class _$EventCollectionReference extends _$EventQuery
+    implements EventCollectionReference {
+  factory _$EventCollectionReference([FirebaseFirestore? firestore]) {
     firestore ??= FirebaseFirestore.instance;
 
-    return _$CarCollectionReference._(
-      firestore.collection('cars').withConverter(
-            fromFirestore: CarCollectionReference.fromFirestore,
-            toFirestore: CarCollectionReference.toFirestore,
+    return _$EventCollectionReference._(
+      firestore.collection('events').withConverter(
+            fromFirestore: EventCollectionReference.fromFirestore,
+            toFirestore: EventCollectionReference.toFirestore,
           ),
     );
   }
 
-  _$CarCollectionReference._(
-    CollectionReference<CarModel> reference,
+  _$EventCollectionReference._(
+    CollectionReference<EventModel> reference,
   ) : super(reference, $referenceWithoutCursor: reference);
 
   String get path => reference.path;
 
   @override
-  CollectionReference<CarModel> get reference =>
-      super.reference as CollectionReference<CarModel>;
+  CollectionReference<EventModel> get reference =>
+      super.reference as CollectionReference<EventModel>;
 
   @override
-  CarDocumentReference doc([String? id]) {
+  EventDocumentReference doc([String? id]) {
     assert(
       id == null || id.split('/').length == 1,
       'The document ID cannot be from a different collection',
     );
-    return CarDocumentReference(
+    return EventDocumentReference(
       reference.doc(id),
     );
   }
 
   @override
-  Future<CarDocumentReference> add(CarModel value) {
-    return reference.add(value).then((ref) => CarDocumentReference(ref));
+  Future<EventDocumentReference> add(EventModel value) {
+    return reference.add(value).then((ref) => EventDocumentReference(ref));
   }
 
   @override
   bool operator ==(Object other) {
-    return other is _$CarCollectionReference &&
+    return other is _$EventCollectionReference &&
         other.runtimeType == runtimeType &&
         other.reference == reference;
   }
@@ -101,23 +101,23 @@ class _$CarCollectionReference extends _$CarQuery
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-abstract class CarDocumentReference
-    extends FirestoreDocumentReference<CarModel, CarDocumentSnapshot> {
-  factory CarDocumentReference(DocumentReference<CarModel> reference) =
-      _$CarDocumentReference;
+abstract class EventDocumentReference
+    extends FirestoreDocumentReference<EventModel, EventDocumentSnapshot> {
+  factory EventDocumentReference(DocumentReference<EventModel> reference) =
+      _$EventDocumentReference;
 
-  DocumentReference<CarModel> get reference;
+  DocumentReference<EventModel> get reference;
 
-  /// A reference to the [CarCollectionReference] containing this document.
-  CarCollectionReference get parent {
-    return _$CarCollectionReference(reference.firestore);
+  /// A reference to the [EventCollectionReference] containing this document.
+  EventCollectionReference get parent {
+    return _$EventCollectionReference(reference.firestore);
   }
 
   @override
-  Stream<CarDocumentSnapshot> snapshots();
+  Stream<EventDocumentSnapshot> snapshots();
 
   @override
-  Future<CarDocumentSnapshot> get([GetOptions? options]);
+  Future<EventDocumentSnapshot> get([GetOptions? options]);
 
   @override
   Future<void> delete();
@@ -127,12 +127,12 @@ abstract class CarDocumentReference
   ///
   /// If no document exists yet, the update will fail.
   Future<void> update({
-    String userId,
-    FieldValue userIdFieldValue,
     String name,
     FieldValue nameFieldValue,
     int mileage,
     FieldValue mileageFieldValue,
+    String carId,
+    FieldValue carIdFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -140,55 +140,51 @@ abstract class CarDocumentReference
   /// The update will fail if applied to a document that does not exist.
   void transactionUpdate(
     Transaction transaction, {
-    String userId,
-    FieldValue userIdFieldValue,
     String name,
     FieldValue nameFieldValue,
     int mileage,
     FieldValue mileageFieldValue,
+    String carId,
+    FieldValue carIdFieldValue,
   });
 }
 
-class _$CarDocumentReference
-    extends FirestoreDocumentReference<CarModel, CarDocumentSnapshot>
-    implements CarDocumentReference {
-  _$CarDocumentReference(this.reference);
+class _$EventDocumentReference
+    extends FirestoreDocumentReference<EventModel, EventDocumentSnapshot>
+    implements EventDocumentReference {
+  _$EventDocumentReference(this.reference);
 
   @override
-  final DocumentReference<CarModel> reference;
+  final DocumentReference<EventModel> reference;
 
-  /// A reference to the [CarCollectionReference] containing this document.
-  CarCollectionReference get parent {
-    return _$CarCollectionReference(reference.firestore);
+  /// A reference to the [EventCollectionReference] containing this document.
+  EventCollectionReference get parent {
+    return _$EventCollectionReference(reference.firestore);
   }
 
   @override
-  Stream<CarDocumentSnapshot> snapshots() {
-    return reference.snapshots().map(CarDocumentSnapshot._);
+  Stream<EventDocumentSnapshot> snapshots() {
+    return reference.snapshots().map(EventDocumentSnapshot._);
   }
 
   @override
-  Future<CarDocumentSnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(CarDocumentSnapshot._);
+  Future<EventDocumentSnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(EventDocumentSnapshot._);
   }
 
   @override
-  Future<CarDocumentSnapshot> transactionGet(Transaction transaction) {
-    return transaction.get(reference).then(CarDocumentSnapshot._);
+  Future<EventDocumentSnapshot> transactionGet(Transaction transaction) {
+    return transaction.get(reference).then(EventDocumentSnapshot._);
   }
 
   Future<void> update({
-    Object? userId = _sentinel,
-    FieldValue? userIdFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? mileage = _sentinel,
     FieldValue? mileageFieldValue,
+    Object? carId = _sentinel,
+    FieldValue? carIdFieldValue,
   }) async {
-    assert(
-      userId == _sentinel || userIdFieldValue == null,
-      "Cannot specify both userId and userIdFieldValue",
-    );
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
@@ -197,15 +193,20 @@ class _$CarDocumentReference
       mileage == _sentinel || mileageFieldValue == null,
       "Cannot specify both mileage and mileageFieldValue",
     );
+    assert(
+      carId == _sentinel || carIdFieldValue == null,
+      "Cannot specify both carId and carIdFieldValue",
+    );
     final json = {
-      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
-      if (userIdFieldValue != null)
-        _$CarModelFieldMap['userId']!: userIdFieldValue,
-      if (name != _sentinel) _$CarModelFieldMap['name']!: name as String,
-      if (nameFieldValue != null) _$CarModelFieldMap['name']!: nameFieldValue,
-      if (mileage != _sentinel) _$CarModelFieldMap['mileage']!: mileage as int,
+      if (name != _sentinel) _$EventModelFieldMap['name']!: name as String,
+      if (nameFieldValue != null) _$EventModelFieldMap['name']!: nameFieldValue,
+      if (mileage != _sentinel)
+        _$EventModelFieldMap['mileage']!: mileage as int,
       if (mileageFieldValue != null)
-        _$CarModelFieldMap['mileage']!: mileageFieldValue,
+        _$EventModelFieldMap['mileage']!: mileageFieldValue,
+      if (carId != _sentinel) _$EventModelFieldMap['carId']!: carId as String,
+      if (carIdFieldValue != null)
+        _$EventModelFieldMap['carId']!: carIdFieldValue,
     };
 
     return reference.update(json);
@@ -213,17 +214,13 @@ class _$CarDocumentReference
 
   void transactionUpdate(
     Transaction transaction, {
-    Object? userId = _sentinel,
-    FieldValue? userIdFieldValue,
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
     Object? mileage = _sentinel,
     FieldValue? mileageFieldValue,
+    Object? carId = _sentinel,
+    FieldValue? carIdFieldValue,
   }) {
-    assert(
-      userId == _sentinel || userIdFieldValue == null,
-      "Cannot specify both userId and userIdFieldValue",
-    );
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
@@ -232,15 +229,20 @@ class _$CarDocumentReference
       mileage == _sentinel || mileageFieldValue == null,
       "Cannot specify both mileage and mileageFieldValue",
     );
+    assert(
+      carId == _sentinel || carIdFieldValue == null,
+      "Cannot specify both carId and carIdFieldValue",
+    );
     final json = {
-      if (userId != _sentinel) _$CarModelFieldMap['userId']!: userId as String,
-      if (userIdFieldValue != null)
-        _$CarModelFieldMap['userId']!: userIdFieldValue,
-      if (name != _sentinel) _$CarModelFieldMap['name']!: name as String,
-      if (nameFieldValue != null) _$CarModelFieldMap['name']!: nameFieldValue,
-      if (mileage != _sentinel) _$CarModelFieldMap['mileage']!: mileage as int,
+      if (name != _sentinel) _$EventModelFieldMap['name']!: name as String,
+      if (nameFieldValue != null) _$EventModelFieldMap['name']!: nameFieldValue,
+      if (mileage != _sentinel)
+        _$EventModelFieldMap['mileage']!: mileage as int,
       if (mileageFieldValue != null)
-        _$CarModelFieldMap['mileage']!: mileageFieldValue,
+        _$EventModelFieldMap['mileage']!: mileageFieldValue,
+      if (carId != _sentinel) _$EventModelFieldMap['carId']!: carId as String,
+      if (carIdFieldValue != null)
+        _$EventModelFieldMap['carId']!: carIdFieldValue,
     };
 
     transaction.update(reference, json);
@@ -248,7 +250,7 @@ class _$CarDocumentReference
 
   @override
   bool operator ==(Object other) {
-    return other is CarDocumentReference &&
+    return other is EventDocumentReference &&
         other.runtimeType == runtimeType &&
         other.parent == parent &&
         other.id == id;
@@ -258,12 +260,13 @@ class _$CarDocumentReference
   int get hashCode => Object.hash(runtimeType, parent, id);
 }
 
-abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
+abstract class EventQuery
+    implements QueryReference<EventModel, EventQuerySnapshot> {
   @override
-  CarQuery limit(int limit);
+  EventQuery limit(int limit);
 
   @override
-  CarQuery limitToLast(int limit);
+  EventQuery limitToLast(int limit);
 
   /// Perform an order query based on a [FieldPath].
   ///
@@ -285,17 +288,17 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
   /// ```dart
   /// collection.orderByTitle(startAt: 'title');
   /// ```
-  CarQuery orderByFieldPath(
+  EventQuery orderByFieldPath(
     FieldPath fieldPath, {
     bool descending = false,
     Object? startAt,
     Object? startAfter,
     Object? endAt,
     Object? endBefore,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   });
 
   /// Perform a where query based on a [FieldPath].
@@ -315,7 +318,7 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
   /// ```dart
   /// collection.whereTitle(isEqualTo: 'title');
   /// ```
-  CarQuery whereFieldPath(
+  EventQuery whereFieldPath(
     FieldPath fieldPath, {
     Object? isEqualTo,
     Object? isNotEqualTo,
@@ -330,7 +333,7 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
     bool? isNull,
   });
 
-  CarQuery whereDocumentId({
+  EventQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -341,7 +344,7 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  CarQuery whereUserId({
+  EventQuery whereName({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -352,18 +355,7 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  CarQuery whereName({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  });
-  CarQuery whereMileage({
+  EventQuery whereMileage({
     int? isEqualTo,
     int? isNotEqualTo,
     int? isLessThan,
@@ -374,61 +366,72 @@ abstract class CarQuery implements QueryReference<CarModel, CarQuerySnapshot> {
     List<int>? whereIn,
     List<int>? whereNotIn,
   });
+  EventQuery whereCarId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  });
 
-  CarQuery orderByDocumentId({
+  EventQuery orderByDocumentId({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   });
 
-  CarQuery orderByUserId({
+  EventQuery orderByName({
     bool descending = false,
     String startAt,
     String startAfter,
     String endAt,
     String endBefore,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   });
 
-  CarQuery orderByName({
-    bool descending = false,
-    String startAt,
-    String startAfter,
-    String endAt,
-    String endBefore,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
-  });
-
-  CarQuery orderByMileage({
+  EventQuery orderByMileage({
     bool descending = false,
     int startAt,
     int startAfter,
     int endAt,
     int endBefore,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
+  });
+
+  EventQuery orderByCarId({
+    bool descending = false,
+    String startAt,
+    String startAfter,
+    String endAt,
+    String endBefore,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   });
 }
 
-class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
-    implements CarQuery {
-  _$CarQuery(
+class _$EventQuery extends QueryReference<EventModel, EventQuerySnapshot>
+    implements EventQuery {
+  _$EventQuery(
     this._collection, {
-    required Query<CarModel> $referenceWithoutCursor,
+    required Query<EventModel> $referenceWithoutCursor,
     $QueryCursor $queryCursor = const $QueryCursor(),
   }) : super(
           $referenceWithoutCursor: $referenceWithoutCursor,
@@ -438,18 +441,18 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
   final CollectionReference<Object?> _collection;
 
   @override
-  Stream<CarQuerySnapshot> snapshots([SnapshotOptions? options]) {
-    return reference.snapshots().map(CarQuerySnapshot._fromQuerySnapshot);
+  Stream<EventQuerySnapshot> snapshots([SnapshotOptions? options]) {
+    return reference.snapshots().map(EventQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
-  Future<CarQuerySnapshot> get([GetOptions? options]) {
-    return reference.get(options).then(CarQuerySnapshot._fromQuerySnapshot);
+  Future<EventQuerySnapshot> get([GetOptions? options]) {
+    return reference.get(options).then(EventQuerySnapshot._fromQuerySnapshot);
   }
 
   @override
-  CarQuery limit(int limit) {
-    return _$CarQuery(
+  EventQuery limit(int limit) {
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.limit(limit),
       $queryCursor: $queryCursor,
@@ -457,25 +460,25 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
   }
 
   @override
-  CarQuery limitToLast(int limit) {
-    return _$CarQuery(
+  EventQuery limitToLast(int limit) {
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.limitToLast(limit),
       $queryCursor: $queryCursor,
     );
   }
 
-  CarQuery orderByFieldPath(
+  EventQuery orderByFieldPath(
     FieldPath fieldPath, {
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   }) {
     final query =
         $referenceWithoutCursor.orderBy(fieldPath, descending: descending);
@@ -530,14 +533,14 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
         endBeforeDocumentSnapshot: null,
       );
     }
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
     );
   }
 
-  CarQuery whereFieldPath(
+  EventQuery whereFieldPath(
     FieldPath fieldPath, {
     Object? isEqualTo,
     Object? isNotEqualTo,
@@ -551,7 +554,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     List<Object?>? whereNotIn,
     bool? isNull,
   }) {
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         fieldPath,
@@ -571,7 +574,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     );
   }
 
-  CarQuery whereDocumentId({
+  EventQuery whereDocumentId({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -582,7 +585,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     List<String>? whereIn,
     List<String>? whereNotIn,
   }) {
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
         FieldPath.documentId,
@@ -600,7 +603,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     );
   }
 
-  CarQuery whereUserId({
+  EventQuery whereName({
     String? isEqualTo,
     String? isNotEqualTo,
     String? isLessThan,
@@ -611,10 +614,10 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     List<String>? whereIn,
     List<String>? whereNotIn,
   }) {
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$CarModelFieldMap['userId']!,
+        _$EventModelFieldMap['name']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -629,36 +632,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     );
   }
 
-  CarQuery whereName({
-    String? isEqualTo,
-    String? isNotEqualTo,
-    String? isLessThan,
-    String? isLessThanOrEqualTo,
-    String? isGreaterThan,
-    String? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<String>? whereIn,
-    List<String>? whereNotIn,
-  }) {
-    return _$CarQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$CarModelFieldMap['name']!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
-  CarQuery whereMileage({
+  EventQuery whereMileage({
     int? isEqualTo,
     int? isNotEqualTo,
     int? isLessThan,
@@ -669,10 +643,10 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     List<int>? whereIn,
     List<int>? whereNotIn,
   }) {
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$CarModelFieldMap['mileage']!,
+        _$EventModelFieldMap['mileage']!,
         isEqualTo: isEqualTo,
         isNotEqualTo: isNotEqualTo,
         isLessThan: isLessThan,
@@ -687,16 +661,45 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
     );
   }
 
-  CarQuery orderByDocumentId({
+  EventQuery whereCarId({
+    String? isEqualTo,
+    String? isNotEqualTo,
+    String? isLessThan,
+    String? isLessThanOrEqualTo,
+    String? isGreaterThan,
+    String? isGreaterThanOrEqualTo,
+    bool? isNull,
+    List<String>? whereIn,
+    List<String>? whereNotIn,
+  }) {
+    return _$EventQuery(
+      _collection,
+      $referenceWithoutCursor: $referenceWithoutCursor.where(
+        _$EventModelFieldMap['carId']!,
+        isEqualTo: isEqualTo,
+        isNotEqualTo: isNotEqualTo,
+        isLessThan: isLessThan,
+        isLessThanOrEqualTo: isLessThanOrEqualTo,
+        isGreaterThan: isGreaterThan,
+        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
+        isNull: isNull,
+        whereIn: whereIn,
+        whereNotIn: whereNotIn,
+      ),
+      $queryCursor: $queryCursor,
+    );
+  }
+
+  EventQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor.orderBy(FieldPath.documentId,
         descending: descending);
@@ -752,25 +755,25 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
       );
     }
 
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
     );
   }
 
-  CarQuery orderByUserId({
+  EventQuery orderByName({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   }) {
-    final query = $referenceWithoutCursor.orderBy(_$CarModelFieldMap['userId']!,
+    final query = $referenceWithoutCursor.orderBy(_$EventModelFieldMap['name']!,
         descending: descending);
     var queryCursor = $queryCursor;
 
@@ -824,98 +827,26 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
       );
     }
 
-    return _$CarQuery(
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
     );
   }
 
-  CarQuery orderByName({
+  EventQuery orderByMileage({
     bool descending = false,
     Object? startAt = _sentinel,
     Object? startAfter = _sentinel,
     Object? endAt = _sentinel,
     Object? endBefore = _sentinel,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor.orderBy(_$CarModelFieldMap['name']!,
-        descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$CarQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
-  CarQuery orderByMileage({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    CarDocumentSnapshot? startAtDocument,
-    CarDocumentSnapshot? endAtDocument,
-    CarDocumentSnapshot? endBeforeDocument,
-    CarDocumentSnapshot? startAfterDocument,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
   }) {
     final query = $referenceWithoutCursor
-        .orderBy(_$CarModelFieldMap['mileage']!, descending: descending);
+        .orderBy(_$EventModelFieldMap['mileage']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -968,7 +899,79 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
       );
     }
 
-    return _$CarQuery(
+    return _$EventQuery(
+      _collection,
+      $referenceWithoutCursor: query,
+      $queryCursor: queryCursor,
+    );
+  }
+
+  EventQuery orderByCarId({
+    bool descending = false,
+    Object? startAt = _sentinel,
+    Object? startAfter = _sentinel,
+    Object? endAt = _sentinel,
+    Object? endBefore = _sentinel,
+    EventDocumentSnapshot? startAtDocument,
+    EventDocumentSnapshot? endAtDocument,
+    EventDocumentSnapshot? endBeforeDocument,
+    EventDocumentSnapshot? startAfterDocument,
+  }) {
+    final query = $referenceWithoutCursor
+        .orderBy(_$EventModelFieldMap['carId']!, descending: descending);
+    var queryCursor = $queryCursor;
+
+    if (startAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAt: const [],
+        startAtDocumentSnapshot: startAtDocument.snapshot,
+      );
+    }
+    if (startAfterDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: const [],
+        startAfterDocumentSnapshot: startAfterDocument.snapshot,
+      );
+    }
+    if (endAtDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endAt: const [],
+        endAtDocumentSnapshot: endAtDocument.snapshot,
+      );
+    }
+    if (endBeforeDocument != null) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: const [],
+        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
+      );
+    }
+
+    if (startAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAt: [...queryCursor.startAt, startAt],
+        startAtDocumentSnapshot: null,
+      );
+    }
+    if (startAfter != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        startAfter: [...queryCursor.startAfter, startAfter],
+        startAfterDocumentSnapshot: null,
+      );
+    }
+    if (endAt != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endAt: [...queryCursor.endAt, endAt],
+        endAtDocumentSnapshot: null,
+      );
+    }
+    if (endBefore != _sentinel) {
+      queryCursor = queryCursor.copyWith(
+        endBefore: [...queryCursor.endBefore, endBefore],
+        endBeforeDocumentSnapshot: null,
+      );
+    }
+
+    return _$EventQuery(
       _collection,
       $referenceWithoutCursor: query,
       $queryCursor: queryCursor,
@@ -977,7 +980,7 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
 
   @override
   bool operator ==(Object other) {
-    return other is _$CarQuery &&
+    return other is _$EventQuery &&
         other.runtimeType == runtimeType &&
         other.reference == reference;
   }
@@ -986,55 +989,56 @@ class _$CarQuery extends QueryReference<CarModel, CarQuerySnapshot>
   int get hashCode => Object.hash(runtimeType, reference);
 }
 
-class CarDocumentSnapshot extends FirestoreDocumentSnapshot<CarModel> {
-  CarDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+class EventDocumentSnapshot extends FirestoreDocumentSnapshot<EventModel> {
+  EventDocumentSnapshot._(this.snapshot) : data = snapshot.data();
 
   @override
-  final DocumentSnapshot<CarModel> snapshot;
+  final DocumentSnapshot<EventModel> snapshot;
 
   @override
-  CarDocumentReference get reference {
-    return CarDocumentReference(
+  EventDocumentReference get reference {
+    return EventDocumentReference(
       snapshot.reference,
     );
   }
 
   @override
-  final CarModel? data;
+  final EventModel? data;
 }
 
-class CarQuerySnapshot
-    extends FirestoreQuerySnapshot<CarModel, CarQueryDocumentSnapshot> {
-  CarQuerySnapshot._(
+class EventQuerySnapshot
+    extends FirestoreQuerySnapshot<EventModel, EventQueryDocumentSnapshot> {
+  EventQuerySnapshot._(
     this.snapshot,
     this.docs,
     this.docChanges,
   );
 
-  factory CarQuerySnapshot._fromQuerySnapshot(
-    QuerySnapshot<CarModel> snapshot,
+  factory EventQuerySnapshot._fromQuerySnapshot(
+    QuerySnapshot<EventModel> snapshot,
   ) {
-    final docs = snapshot.docs.map(CarQueryDocumentSnapshot._).toList();
+    final docs = snapshot.docs.map(EventQueryDocumentSnapshot._).toList();
 
     final docChanges = snapshot.docChanges.map((change) {
       return _decodeDocumentChange(
         change,
-        CarDocumentSnapshot._,
+        EventDocumentSnapshot._,
       );
     }).toList();
 
-    return CarQuerySnapshot._(
+    return EventQuerySnapshot._(
       snapshot,
       docs,
       docChanges,
     );
   }
 
-  static FirestoreDocumentChange<CarDocumentSnapshot> _decodeDocumentChange<T>(
+  static FirestoreDocumentChange<EventDocumentSnapshot>
+      _decodeDocumentChange<T>(
     DocumentChange<T> docChange,
-    CarDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
+    EventDocumentSnapshot Function(DocumentSnapshot<T> doc) decodeDoc,
   ) {
-    return FirestoreDocumentChange<CarDocumentSnapshot>(
+    return FirestoreDocumentChange<EventDocumentSnapshot>(
       type: docChange.type,
       oldIndex: docChange.oldIndex,
       newIndex: docChange.newIndex,
@@ -1042,28 +1046,29 @@ class CarQuerySnapshot
     );
   }
 
-  final QuerySnapshot<CarModel> snapshot;
+  final QuerySnapshot<EventModel> snapshot;
 
   @override
-  final List<CarQueryDocumentSnapshot> docs;
+  final List<EventQueryDocumentSnapshot> docs;
 
   @override
-  final List<FirestoreDocumentChange<CarDocumentSnapshot>> docChanges;
+  final List<FirestoreDocumentChange<EventDocumentSnapshot>> docChanges;
 }
 
-class CarQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot<CarModel>
-    implements CarDocumentSnapshot {
-  CarQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
+class EventQueryDocumentSnapshot
+    extends FirestoreQueryDocumentSnapshot<EventModel>
+    implements EventDocumentSnapshot {
+  EventQueryDocumentSnapshot._(this.snapshot) : data = snapshot.data();
 
   @override
-  final QueryDocumentSnapshot<CarModel> snapshot;
+  final QueryDocumentSnapshot<EventModel> snapshot;
 
   @override
-  final CarModel data;
+  final EventModel data;
 
   @override
-  CarDocumentReference get reference {
-    return CarDocumentReference(snapshot.reference);
+  EventDocumentReference get reference {
+    return EventDocumentReference(snapshot.reference);
   }
 }
 
@@ -1071,23 +1076,24 @@ class CarQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot<CarModel>
 // JsonSerializableGenerator
 // **************************************************************************
 
-CarModel _$CarModelFromJson(Map<String, dynamic> json) => CarModel(
+EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       id: json['id'] as String,
       name: json['name'] as String,
       mileage: json['mileage'] as int,
-      userId: json['userId'] as String,
+      carId: json['carId'] as String,
     );
 
-const _$CarModelFieldMap = <String, String>{
+const _$EventModelFieldMap = <String, String>{
   'id': 'id',
-  'userId': 'userId',
   'name': 'name',
   'mileage': 'mileage',
+  'carId': 'carId',
 };
 
-Map<String, dynamic> _$CarModelToJson(CarModel instance) => <String, dynamic>{
+Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
       'name': instance.name,
       'mileage': instance.mileage,
+      'carId': instance.carId,
     };

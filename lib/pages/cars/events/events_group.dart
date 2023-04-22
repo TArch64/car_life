@@ -1,15 +1,30 @@
+import 'package:car_life/core/provider.dart';
+import 'package:car_life/models/car_model.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/models/event_model.dart';
 
 import 'events_group_data.dart';
 
 class EventsGroup extends StatelessWidget {
   final EventsGroupData groupData;
+  final _eventsRef = EventCollectionReference();
 
-  const EventsGroup({super.key, required this.groupData});
+  EventsGroup({super.key, required this.groupData});
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: _eventWidgets + [_mileageWidget]);
+    final car = context.inject<CarModel>();
+    return FirestoreBuilder(
+      ref: _eventsRef
+          .whereCarId(isEqualTo: car.id)
+          .whereMileage(isGreaterThanOrEqualTo: groupData.fromMileage, isLessThan: groupData.toMileage),
+
+      builder: (_, snapshot, __) {
+        final events = snapshot.data?.docs.map((event) => event.data).toList() ?? [];
+        return Row(children: _eventWidgets(events) + [_mileageWidget]);
+      },
+    );
   }
 
   Color get _cellBackgroundColor {
@@ -26,13 +41,13 @@ class EventsGroup extends StatelessWidget {
         child: Flex(
           direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(formatted)],
+          children: [Text("${formatted}k")],
         ),
       ),
     );
   }
 
-  List<Widget> get _eventWidgets {
+  List<Widget> _eventWidgets(List<EventModel> events) {
     return [
       Expanded(
         flex: 2,

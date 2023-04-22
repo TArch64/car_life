@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 
-part 'car_model.g.dart';
+part 'event_model.g.dart';
 
 const Serializable = JsonSerializable(
   converters: firestoreJsonConverters,
@@ -10,23 +10,23 @@ const Serializable = JsonSerializable(
   createFieldMap: true,
 );
 
-@Collection<CarModel>('cars', prefix: 'Car')
+@Collection<EventModel>('events', prefix: 'Event')
 @Serializable
-class CarModel {
+class EventModel {
   @Id()
   final String id;
-  String userId;
   String name;
   int mileage;
+  String carId;
 
-  CarModel({
+  EventModel({
     required this.id,
     required this.name,
     required this.mileage,
-    required this.userId
+    required this.carId,
   });
 
-  factory CarModel.empty() {
-    return CarModel(id: "", mileage: 0, name: "", userId: "");
+  factory EventModel.empty() {
+    return EventModel(id: "", mileage: 0, name: "", carId: "");
   }
 }
