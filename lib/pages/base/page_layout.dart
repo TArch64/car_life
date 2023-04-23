@@ -4,6 +4,7 @@ class PageLayout extends StatelessWidget {
   const PageLayout({
     super.key,
     this.navigationTitle,
+    this.navigationAppend,
     this.inlineNavigationTitle = false,
     this.backgroundColor,
     this.bottomScreenSafeOffset = false,
@@ -12,6 +13,7 @@ class PageLayout extends StatelessWidget {
 
   final String? navigationTitle;
   final bool inlineNavigationTitle;
+  final Widget? navigationAppend;
   final Color? backgroundColor;
   final bool bottomScreenSafeOffset;
   final Widget child;
@@ -45,6 +47,7 @@ class PageLayout extends StatelessWidget {
 
     return CupertinoNavigationBar(
       middle: Text(navigationTitle!),
+      trailing: navigationAppend
     );
   }
 

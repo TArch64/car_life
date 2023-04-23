@@ -24,13 +24,22 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
     super.didInitDependencies();
     final car = context.inject<CarModel>();
     final groupData = EventsGroupData.fromMileage(car.mileage);
-    final groupOffset = groupData.index * _groupHeight;
-    final screenHeight = MediaQuery.of(context).size.height;
-    final magicScreenOffset = (screenHeight / 3) * 2;
 
     _scrollController = ScrollController(
-      initialScrollOffset: groupOffset + magicScreenOffset
+      initialScrollOffset: _indexToScrollOffset(context, groupData.index)
     );
+  }
+
+  double _screenOffset(BuildContext context) {
+    return MediaQuery.of(context).size.height / 2;
+  }
+
+  double _indexToScrollOffset(BuildContext context, int index) {
+    return (index * _groupHeight) - _screenOffset(context);
+  }
+
+  int _scrollOffsetToIndex(BuildContext context, double scrollOffset) {
+    return ((scrollOffset + _screenOffset(context)) / _groupHeight).round();
   }
 
   @override
@@ -40,6 +49,11 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
     return PageLayout(
       navigationTitle: car.name,
+      navigationAppend: CupertinoButton(
+        padding: const EdgeInsets.all(4),
+        onPressed: () => _initiateAddEvent(context),
+        child: const Icon(CupertinoIcons.add, color: CupertinoColors.activeBlue),
+      ),
       child: ListView.builder(
         reverse: true,
         controller: _scrollController,
@@ -61,5 +75,11 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
       return CupertinoColors.secondarySystemBackground;
     }
     return CupertinoColors.systemBackground.withOpacity(0.2);
+  }
+
+  _initiateAddEvent(BuildContext context) {
+    final index = _scrollOffsetToIndex(context, _scrollController.offset);
+    final groupData = EventsGroupData(index);
+    print(groupData.fromMileage);
   }
 }
