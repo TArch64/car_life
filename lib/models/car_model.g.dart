@@ -1072,10 +1072,10 @@ class CarQueryDocumentSnapshot extends FirestoreQueryDocumentSnapshot<CarModel>
 // **************************************************************************
 
 CarModel _$CarModelFromJson(Map<String, dynamic> json) => CarModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      mileage: json['mileage'] as int,
-      userId: json['userId'] as String,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      mileage: json['mileage'] as int? ?? 0,
+      userId: json['userId'] as String? ?? '',
     );
 
 const _$CarModelFieldMap = <String, String>{

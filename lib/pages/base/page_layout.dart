@@ -7,7 +7,7 @@ class PageLayout extends StatelessWidget {
     this.navigationAppend,
     this.inlineNavigationTitle = false,
     this.backgroundColor,
-    this.bottomScreenSafeOffset = false,
+    this.bottomScreenSafeOffset = true,
     required this.child,
   });
 

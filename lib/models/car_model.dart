@@ -20,13 +20,9 @@ class CarModel {
   int mileage;
 
   CarModel({
-    required this.id,
-    required this.name,
-    required this.mileage,
-    required this.userId
+    this.id = '',
+    this.name = '',
+    this.mileage = 0,
+    this.userId = ''
   });
-
-  factory CarModel.empty() {
-    return CarModel(id: "", mileage: 0, name: "", userId: "");
-  }
 }

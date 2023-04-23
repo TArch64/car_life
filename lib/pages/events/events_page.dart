@@ -53,7 +53,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
       navigationAppend: CupertinoButton(
         padding: const EdgeInsets.all(4),
         onPressed: () => _initiateAddEvent(context),
-        child: const Icon(CupertinoIcons.add, color: CupertinoColors.activeBlue),
+        child: const Icon(CupertinoIcons.add),
       ),
       child: ListView.builder(
         reverse: true,
@@ -72,18 +72,22 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   }
 
   Color _borderColor(BuildContext context) {
-    if (context.isLightTheme) {
-      return CupertinoColors.secondarySystemBackground;
-    }
-    return CupertinoColors.systemBackground.withOpacity(0.2);
+    return context.brightness.by(
+      light: CupertinoColors.secondarySystemBackground,
+      dark: CupertinoColors.systemBackground.withOpacity(0.2),
+    );
   }
 
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
     final groupData = EventsGroupData(index);
+    final car = context.inject<CarModel>(listen: false);
 
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => AddEventPage(focusedGroupData: groupData),
+      builder: (_) => Provider<CarModel>.value(
+        value: car,
+        child: AddEventPage(focusedGroupData: groupData),
+      ),
     ));
   }
 }

@@ -5,6 +5,9 @@
   "addCarFormSubmit": "Додати",
 
   "addEventNavigationTitle": "Додати подію",
+  "addEventFormNameLabel": "Назва",
+  "addEventFormMileageLabel": "Пробіг",
+  "addEventFormSubmit": "Додати",
 
   "formRequired": "Обовʼязкове поле",
   "formMinNumber": "Не може бути менше ніж {value}"

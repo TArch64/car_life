@@ -3,28 +3,46 @@
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"
   },
+
   "addCarFormNameLabel": "Name",
   "@addCarFormNameLabel": {
     "description": "Add car page > car name field label"
   },
+
   "addCarFormMileageLabel": "Mileage",
   "@addCarFormMileageLabel": {
     "description": "Add car page > car mileage field label"
   },
+
   "addCarFormSubmit": "Add car",
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
   },
 
+
   "addEventNavigationTitle": "Add event",
   "@addEventNavigationTitle": {
     "description": "Add event page > navigation title"
   },
+  "addEventFormNameLabel": "Name",
+  "@addEventFormNameLabel": {
+    "description": "Add event page > event name field label"
+  },
+  "addEventFormMileageLabel": "Mileage",
+  "@addEventFormMileageLabel": {
+    "description": "Add event page > event mileage field label"
+  },
+  "addEventFormSubmit": "Add car",
+  "@addEventFormSubmit": {
+    "description": "Add event page > add event button"
+  },
+
 
   "formRequired": "Required field",
   "@formRequired": {
     "description": "form > validations > required field"
   },
+
   "formMinNumber": "Can't be less than {value}",
   "@formMinNumber": {
     "description": "form > validations > min number value"

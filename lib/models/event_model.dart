@@ -20,13 +20,9 @@ class EventModel {
   String carId;
 
   EventModel({
-    required this.id,
-    required this.name,
-    required this.mileage,
-    required this.carId,
+    this.id = '',
+    this.name = '',
+    this.mileage = 0,
+    this.carId = '',
   });
-
-  factory EventModel.empty() {
-    return EventModel(id: "", mileage: 0, name: "", carId: "");
-  }
 }

@@ -1077,10 +1077,10 @@ class EventQueryDocumentSnapshot
 // **************************************************************************
 
 EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      mileage: json['mileage'] as int,
-      carId: json['carId'] as String,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      mileage: json['mileage'] as int? ?? 0,
+      carId: json['carId'] as String? ?? '',
     );
 
 const _$EventModelFieldMap = <String, String>{
