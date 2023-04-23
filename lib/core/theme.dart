@@ -9,7 +9,7 @@ class AppTheme extends CupertinoThemeData {
   );
 }
 
-extension ThemedBuildContext on BuildContext {
+extension ThemeBuildContext on BuildContext {
   CupertinoThemeData get theme => CupertinoTheme.of(this);
   bool get isDarkTheme => theme.brightness == Brightness.dark;
   bool get isLightTheme => theme.brightness == Brightness.light;

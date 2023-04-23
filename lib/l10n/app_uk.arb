@@ -4,6 +4,8 @@
   "addCarFormMileageLabel": "Пробіг",
   "addCarFormSubmit": "Додати",
 
+  "addEventNavigationTitle": "Додати подію",
+
   "formRequired": "Обовʼязкове поле",
   "formMinNumber": "Не може бути менше ніж {value}"
 }

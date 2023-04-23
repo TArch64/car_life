@@ -1,5 +1,5 @@
-import 'package:car_life/core/theme.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/car_model.dart';
@@ -7,6 +7,7 @@ import 'package:car_life/pages/base/page_layout.dart';
 
 import 'events_group.dart';
 import 'events_group_data.dart';
+import 'add/add_event_page.dart';
 
 class EventsPage extends StatefulWidget {
   const EventsPage({super.key});
@@ -16,7 +17,7 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin {
-  final double _groupHeight = 150;
+  static const double _groupHeight = 150;
   late ScrollController _scrollController;
 
   @override
@@ -80,6 +81,9 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
     final groupData = EventsGroupData(index);
-    print(groupData.fromMileage);
+
+    Navigator.push(context, CupertinoPageRoute(
+      builder: (_) => AddEventPage(focusedGroupData: groupData),
+    ));
   }
 }

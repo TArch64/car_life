@@ -1,4 +1,3 @@
-import 'package:car_life/pages/cars/events/events_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -8,6 +7,7 @@ import 'auth_handler.dart';
 import 'car_handler.dart';
 import 'core/localization.dart';
 import 'pages/cars/add/add_car_page.dart';
+import 'pages/events/events_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

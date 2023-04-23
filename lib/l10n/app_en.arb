@@ -1,7 +1,7 @@
 {
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {
-    "description": "Add car page > Navigation title"
+    "description": "Add car page > navigation title"
   },
   "addCarFormNameLabel": "Name",
   "@addCarFormNameLabel": {
@@ -14,6 +14,11 @@
   "addCarFormSubmit": "Add car",
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
+  },
+
+  "addEventNavigationTitle": "Add event",
+  "@addEventNavigationTitle": {
+    "description": "Add event page > navigation title"
   },
 
   "formRequired": "Required field",
