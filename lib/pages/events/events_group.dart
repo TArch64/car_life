@@ -1,4 +1,5 @@
 import 'package:car_life/core/provider.dart';
+import 'package:car_life/core/theme.dart';
 import 'package:car_life/models/car_model.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,22 +23,25 @@ class EventsGroup extends StatelessWidget {
 
       builder: (_, snapshot, __) {
         final events = snapshot.data?.docs.map((event) => event.data).toList() ?? [];
-        return Row(children: _eventWidgets(events) + [_mileageWidget]);
+        return Row(children: _eventWidgets(events) + [_mileageWidget(context)]);
       },
     );
   }
 
-  Color get _cellBackgroundColor {
-    return CupertinoColors.secondarySystemBackground.withOpacity(0.25);
+  Color _cellBackgroundColor(BuildContext context) {
+    return context.brightness.by(
+      light: CupertinoColors.secondarySystemBackground.withOpacity(0.35),
+      dark: CupertinoColors.systemBackground.withOpacity(0.1)
+    );
   }
 
-  Widget get _mileageWidget {
+  Widget _mileageWidget(BuildContext context) {
     final mileage = groupData.fromMileage / 1000;
     final formatted = mileage.toStringAsFixed(mileage.truncateToDouble() == mileage ? 0 : 1);
     return Expanded(
       flex: 1,
       child: Container(
-        decoration: BoxDecoration(color: _cellBackgroundColor),
+        decoration: BoxDecoration(color: _cellBackgroundColor(context)),
         child: Flex(
           direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.center,
