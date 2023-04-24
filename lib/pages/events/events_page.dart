@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/car_model.dart';
 import 'package:car_life/pages/base/page_layout.dart';
+import 'package:car_life/pages/events/events_group_cell.dart';
 
 import 'events_group.dart';
 import 'events_group_data.dart';
@@ -46,7 +46,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   Widget build(BuildContext context) {
     final car = context.inject<CarModel>();
-    final borderColor = _borderColor(context);
+    final borderColor = EventsGroupCell.backgroundColor(context);
 
     return PageLayout(
       navigationTitle: car.name,
@@ -62,19 +62,12 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
           height: _groupHeight,
           decoration: BoxDecoration(
             border: index == 0 ? null : Border(
-              bottom: BorderSide(width: 1, color: borderColor)
+              bottom: BorderSide(width: 3, color: borderColor)
             )
           ),
           child: EventsGroup(groupData: EventsGroupData(index))
         ),
       )
-    );
-  }
-
-  Color _borderColor(BuildContext context) {
-    return context.brightness.by(
-      light: CupertinoColors.secondarySystemBackground,
-      dark: CupertinoColors.systemBackground.withOpacity(0.2),
     );
   }
 

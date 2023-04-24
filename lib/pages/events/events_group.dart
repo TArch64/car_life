@@ -21,7 +21,7 @@ class EventsGroup extends StatelessWidget {
       ),
       builder: (_, snapshot, __) {
         final events = snapshot.data?.docs.map((event) => event.data).toList() ?? [];
-        return Row(children: _eventWidgets(events) + [_mileageWidget(context)]);
+        return Row(children: _eventWidgets(context, events) + [_mileageWidget(context)]);
       },
     );
   }
@@ -30,37 +30,38 @@ class EventsGroup extends StatelessWidget {
     final mileage = groupData.fromMileage / 1000;
     final formatted = mileage.toStringAsFixed(mileage.truncateToDouble() == mileage ? 0 : 1);
 
-    return EventsGroupCell(
+    return EventsGroupCell.text("${formatted}k",
       size: 1,
-      highlight: true,
-      child: Flex(
-        direction: Axis.vertical,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Text("${formatted}k")],
+      decoration: BoxDecoration(
+        color: EventsGroupCell.backgroundColor(context),
       ),
     );
   }
 
-  List<Widget> _eventWidgets(List<EventModel> events) {
+  List<Widget> _eventWidgets(BuildContext context, List<EventModel> events) {
     if (events.isEmpty) {
-      return [
-        EventsGroupCell.placeholder(size: 2, highlight: false)
-      ];
+      return [EventsGroupCell.none(size: 2)];
     }
     if (events.length == 1) {
-      return [
-        EventsGroupCell.text(events[0].name, size: 2, highlight: false)
-      ];
+      return [EventsGroupCell.text(events[0].name, size: 2)];
     }
+    final decoration = BoxDecoration(
+      border: Border(
+        right: BorderSide(
+          color: EventsGroupCell.backgroundColor(context),
+          width: 3
+        ),
+      )
+    );
     if (events.length == 2) {
       return [
-        EventsGroupCell.text(events[0].name, size: 1, highlight: true),
-        EventsGroupCell.text(events[1].name, size: 1, highlight: false)
+        EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
+        EventsGroupCell.text(events[1].name, size: 1)
       ];
     }
     return [
-      EventsGroupCell.text(events[0].name, size: 1, highlight: true),
-      EventsGroupCell.text('...', size: 1, highlight: false)
+      EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
+      EventsGroupCell.text('...', size: 1),
     ];
   }
 }

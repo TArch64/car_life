@@ -4,28 +4,35 @@ import 'package:car_life/core/theme.dart';
 class EventsGroupCell extends StatelessWidget {
   final int size;
   final Widget child;
-  final bool highlight;
+  final Decoration? decoration;
 
   const EventsGroupCell({
     super.key,
     required this.size,
     required this.child,
-    required this.highlight,
+    this.decoration,
   });
 
-  factory EventsGroupCell.placeholder({required int size, required bool highlight}) {
-    return EventsGroupCell(size: size, highlight: highlight, child: Container());
+  factory EventsGroupCell.none({required int size}) {
+    return EventsGroupCell(size: size, child: Container());
   }
 
-  factory EventsGroupCell.text(String text, { required int size, required bool highlight }) {
+  factory EventsGroupCell.text(String text, {required int size, Decoration? decoration}) {
     return EventsGroupCell(
       size: size,
-      highlight: highlight,
+      decoration: decoration,
       child: Flex(
         direction: Axis.vertical,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [Text(text)],
       ),
+    );
+  }
+
+  static Color backgroundColor(BuildContext context) {
+    return context.brightness.by(
+        light: CupertinoColors.secondarySystemBackground.withOpacity(0.35),
+        dark: CupertinoColors.systemBackground.withOpacity(0.1)
     );
   }
 
@@ -38,19 +45,12 @@ class EventsGroupCell extends StatelessWidget {
   }
 
   Widget _content(BuildContext context) {
-    if (!highlight) {
+    if (decoration == null) {
       return child;
     }
     return Container(
-        decoration: BoxDecoration(color: _cellBackgroundColor(context)),
+        decoration: decoration,
         child: child
-    );
-  }
-
-  Color _cellBackgroundColor(BuildContext context) {
-    return context.brightness.by(
-        light: CupertinoColors.secondarySystemBackground.withOpacity(0.35),
-        dark: CupertinoColors.systemBackground.withOpacity(0.1)
     );
   }
 }
