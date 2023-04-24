@@ -3,17 +3,14 @@
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"
   },
-
   "addCarFormNameLabel": "Name",
   "@addCarFormNameLabel": {
     "description": "Add car page > car name field label"
   },
-
   "addCarFormMileageLabel": "Mileage",
   "@addCarFormMileageLabel": {
     "description": "Add car page > car mileage field label"
   },
-
   "addCarFormSubmit": "Add car",
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
@@ -41,14 +38,34 @@
   "@eventsGroupDetailsBackTitle": {
     "description": "Events group details > back button title"
   },
+  "eventsGroupDetailsDeleteItemName": "this event",
+  "@eventsGroupDetailsDeleteItemName": {
+    "description": "Events group details > delete confirm item name"
+  },
 
   "formRequired": "Required field",
   "@formRequired": {
     "description": "form > validations > required field"
   },
-
   "formMinNumber": "Can't be less than {value}",
   "@formMinNumber": {
     "description": "form > validations > min number value"
+  },
+
+  "confirmDeleteTitle": "Confirm",
+  "@confirmDeleteTitle": {
+    "description": "confirm delete > modal title"
+  },
+  "confirmDeleteCancelAction": "Cancel",
+  "@confirmDeleteCancelAction": {
+    "description": "confirm delete > cancel button title"
+  },
+  "confirmDeleteQuestion": "Are you sure you want to delete {name}?",
+  "@confirmDeleteQuestion": {
+    "description": "confirm delete > question"
+  },
+  "confirmDeleteAction": "Delete",
+  "@confirmDeleteAction": {
+    "description": "confirm delete > delete button title"
   }
 }

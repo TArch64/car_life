@@ -27,7 +27,7 @@ class _AuthHandlerState extends State<AuthHandler> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (_, snapshot) {
         if (snapshot.data == null) {
-          return const PageLoader();
+          return const CupertinoPageScaffold(child: PageLoader());
         }
         return Provider<User>.value(
           value: snapshot.data!,

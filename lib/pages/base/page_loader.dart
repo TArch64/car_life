@@ -5,16 +5,14 @@ class PageLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      child: Stack(
-        children: const [
-          Positioned.fill(
-            child: Center(
-              child: CupertinoActivityIndicator(),
-            ),
+    return Stack(
+      children: const [
+        Positioned.fill(
+          child: Center(
+            child: CupertinoActivityIndicator(),
           ),
-        ]
-      )
+        ),
+      ]
     );
   }
 }

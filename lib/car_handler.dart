@@ -23,7 +23,7 @@ class CarHandler extends StatelessWidget {
       ref: _carsRef.whereUserId(isEqualTo: context.inject<User>().uid),
       builder: (_, snapshot, __) {
         if (snapshot.data == null) {
-          return const PageLoader();
+          return const CupertinoPageScaffold(child: PageLoader());
         }
         if (snapshot.data!.snapshot.size == 0) {
           return buildCreateCar(context);

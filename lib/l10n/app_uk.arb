@@ -10,7 +10,13 @@
   "addEventFormSubmit": "Додати",
 
   "eventsGroupDetailsBackTitle": "Події",
+  "eventsGroupDetailsDeleteItemName": "цю подію",
 
   "formRequired": "Обовʼязкове поле",
-  "formMinNumber": "Не може бути менше ніж {value}"
+  "formMinNumber": "Не може бути менше ніж {value}",
+
+  "confirmDeleteTitle": "Видалити?",
+  "confirmDeleteCancelAction": "Відмінити",
+  "confirmDeleteQuestion": "Ви впевнені що хочете видалити {name}?",
+  "confirmDeleteAction": "Видалити"
 }
