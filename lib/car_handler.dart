@@ -28,8 +28,12 @@ class CarHandler extends StatelessWidget {
         if (snapshot.data!.snapshot.size == 0) {
           return buildCreateCar(context);
         }
-        return Provider<CarModel>.value(
-          value: snapshot.data!.snapshot.docs.first.data(),
+        var ref = snapshot.data!.snapshot.docs.first;
+        return MultiProvider(
+          providers: [
+            Provider.value(value: CarDocumentReference(ref.reference)),
+            Provider.value(value: ref.data()),
+          ],
           child: buildActiveCar(context),
         );
       },

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/models/car_model.dart';
-import 'package:car_life/models/event_model.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../events_group_data.dart';
@@ -21,15 +21,16 @@ class AddEventPage extends StatefulWidget {
   State<AddEventPage> createState() => _AddEventPageState();
 }
 
-class _AddEventPageState extends State<AddEventPage> {
-  final _eventsRef = EventCollectionReference();
+class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesMixin {
+  late EventCollectionReference _eventsRef;
   late EventModel _creatingEvent;
   bool _creating = false;
 
   @override
-  void initState() {
-    super.initState();
+  void didInitDependencies() {
+    super.didInitDependencies();
     _creatingEvent = EventModel(mileage: widget.focusedGroupData.fromMileage);
+    _eventsRef = context.inject<CarDocumentReference>().events;
   }
 
   @override
@@ -50,7 +51,6 @@ class _AddEventPageState extends State<AddEventPage> {
 
   _addCar(BuildContext context) async {
     setState(() => _creating = true);
-    _creatingEvent.carId = context.inject<CarModel>(listen: false).id;
     await _eventsRef.add(_creatingEvent);
     Navigator.pop(context);
   }
