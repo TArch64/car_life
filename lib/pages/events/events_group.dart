@@ -1,4 +1,3 @@
-import 'package:car_life/pages/events/group_details/group_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:car_life/core/provider.dart';
@@ -6,6 +5,8 @@ import 'package:car_life/models/car_model.dart';
 
 import 'events_group_data.dart';
 import 'events_group_cell.dart';
+import 'add/add_event_page.dart';
+import 'group_details/group_details_page.dart';
 
 class EventsGroup extends StatelessWidget {
   final EventsGroupData group;
@@ -30,7 +31,9 @@ class EventsGroup extends StatelessWidget {
             ),
             child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
           ),
-          onTap: () => _openDetails(context, eventsRef),
+          onTap: () => events.isEmpty
+            ? _openAdd(context, carRef)
+            : _openDetails(context, eventsRef),
         );
       },
     );
@@ -72,9 +75,18 @@ class EventsGroup extends StatelessWidget {
     ];
   }
 
-  _openDetails(BuildContext context, EventQuery events) {
+  _openAdd(BuildContext context, CarDocumentReference carRef) {
+    return Navigator.push(context, CupertinoPageRoute(
+      builder: (_) => Provider.value(
+        value: carRef,
+        child: AddEventPage(focusedGroupData: group),
+      ),
+    ));
+  }
+
+  _openDetails(BuildContext context, EventQuery eventsRef) {
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => GroupDetailsPage(group: group, eventsRef: events)
+      builder: (_) => GroupDetailsPage(group: group, eventsRef: eventsRef)
     ));
   }
 }

@@ -73,13 +73,13 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
-    final groupData = EventsGroupData(index);
+    final group = EventsGroupData(index);
     final carRef = context.inject<CarDocumentReference>(listen: false);
 
     Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
         value: carRef,
-        child: AddEventPage(focusedGroupData: groupData),
+        child: AddEventPage(focusedGroupData: group),
       ),
     ));
   }
