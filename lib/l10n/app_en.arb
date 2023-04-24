@@ -37,6 +37,10 @@
     "description": "Add event page > add event button"
   },
 
+  "eventsGroupDetailsBackTitle": "Events",
+  "@eventsGroupDetailsBackTitle": {
+    "description": "Events group details > back button title"
+  },
 
   "formRequired": "Required field",
   "@formRequired": {

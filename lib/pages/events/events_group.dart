@@ -1,3 +1,4 @@
+import 'package:car_life/pages/events/group_details/group_details_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:car_life/core/provider.dart';
@@ -7,33 +8,39 @@ import 'events_group_data.dart';
 import 'events_group_cell.dart';
 
 class EventsGroup extends StatelessWidget {
-  final EventsGroupData groupData;
+  final EventsGroupData group;
 
-  EventsGroup({super.key, required this.groupData});
+  const EventsGroup({super.key, required this.group});
 
   @override
   Widget build(BuildContext context) {
     final carRef = context.inject<CarDocumentReference>();
+    final eventsRef = carRef.events.whereMileage(
+      isGreaterThanOrEqualTo: group.fromMileage,
+      isLessThan: group.toMileage
+    );
     return FirestoreBuilder(
-      ref: carRef.events.whereMileage(
-        isGreaterThanOrEqualTo: groupData.fromMileage,
-        isLessThan: groupData.toMileage
-      ),
+      ref: eventsRef,
       builder: (_, snapshot, __) {
         final events = snapshot.data?.docs.map((event) => event.data).toList() ?? [];
-        return Row(children: _eventWidgets(context, events) + [_mileageWidget(context)]);
+        return GestureDetector(
+          child: Container(
+            decoration: const BoxDecoration(
+              color: CupertinoColors.systemBackground,
+            ),
+            child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
+          ),
+          onTap: () => _openDetails(context, eventsRef),
+        );
       },
     );
   }
 
   Widget _mileageWidget(BuildContext context) {
-    final mileage = groupData.fromMileage / 1000;
-    final formatted = mileage.toStringAsFixed(mileage.truncateToDouble() == mileage ? 0 : 1);
-
-    return EventsGroupCell.text("${formatted}k",
+    return EventsGroupCell.text(EventsGroupData.formatMileage(group.fromMileage),
       size: 1,
       decoration: BoxDecoration(
-        color: EventsGroupCell.backgroundColor(context),
+        color: EventsGroupCell.accentColor(context),
       ),
     );
   }
@@ -48,7 +55,7 @@ class EventsGroup extends StatelessWidget {
     final decoration = BoxDecoration(
       border: Border(
         right: BorderSide(
-          color: EventsGroupCell.backgroundColor(context),
+          color: EventsGroupCell.accentColor(context),
           width: 3
         ),
       )
@@ -63,5 +70,11 @@ class EventsGroup extends StatelessWidget {
       EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
       EventsGroupCell.text('...', size: 1),
     ];
+  }
+
+  _openDetails(BuildContext context, EventQuery events) {
+    Navigator.push(context, CupertinoPageRoute(
+      builder: (_) => GroupDetailsPage(group: group, eventsRef: events)
+    ));
   }
 }

@@ -29,7 +29,7 @@ class EventsGroupCell extends StatelessWidget {
     );
   }
 
-  static Color backgroundColor(BuildContext context) {
+  static Color accentColor(BuildContext context) {
     return context.brightness.by(
         light: CupertinoColors.secondarySystemBackground.withOpacity(0.35),
         dark: CupertinoColors.systemBackground.withOpacity(0.1)

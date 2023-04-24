@@ -10,4 +10,10 @@ class EventsGroupData {
 
   int get fromMileage => index * step;
   int get toMileage => (index + 1) * step;
+
+  static String formatMileage(int raw) {
+    final mileage = raw / 1000;
+    final formatted = mileage.toStringAsFixed(mileage.truncateToDouble() == mileage ? 0 : 1);
+    return "${formatted}k";
+  }
 }

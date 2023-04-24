@@ -46,7 +46,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   Widget build(BuildContext context) {
     final car = context.inject<CarModel>();
-    final borderColor = EventsGroupCell.backgroundColor(context);
+    final borderColor = EventsGroupCell.accentColor(context);
 
     return PageLayout(
       navigationTitle: car.name,
@@ -65,7 +65,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
               bottom: BorderSide(width: 3, color: borderColor)
             )
           ),
-          child: EventsGroup(groupData: EventsGroupData(index))
+          child: EventsGroup(group: EventsGroupData(index))
         ),
       )
     );
