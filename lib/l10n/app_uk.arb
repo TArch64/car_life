@@ -12,6 +12,11 @@
   "eventsGroupDetailsBackTitle": "Події",
   "eventsGroupDetailsDeleteItemName": "цю подію",
 
+  "editEventNavigationTitle": "Оновити \"{name}\"",
+  "editEventFormNameLabel": "Назва",
+  "editEventFormMileageLabel": "Пробіг",
+  "editEventFormSubmit": "Оновити",
+
   "formRequired": "Обовʼязкове поле",
   "formMinNumber": "Не може бути менше ніж {value}",
 

@@ -1,5 +1,6 @@
 import 'package:car_life/core/confirm.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/pages/events/edit/edit_event_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/models/car_model.dart';
 
@@ -7,12 +8,14 @@ typedef GroupDetailsItemDelete = Function();
 
 class GroupDetailsItem extends StatelessWidget {
   final EventModel event;
+  final EventDocumentReference eventRef;
   final GroupDetailsItemDelete onDelete;
 
   const GroupDetailsItem({
     required super.key,
     required this.event,
-    required this.onDelete
+    required this.eventRef,
+    required this.onDelete,
   });
 
   @override
@@ -38,7 +41,18 @@ class GroupDetailsItem extends StatelessWidget {
       onDismissed: (_) => onDelete(),
       child: CupertinoListTile(
         title: Text(event.name),
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: const Icon(CupertinoIcons.pencil),
+          onPressed: () => _edit(context),
+        ),
       ),
     );
+  }
+
+  _edit(BuildContext context) {
+    Navigator.push(context, CupertinoPageRoute(
+      builder: (_) => EditEventPage(event: event, eventRef: eventRef),
+    ));
   }
 }

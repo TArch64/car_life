@@ -41,6 +41,7 @@ class GroupDetailsPage extends StatelessWidget {
           final items = events.map((event) => GroupDetailsItem(
             key: Key("event-${event.id}"),
             event: event.data,
+            eventRef: event.reference,
             onDelete: () async {
               if (events.length == 1) {
                 Navigator.pop(context);

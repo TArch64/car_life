@@ -34,4 +34,12 @@ class EventModel {
     this.name = '',
     this.mileage = 0,
   });
+
+  EventModel copy() {
+    return EventModel(
+      id: id,
+      name: name,
+      mileage: mileage
+    );
+  }
 }

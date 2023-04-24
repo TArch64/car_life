@@ -43,6 +43,23 @@
     "description": "Events group details > delete confirm item name"
   },
 
+  "editEventNavigationTitle": "Edit \"{name}\"",
+  "@editEventNavigationTitle": {
+    "description": "Edit event page > navigation title"
+  },
+  "editEventFormNameLabel": "Name",
+  "@editEventFormNameLabel": {
+    "description": "Edit event page > event name field label"
+  },
+  "editEventFormMileageLabel": "Mileage",
+  "@editEventFormMileageLabel": {
+    "description": "Edit event page > event mileage field label"
+  },
+  "editEventFormSubmit": "Update car",
+  "@editEventFormSubmit": {
+    "description": "Edit event page > edit event button"
+  },
+
   "formRequired": "Required field",
   "@formRequired": {
     "description": "form > validations > required field"
