@@ -1,3 +1,4 @@
+import 'package:car_life/core/localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:car_life/core/provider.dart';
@@ -71,7 +72,7 @@ class EventsGroup extends StatelessWidget {
     }
     return [
       EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
-      EventsGroupCell.text('...', size: 1),
+      EventsGroupCell.text(context.l10n.eventsMoreCollapsed(events.length - 1), size: 1),
     ];
   }
 

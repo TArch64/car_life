@@ -34,6 +34,11 @@
     "description": "Add event page > add event button"
   },
 
+  "eventsMoreCollapsed": "and {count}",
+  "@eventsMoreCollapsed": {
+    "description": "events page > label to display collapsed items in event group"
+  },
+
   "eventsGroupDetailsBackTitle": "Events",
   "@eventsGroupDetailsBackTitle": {
     "description": "Events group details > back button title"

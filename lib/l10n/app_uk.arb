@@ -9,6 +9,8 @@
   "addEventFormMileageLabel": "Пробіг",
   "addEventFormSubmit": "Додати",
 
+  "eventsMoreCollapsed": "ще {count}",
+
   "eventsGroupDetailsBackTitle": "Події",
   "eventsGroupDetailsDeleteItemName": "цю подію",
 
