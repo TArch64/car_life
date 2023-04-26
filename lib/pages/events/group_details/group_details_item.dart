@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:car_life/core/confirm.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/pages/events/edit/edit_event_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:car_life/models/car_model.dart';
 
 typedef GroupDetailsItemDelete = Function();
@@ -20,34 +21,42 @@ class GroupDetailsItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
+    return Slidable(
       key: key!,
-      direction: DismissDirection.endToStart,
-      background: Container(
-        decoration: const BoxDecoration(
-          color: CupertinoColors.destructiveRed,
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        dismissible: DismissiblePane(
+          confirmDismiss: () => _confirmDelete(context),
+          closeOnCancel: true,
+          onDismissed: onDelete,
         ),
-        child: const Align(
-          alignment: Alignment.centerRight,
-          child: Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: Icon(CupertinoIcons.delete,
-              color: CupertinoColors.white,
-            ),
+        children: [
+          SlidableAction(
+              icon: CupertinoIcons.pencil,
+              backgroundColor: CupertinoColors.systemYellow,
+              foregroundColor: CupertinoColors.white,
+              onPressed: _edit
           ),
-        ),
+          SlidableAction(
+            icon: CupertinoIcons.delete,
+            backgroundColor: CupertinoColors.destructiveRed,
+            foregroundColor: CupertinoColors.white,
+            onPressed: _delete
+          ),
+        ],
       ),
-      confirmDismiss: (_) => Confirm.askDelete(context, context.l10n.eventsGroupDetailsDeleteItemName),
-      onDismissed: (_) => onDelete(),
       child: CupertinoListTile(
-        title: Text(event.name),
-        trailing: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: const Icon(CupertinoIcons.pencil),
-          onPressed: () => _edit(context),
-        ),
+        title: Text(event.name)
       ),
     );
+  }
+
+  Future<bool> _confirmDelete(BuildContext context) {
+    return Confirm.askDelete(context, context.l10n.eventsGroupDetailsDeleteItemName);
+  }
+
+  _delete(BuildContext context) async {
+    if (await _confirmDelete(context)) onDelete();
   }
 
   _edit(BuildContext context) {
