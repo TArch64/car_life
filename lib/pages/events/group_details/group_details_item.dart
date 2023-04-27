@@ -47,7 +47,7 @@ class GroupDetailsItem extends StatelessWidget {
         ],
       ),
       child: CupertinoListTile(
-        title: Text(event.name)
+        title: Text(event.name),
       ),
     );
   }
