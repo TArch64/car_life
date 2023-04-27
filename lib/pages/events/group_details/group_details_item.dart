@@ -23,8 +23,9 @@ class GroupDetailsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       key: key!,
+      closeOnScroll: true,
       endActionPane: ActionPane(
-        motion: const ScrollMotion(),
+        motion: const BehindMotion(),
         dismissible: DismissiblePane(
           confirmDismiss: () => _confirmDelete(context),
           closeOnCancel: true,
@@ -32,10 +33,10 @@ class GroupDetailsItem extends StatelessWidget {
         ),
         children: [
           SlidableAction(
-              icon: CupertinoIcons.pencil,
-              backgroundColor: CupertinoColors.systemYellow,
-              foregroundColor: CupertinoColors.white,
-              onPressed: _edit
+            icon: CupertinoIcons.pencil,
+            backgroundColor: CupertinoColors.systemYellow,
+            foregroundColor: CupertinoColors.white,
+            onPressed: _edit,
           ),
           SlidableAction(
             icon: CupertinoIcons.delete,

@@ -50,9 +50,11 @@ class GroupDetailsPage extends StatelessWidget {
             },
           ));
 
-          return CupertinoListSection(
-            hasLeading: false,
-            children: items.toList(),
+          return CupertinoScrollbar(
+            child: CupertinoListSection(
+              hasLeading: false,
+              children: items.toList(),
+            ),
           );
         },
       )
