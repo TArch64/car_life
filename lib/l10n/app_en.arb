@@ -3,31 +3,14 @@
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"
   },
-  "addCarFormNameLabel": "Name",
-  "@addCarFormNameLabel": {
-    "description": "Add car page > car name field label"
-  },
-  "addCarFormMileageLabel": "Mileage",
-  "@addCarFormMileageLabel": {
-    "description": "Add car page > car mileage field label"
-  },
   "addCarFormSubmit": "Add car",
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
   },
 
-
   "addEventNavigationTitle": "Add event",
   "@addEventNavigationTitle": {
     "description": "Add event page > navigation title"
-  },
-  "addEventFormNameLabel": "Name",
-  "@addEventFormNameLabel": {
-    "description": "Add event page > event name field label"
-  },
-  "addEventFormMileageLabel": "Mileage",
-  "@addEventFormMileageLabel": {
-    "description": "Add event page > event mileage field label"
   },
   "addEventFormSubmit": "Add car",
   "@addEventFormSubmit": {
@@ -52,42 +35,68 @@
   "@editEventNavigationTitle": {
     "description": "Edit event page > navigation title"
   },
-  "editEventFormNameLabel": "Name",
-  "@editEventFormNameLabel": {
-    "description": "Edit event page > event name field label"
-  },
-  "editEventFormMileageLabel": "Mileage",
-  "@editEventFormMileageLabel": {
-    "description": "Edit event page > event mileage field label"
-  },
   "editEventFormSubmit": "Update car",
   "@editEventFormSubmit": {
     "description": "Edit event page > edit event button"
   },
 
+  "formNameLabel": "Name",
+  "@formNameLabel": {
+    "description": "Form > name field label"
+  },
+
+  "formMileageLabel": "Mileage",
+  "@formMileageLabel": {
+    "description": "Form > mileage field label"
+  },
+  "formMileageRecurrenceSwitchLabel": "Repeat",
+  "@formMileageRecurrenceSwitchLabel": {
+    "description": "Form > mileage recurrence switch label"
+  },
+  "formMileageRecurrenceIntervalLabel": "Every",
+  "@formMileageRecurrenceIntervalLabel": {
+    "description": "Form > mileage recurrence interval label"
+  },
+  "formMileageRecurrenceEndsLabel": "Ends",
+  "@formMileageRecurrenceEndsLabel": {
+    "description": "Form > mileage recurrence ends label"
+  },
+  "formMileageRecurrenceEndsNeverLabel": "Never",
+  "@formMileageRecurrenceEndsNeverLabel": {
+    "description": "Form > mileage recurrence never label of ends option"
+  },
+  "formMileageRecurrenceEndsAfterLabel": "After",
+  "@formMileageRecurrenceEndsAfterLabel": {
+    "description": "Form > mileage recurrence after label of ends option"
+  },
+  "formMileageRecurrenceEndsAfterCountLabel": "Times",
+  "@formMileageRecurrenceEndsAfterCountLabel": {
+    "description": "Form > mileage recurrence count label"
+  },
+
   "formRequired": "Required field",
   "@formRequired": {
-    "description": "form > validations > required field"
+    "description": "Form > validations > required field"
   },
   "formMinNumber": "Can't be less than {value}",
   "@formMinNumber": {
-    "description": "form > validations > min number value"
+    "description": "Form > validations > min number value"
   },
 
   "confirmDeleteTitle": "Confirm",
   "@confirmDeleteTitle": {
-    "description": "confirm delete > modal title"
+    "description": "Confirm delete > modal title"
   },
   "confirmDeleteCancelAction": "Cancel",
   "@confirmDeleteCancelAction": {
-    "description": "confirm delete > cancel button title"
+    "description": "Confirm delete > cancel button title"
   },
   "confirmDeleteQuestion": "Are you sure you want to delete {name}?",
   "@confirmDeleteQuestion": {
-    "description": "confirm delete > question"
+    "description": "Confirm delete > question"
   },
   "confirmDeleteAction": "Delete",
   "@confirmDeleteAction": {
-    "description": "confirm delete > delete button title"
+    "description": "Confirm delete > delete button title"
   }
 }

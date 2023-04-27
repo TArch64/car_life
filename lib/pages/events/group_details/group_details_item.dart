@@ -8,14 +8,12 @@ import 'package:car_life/models/car_model.dart';
 typedef GroupDetailsItemDelete = Function();
 
 class GroupDetailsItem extends StatelessWidget {
-  final EventModel event;
-  final EventDocumentReference eventRef;
+  final EventQueryDocumentSnapshot event;
   final GroupDetailsItemDelete onDelete;
 
   const GroupDetailsItem({
     required super.key,
     required this.event,
-    required this.eventRef,
     required this.onDelete,
   });
 
@@ -47,7 +45,7 @@ class GroupDetailsItem extends StatelessWidget {
         ],
       ),
       child: CupertinoListTile(
-        title: Text(event.name),
+        title: Text(event.data.name),
       ),
     );
   }
@@ -62,7 +60,7 @@ class GroupDetailsItem extends StatelessWidget {
 
   _edit(BuildContext context) {
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => EditEventPage(event: event, eventRef: eventRef),
+      builder: (_) => EditEventPage(event: event),
     ));
   }
 }

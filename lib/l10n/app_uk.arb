@@ -1,13 +1,9 @@
 {
   "addCarNavigationTitle": "Додайте ваше авто",
-  "addCarFormNameLabel": "Назва",
-  "addCarFormMileageLabel": "Пробіг",
   "addCarFormSubmit": "Додати",
 
-  "addEventNavigationTitle": "Додати подію",
-  "addEventFormNameLabel": "Назва",
-  "addEventFormMileageLabel": "Пробіг",
-  "addEventFormSubmit": "Додати",
+  "addEventNavigationTitle": "Запланувати подію",
+  "addEventFormSubmit": "Запланувати",
 
   "eventsMoreCollapsed": "ще {count}",
 
@@ -15,9 +11,16 @@
   "eventsGroupDetailsDeleteItemName": "цю подію",
 
   "editEventNavigationTitle": "Оновити \"{name}\"",
-  "editEventFormNameLabel": "Назва",
-  "editEventFormMileageLabel": "Пробіг",
   "editEventFormSubmit": "Оновити",
+
+  "formNameLabel": "Назва",
+  "formMileageLabel": "Пробіг",
+  "formMileageRecurrenceSwitchLabel": "Повторювати",
+  "formMileageRecurrenceIntervalLabel": "Кожних",
+  "formMileageRecurrenceEndsLabel": "Закінчити",
+  "formMileageRecurrenceEndsNeverLabel": "Ніколи",
+  "formMileageRecurrenceEndsAfterLabel": "Після",
+  "formMileageRecurrenceEndsAfterCountLabel": "Повторень",
 
   "formRequired": "Обовʼязкове поле",
   "formMinNumber": "Не може бути менше ніж {value}",

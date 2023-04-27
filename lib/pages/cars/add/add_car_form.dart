@@ -4,6 +4,7 @@ import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
 import 'package:car_life/pages/base/button_loader.dart';
+import 'package:car_life/pages/base/cupertino_int_form_field_row.dart';
 
 typedef AddCarSubmitForm = Function();
 
@@ -37,19 +38,18 @@ class _AddCarFormState extends State<AddCarForm> {
             CupertinoFormSection(
               children: [
                 CupertinoTextFormFieldRow(
-                  prefix: Text(context.l10n.addCarFormNameLabel),
+                  prefix: Text(context.l10n.formNameLabel),
                   autofocus: true,
                   validator: Validators.requireText(context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) => setState(() => widget.car.name = value ?? ''),
                 ),
-                CupertinoTextFormFieldRow(
-                  prefix: Text(context.l10n.addCarFormMileageLabel),
-                  keyboardType: TextInputType.number,
+                CupertinoIntFormFieldRow(
+                  prefix: Text(context.l10n.formMileageLabel),
                   validator: Validators.minInt(context, min: 0),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onSaved: (value) => setState(() => widget.car.mileage = int.tryParse(value ?? '') ?? 0),
-                )
+                  onSaved: (value) => setState(() => widget.car.mileage = value ?? 0),
+                ),
               ]
             ),
             const Spacer(),

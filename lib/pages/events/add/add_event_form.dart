@@ -4,6 +4,7 @@ import 'package:car_life/models/car_model.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/validators.dart';
 import 'package:car_life/pages/base/button_loader.dart';
+import 'package:car_life/pages/base/mileage_editor.dart';
 
 typedef AddEventFormSubmit = Function();
 
@@ -36,22 +37,15 @@ class _AddEventFormState extends State<AddEventForm> {
             CupertinoFormSection(
               children: [
                 CupertinoTextFormFieldRow(
-                  prefix: Text(context.l10n.addEventFormNameLabel),
+                  prefix: Text(context.l10n.formNameLabel),
                   autofocus: true,
                   validator: Validators.requireText(context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) => setState(() => widget.event.name = value ?? ''),
-                ),
-                CupertinoTextFormFieldRow(
-                  prefix: Text(context.l10n.addEventFormMileageLabel),
-                  keyboardType: TextInputType.number,
-                  validator: Validators.minInt(context, min: 0),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  initialValue: widget.event.mileage.toString(),
-                  onSaved: (value) => setState(() => widget.event.mileage = int.tryParse(value ?? '') ?? 0),
                 )
               ]
             ),
+            MileageEditor(mileage: widget.event.mileage!),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(10),

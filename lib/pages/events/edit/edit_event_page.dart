@@ -7,13 +7,11 @@ import 'package:car_life/pages/base/page_layout.dart';
 import 'edit_event_form.dart';
 
 class EditEventPage extends StatefulWidget {
-  final EventModel event;
-  final EventDocumentReference eventRef;
+  final EventQueryDocumentSnapshot event;
 
   const EditEventPage({
     super.key,
     required this.event,
-    required this.eventRef,
   });
 
   @override
@@ -27,13 +25,13 @@ class _EditEventPageState extends State<EditEventPage> {
   @override
   void initState() {
     super.initState();
-    _editingEvent = widget.event.copy();
+    _editingEvent = widget.event.data.copy();
   }
 
   @override
   Widget build(BuildContext context) {
     return PageLayout(
-      navigationTitle: context.l10n.editEventNavigationTitle(widget.event.name),
+      navigationTitle: context.l10n.editEventNavigationTitle(widget.event.data.name),
       backgroundColor: context.brightness.by(
         light: CupertinoColors.secondarySystemBackground,
         dark: CupertinoColors.systemBackground
@@ -48,7 +46,7 @@ class _EditEventPageState extends State<EditEventPage> {
 
   _updateCar(BuildContext context) async {
     setState(() => _updating = true);
-    await widget.eventRef.update(name: _editingEvent.name);
+    await widget.event.reference.set(_editingEvent);
     Navigator.pop(context);
   }
 }

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/models/car_model.dart';
-import 'package:car_life/pages/base/page_loader.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../events_group_data.dart';
@@ -12,12 +11,12 @@ import 'group_details_item.dart';
 
 class GroupDetailsPage extends StatefulWidget {
   final EventsGroupData group;
-  final EventQuery eventsRef;
+  final Stream<List<EventQueryDocumentSnapshot>> eventsStream;
 
   const GroupDetailsPage({
     super.key,
     required this.group,
-    required this.eventsRef
+    required this.eventsStream,
   });
 
   @override
@@ -25,18 +24,18 @@ class GroupDetailsPage extends StatefulWidget {
 }
 
 class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDependenciesMixin {
-  EventQuerySnapshot? _eventsSnapshot = null;
-  late StreamSubscription<EventQuerySnapshot> _eventsSubscription;
+  List<EventQueryDocumentSnapshot> _events = [];
+  late StreamSubscription<List<EventQueryDocumentSnapshot>> _eventsSubscription;
 
   @override
   void didInitDependencies() {
     super.didInitDependencies();
-    _eventsSubscription = widget.eventsRef.snapshots().listen((snapshot) {
-      if (snapshot.docs.isEmpty) {
+    _eventsSubscription = widget.eventsStream.listen((events) {
+      if (events.isEmpty) {
         Navigator.pop(context);
         return;
       }
-      setState(() => _eventsSnapshot = snapshot);
+      setState(() => _events = events);
     });
   }
 
@@ -56,19 +55,13 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
       backTitle: context.l10n.eventsGroupDetailsBackTitle,
       child: Builder(
         builder: (_) {
-          if (_eventsSnapshot == null) {
-            return const PageLoader();
-          }
-          final events = _eventsSnapshot!.docs;
-
-          if (events.isEmpty) {
+          if (_events.isEmpty) {
             return Container();
           }
 
-          final items = events.map((event) => GroupDetailsItem(
+          final items = _events.map((event) => GroupDetailsItem(
             key: Key("event-${event.id}"),
-            event: event.data,
-            eventRef: event.reference,
+            event: event,
             onDelete: () => event.reference.delete(),
           ));
 

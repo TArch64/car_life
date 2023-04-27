@@ -1202,8 +1202,6 @@ abstract class EventDocumentReference
   Future<void> update({
     String name,
     FieldValue nameFieldValue,
-    int mileage,
-    FieldValue mileageFieldValue,
   });
 
   /// Updates fields in the current document using the transaction API.
@@ -1213,8 +1211,6 @@ abstract class EventDocumentReference
     Transaction transaction, {
     String name,
     FieldValue nameFieldValue,
-    int mileage,
-    FieldValue mileageFieldValue,
   });
 }
 
@@ -1254,24 +1250,14 @@ class _$EventDocumentReference
   Future<void> update({
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
-    Object? mileage = _sentinel,
-    FieldValue? mileageFieldValue,
   }) async {
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
     );
-    assert(
-      mileage == _sentinel || mileageFieldValue == null,
-      "Cannot specify both mileage and mileageFieldValue",
-    );
     final json = {
       if (name != _sentinel) _$EventModelFieldMap['name']!: name as String,
       if (nameFieldValue != null) _$EventModelFieldMap['name']!: nameFieldValue,
-      if (mileage != _sentinel)
-        _$EventModelFieldMap['mileage']!: mileage as int,
-      if (mileageFieldValue != null)
-        _$EventModelFieldMap['mileage']!: mileageFieldValue,
     };
 
     return reference.update(json);
@@ -1281,24 +1267,14 @@ class _$EventDocumentReference
     Transaction transaction, {
     Object? name = _sentinel,
     FieldValue? nameFieldValue,
-    Object? mileage = _sentinel,
-    FieldValue? mileageFieldValue,
   }) {
     assert(
       name == _sentinel || nameFieldValue == null,
       "Cannot specify both name and nameFieldValue",
     );
-    assert(
-      mileage == _sentinel || mileageFieldValue == null,
-      "Cannot specify both mileage and mileageFieldValue",
-    );
     final json = {
       if (name != _sentinel) _$EventModelFieldMap['name']!: name as String,
       if (nameFieldValue != null) _$EventModelFieldMap['name']!: nameFieldValue,
-      if (mileage != _sentinel)
-        _$EventModelFieldMap['mileage']!: mileage as int,
-      if (mileageFieldValue != null)
-        _$EventModelFieldMap['mileage']!: mileageFieldValue,
     };
 
     transaction.update(reference, json);
@@ -1411,17 +1387,6 @@ abstract class EventQuery
     List<String>? whereIn,
     List<String>? whereNotIn,
   });
-  EventQuery whereMileage({
-    int? isEqualTo,
-    int? isNotEqualTo,
-    int? isLessThan,
-    int? isLessThanOrEqualTo,
-    int? isGreaterThan,
-    int? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<int>? whereIn,
-    List<int>? whereNotIn,
-  });
 
   EventQuery orderByDocumentId({
     bool descending = false,
@@ -1441,18 +1406,6 @@ abstract class EventQuery
     String startAfter,
     String endAt,
     String endBefore,
-    EventDocumentSnapshot? startAtDocument,
-    EventDocumentSnapshot? endAtDocument,
-    EventDocumentSnapshot? endBeforeDocument,
-    EventDocumentSnapshot? startAfterDocument,
-  });
-
-  EventQuery orderByMileage({
-    bool descending = false,
-    int startAt,
-    int startAfter,
-    int endAt,
-    int endBefore,
     EventDocumentSnapshot? startAtDocument,
     EventDocumentSnapshot? endAtDocument,
     EventDocumentSnapshot? endBeforeDocument,
@@ -1665,35 +1618,6 @@ class _$EventQuery extends QueryReference<EventModel, EventQuerySnapshot>
     );
   }
 
-  EventQuery whereMileage({
-    int? isEqualTo,
-    int? isNotEqualTo,
-    int? isLessThan,
-    int? isLessThanOrEqualTo,
-    int? isGreaterThan,
-    int? isGreaterThanOrEqualTo,
-    bool? isNull,
-    List<int>? whereIn,
-    List<int>? whereNotIn,
-  }) {
-    return _$EventQuery(
-      _collection,
-      $referenceWithoutCursor: $referenceWithoutCursor.where(
-        _$EventModelFieldMap['mileage']!,
-        isEqualTo: isEqualTo,
-        isNotEqualTo: isNotEqualTo,
-        isLessThan: isLessThan,
-        isLessThanOrEqualTo: isLessThanOrEqualTo,
-        isGreaterThan: isGreaterThan,
-        isGreaterThanOrEqualTo: isGreaterThanOrEqualTo,
-        isNull: isNull,
-        whereIn: whereIn,
-        whereNotIn: whereNotIn,
-      ),
-      $queryCursor: $queryCursor,
-    );
-  }
-
   EventQuery orderByDocumentId({
     bool descending = false,
     Object? startAt = _sentinel,
@@ -1779,78 +1703,6 @@ class _$EventQuery extends QueryReference<EventModel, EventQuerySnapshot>
   }) {
     final query = $referenceWithoutCursor.orderBy(_$EventModelFieldMap['name']!,
         descending: descending);
-    var queryCursor = $queryCursor;
-
-    if (startAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAt: const [],
-        startAtDocumentSnapshot: startAtDocument.snapshot,
-      );
-    }
-    if (startAfterDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: const [],
-        startAfterDocumentSnapshot: startAfterDocument.snapshot,
-      );
-    }
-    if (endAtDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endAt: const [],
-        endAtDocumentSnapshot: endAtDocument.snapshot,
-      );
-    }
-    if (endBeforeDocument != null) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: const [],
-        endBeforeDocumentSnapshot: endBeforeDocument.snapshot,
-      );
-    }
-
-    if (startAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAt: [...queryCursor.startAt, startAt],
-        startAtDocumentSnapshot: null,
-      );
-    }
-    if (startAfter != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        startAfter: [...queryCursor.startAfter, startAfter],
-        startAfterDocumentSnapshot: null,
-      );
-    }
-    if (endAt != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endAt: [...queryCursor.endAt, endAt],
-        endAtDocumentSnapshot: null,
-      );
-    }
-    if (endBefore != _sentinel) {
-      queryCursor = queryCursor.copyWith(
-        endBefore: [...queryCursor.endBefore, endBefore],
-        endBeforeDocumentSnapshot: null,
-      );
-    }
-
-    return _$EventQuery(
-      _collection,
-      $referenceWithoutCursor: query,
-      $queryCursor: queryCursor,
-    );
-  }
-
-  EventQuery orderByMileage({
-    bool descending = false,
-    Object? startAt = _sentinel,
-    Object? startAfter = _sentinel,
-    Object? endAt = _sentinel,
-    Object? endBefore = _sentinel,
-    EventDocumentSnapshot? startAtDocument,
-    EventDocumentSnapshot? endAtDocument,
-    EventDocumentSnapshot? endBeforeDocument,
-    EventDocumentSnapshot? startAfterDocument,
-  }) {
-    final query = $referenceWithoutCursor
-        .orderBy(_$EventModelFieldMap['mileage']!, descending: descending);
     var queryCursor = $queryCursor;
 
     if (startAtDocument != null) {
@@ -2032,7 +1884,9 @@ Map<String, dynamic> _$CarModelToJson(CarModel instance) => <String, dynamic>{
 EventModel _$EventModelFromJson(Map<String, dynamic> json) => EventModel(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
-      mileage: json['mileage'] as int? ?? 0,
+      mileage: json['mileage'] == null
+          ? null
+          : EventMileageModel.fromJson(json['mileage'] as Map<String, dynamic>),
     );
 
 const _$EventModelFieldMap = <String, String>{
@@ -2045,5 +1899,46 @@ Map<String, dynamic> _$EventModelToJson(EventModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'mileage': instance.mileage,
+      'mileage': instance.mileage?.toJson(),
     };
+
+EventMileageModel _$EventMileageModelFromJson(Map<String, dynamic> json) =>
+    EventMileageModel(
+      recurrence: $enumDecodeNullable(
+              _$EventMileageRecurrenceEnumMap, json['recurrence']) ??
+          EventMileageRecurrence.single,
+      value: json['value'] as int? ?? 0,
+      recurrenceInterval: json['recurrenceInterval'] as int? ?? 500,
+      recurrenceCount: json['recurrenceCount'] as int? ?? 1,
+      recurrenceEnds: $enumDecodeNullable(
+              _$EventMileageRecurrenceEndsEnumMap, json['recurrenceEnds']) ??
+          EventMileageRecurrenceEnds.never,
+    );
+
+const _$EventMileageModelFieldMap = <String, String>{
+  'recurrence': 'recurrence',
+  'value': 'value',
+  'recurrenceInterval': 'recurrenceInterval',
+  'recurrenceEnds': 'recurrenceEnds',
+  'recurrenceCount': 'recurrenceCount',
+};
+
+Map<String, dynamic> _$EventMileageModelToJson(EventMileageModel instance) =>
+    <String, dynamic>{
+      'recurrence': _$EventMileageRecurrenceEnumMap[instance.recurrence]!,
+      'value': instance.value,
+      'recurrenceInterval': instance.recurrenceInterval,
+      'recurrenceEnds':
+          _$EventMileageRecurrenceEndsEnumMap[instance.recurrenceEnds]!,
+      'recurrenceCount': instance.recurrenceCount,
+    };
+
+const _$EventMileageRecurrenceEnumMap = {
+  EventMileageRecurrence.single: 'single',
+  EventMileageRecurrence.recurring: 'recurring',
+};
+
+const _$EventMileageRecurrenceEndsEnumMap = {
+  EventMileageRecurrenceEnds.never: 'never',
+  EventMileageRecurrenceEnds.after: 'after',
+};

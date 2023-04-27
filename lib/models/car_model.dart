@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 
 part 'car_model.g.dart';
+part 'event_model.dart';
+part 'event_mileage_model.dart';
 
 @Collection<CarModel>('cars', prefix: 'Car')
 @Collection<EventModel>('cars/*/events', name: 'events', prefix: 'Event')
@@ -20,26 +22,4 @@ class CarModel {
     this.mileage = 0,
     this.userId = ''
   });
-}
-
-@Serializable
-class EventModel {
-  @Id()
-  final String id;
-  String name;
-  int mileage;
-
-  EventModel({
-    this.id = '',
-    this.name = '',
-    this.mileage = 0,
-  });
-
-  EventModel copy() {
-    return EventModel(
-      id: id,
-      name: name,
-      mileage: mileage
-    );
-  }
 }

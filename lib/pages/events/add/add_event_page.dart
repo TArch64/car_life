@@ -29,7 +29,12 @@ class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesM
   @override
   void didInitDependencies() {
     super.didInitDependencies();
-    _creatingEvent = EventModel(mileage: widget.focusedGroupData.fromMileage);
+    _creatingEvent = EventModel(
+        mileage: EventMileageModel(
+          recurrence: EventMileageRecurrence.single,
+          value: widget.focusedGroupData.fromMileage,
+        ),
+    );
     _eventsRef = context.inject<CarDocumentReference>().events;
   }
 
