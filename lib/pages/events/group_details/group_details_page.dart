@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:car_life/core/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/localization.dart';
@@ -11,12 +12,10 @@ import 'group_details_item.dart';
 
 class GroupDetailsPage extends StatefulWidget {
   final EventsGroupData group;
-  final Stream<List<EventQueryDocumentSnapshot>> eventsStream;
 
   const GroupDetailsPage({
     super.key,
-    required this.group,
-    required this.eventsStream,
+    required this.group
   });
 
   @override
@@ -30,7 +29,17 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
   @override
   void didInitDependencies() {
     super.didInitDependencies();
-    _eventsSubscription = widget.eventsStream.listen((events) {
+    _listenGroupEvents(context);
+  }
+
+  _listenGroupEvents(BuildContext context) {
+    final carRef = context.inject<CarDocumentReference>();
+
+    final groupEvents = carRef.events.snapshots().map((snapshot) {
+      return snapshot.docs.where((document) => widget.group.eventInGroup(document.data)).toList();
+    });
+
+    _eventsSubscription = groupEvents.listen((events) {
       if (events.isEmpty) {
         Navigator.pop(context);
         return;

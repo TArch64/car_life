@@ -1,5 +1,5 @@
-import 'package:car_life/core/localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/car_model.dart';
 
@@ -10,29 +10,23 @@ import 'group_details/group_details_page.dart';
 
 class EventsGroup extends StatelessWidget {
   final EventsGroupData group;
-  final Stream<List<EventQueryDocumentSnapshot>> eventsStream;
+  final List<EventQueryDocumentSnapshot> events;
 
   const EventsGroup({
     super.key,
     required this.group,
-    required this.eventsStream
+    required this.events
   });
 
   @override
   Widget build(BuildContext context) {
     final carRef = context.inject<CarDocumentReference>();
-    return StreamBuilder(
-      stream: eventsStream,
-      builder: (context, snapshot) {
-        final events = snapshot.data ?? [];
-        return GestureDetector(
-          child: Container(
-            decoration: const BoxDecoration(color: CupertinoColors.systemBackground),
-            child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
-          ),
-          onTap: () => events.isEmpty ? _openAdd(context, carRef) : _openDetails(context),
-        );
-      },
+    return GestureDetector(
+      child: Container(
+        decoration: const BoxDecoration(color: CupertinoColors.systemBackground),
+        child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
+      ),
+      onTap: () => events.isEmpty ? _openAdd(context, carRef) : _openDetails(context),
     );
   }
 
@@ -82,8 +76,13 @@ class EventsGroup extends StatelessWidget {
   }
 
   _openDetails(BuildContext context) {
+    final carRef = context.inject<CarDocumentReference>(listen: false);
+
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => GroupDetailsPage(group: group, eventsStream: eventsStream)
+      builder: (_) => Provider.value(
+        value: carRef,
+        child: GroupDetailsPage(group: group),
+      )
     ));
   }
 }

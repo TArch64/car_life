@@ -1,5 +1,5 @@
-import 'package:rxdart/rxdart.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/car_model.dart';
@@ -47,8 +47,6 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   Widget build(BuildContext context) {
     final car = context.inject<CarModel>();
-    final carRef = context.inject<CarDocumentReference>();
-    final eventsStream = carRef.events.snapshots();
     final borderColor = EventsGroupCell.accentColor(context);
 
     return PageLayout(
@@ -58,25 +56,28 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
         onPressed: () => _initiateAddEvent(context),
         child: const Icon(CupertinoIcons.add),
       ),
-      child: ListView.builder(
-        reverse: true,
-        controller: _scrollController,
-        itemBuilder: (_, index) {
-          final group = EventsGroupData(index);
-          return Container(
-            height: _groupHeight,
-            decoration: BoxDecoration(
-              border: index == 0 ? null : Border(
-                bottom: BorderSide(width: 3, color: borderColor)
-              )
-            ),
-            child: EventsGroup(
-              group: group,
-              eventsStream: _groupEvents(group, eventsStream)
-            ),
-          );
-        },
-      ),
+      child: FirestoreBuilder(
+        ref: context.inject<CarDocumentReference>().events,
+        builder: (context, snapshot, child) => ListView.builder(
+          reverse: true,
+          controller: _scrollController,
+          itemBuilder: (_, index) {
+            final group = EventsGroupData(index);
+            return Container(
+              height: _groupHeight,
+              decoration: BoxDecoration(
+                border: index == 0 ? null : Border(
+                  bottom: BorderSide(width: 3, color: borderColor)
+                )
+              ),
+              child: EventsGroup(
+                group: group,
+                events: _selectGroupEvents(group, snapshot.data)
+              ),
+            );
+          },
+        ),
+      )
     );
   }
 
@@ -93,17 +94,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
     ));
   }
 
-  BehaviorSubject<List<EventQueryDocumentSnapshot>> _groupEvents(EventsGroupData group, Stream<EventQuerySnapshot> stream) {
-    final subject = BehaviorSubject<List<EventQueryDocumentSnapshot>>.seeded([]);
-    final subscription = stream.listen((snapshot) {
-      final events = _selectGroupEvents(group, snapshot);
-      subject.add(events);
-    });
-    subscription.onDone(() => subject.close());
-    return subject;
-  }
-
-  List<EventQueryDocumentSnapshot> _selectGroupEvents(EventsGroupData group, EventQuerySnapshot snapshot) {
-    return snapshot.docs.where((event) => group.eventInGroup(event.data)).toList();
+  List<EventQueryDocumentSnapshot> _selectGroupEvents(EventsGroupData group, EventQuerySnapshot? snapshot) {
+    return snapshot?.docs.where((event) => group.eventInGroup(event.data)).toList() ?? [];
   }
 }
