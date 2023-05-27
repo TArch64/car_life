@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:car_life/core/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/models/car_model.dart';
 import 'package:car_life/pages/base/page_layout.dart';
+import 'package:car_life/models/Event.dart';
+import 'package:car_life/models/Car.dart';
 
 import '../events_group_data.dart';
 import 'group_details_item.dart';
@@ -23,8 +25,8 @@ class GroupDetailsPage extends StatefulWidget {
 }
 
 class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDependenciesMixin {
-  List<EventQueryDocumentSnapshot> _events = [];
-  late StreamSubscription<List<EventQueryDocumentSnapshot>> _eventsSubscription;
+  List<Event> _events = [];
+  late StreamSubscription<QuerySnapshot<Event>> _eventsSubscription;
 
   @override
   void didInitDependencies() {
@@ -33,13 +35,13 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
   }
 
   _listenGroupEvents(BuildContext context) {
-    final carRef = context.inject<CarDocumentReference>();
-
-    final groupEvents = carRef.events.snapshots().map((snapshot) {
-      return snapshot.docs.where((document) => widget.group.eventInGroup(document.data)).toList();
-    });
-
-    _eventsSubscription = groupEvents.listen((events) {
+    final car = context.inject<Car>();
+    final eventsQuery = Amplify.DataStore.observeQuery(
+      Event.classType,
+      where: Event.CARID.eq(car.id)
+    );
+    _eventsSubscription = eventsQuery.listen((snapshot) {
+      final events = snapshot.items.where((event) => widget.group.eventInGroup(event)).toList();
       if (events.isEmpty) {
         Navigator.pop(context);
         return;
@@ -58,7 +60,6 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
   Widget build(BuildContext context) {
     final fromMileage = EventsGroupData.formatMileage(widget.group.fromMileage);
     final toMileage = EventsGroupData.formatMileage(widget.group.toMileage);
-
     return PageLayout(
       navigationTitle: "$fromMileage - $toMileage",
       backTitle: context.l10n.eventsGroupDetailsBackTitle,
@@ -67,13 +68,11 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
           if (_events.isEmpty) {
             return Container();
           }
-
           final items = _events.map((event) => GroupDetailsItem(
             key: Key("event-${event.id}"),
             event: event,
-            onDelete: () => event.reference.delete(),
+            onDelete: () => Amplify.DataStore.delete(event),
           ));
-
           return CupertinoScrollbar(
             child: CupertinoListSection(
               hasLeading: false,

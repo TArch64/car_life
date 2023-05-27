@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-carlife-staging-191514-authRole",
+      "UnauthRoleArn": "arn:aws:iam::135791139340:role/amplify-carlife-staging-191514-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::135791139340:role/amplify-carlife-staging-191514-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-carlife-staging-191514-deployment",
+      "UnauthRoleName": "amplify-carlife-staging-191514-unauthRole",
+      "StackName": "amplify-carlife-staging-191514",
+      "StackId": "arn:aws:cloudformation:us-east-2:135791139340:stack/amplify-carlife-staging-191514/50000ef0-fa67-11ed-85f5-0ab707bf7dc5",
+      "AmplifyAppId": "d1mgin0lndzp9g"
+    },
+    "categories": {
+      "auth": {
+        "carlife": {}
+      }
+    }
+  }
+}

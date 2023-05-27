@@ -20,7 +20,6 @@ class AppTheme extends CupertinoThemeData {
 
   factory AppTheme.create() {
     BrightnessData brightness = BrightnessData(window.platformBrightness);
-
     return AppTheme(
         brightness: brightness._brightness,
         primaryColor: brightness.by(

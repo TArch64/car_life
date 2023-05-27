@@ -1,21 +1,18 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/models/car_model.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
+import 'package:car_life/models/Car.dart';
 import 'package:car_life/pages/base/button_loader.dart';
-import 'package:car_life/pages/base/cupertino_int_form_field_row.dart';
 
-typedef AddCarSubmitForm = Function();
+typedef AddCarSubmitForm = Function(Car car);
 
 class AddCarForm extends StatefulWidget {
-  final CarModel car;
   final AddCarSubmitForm onSubmit;
   final bool creating;
 
   const AddCarForm({
     super.key,
-    required this.car,
     required this.onSubmit,
     required this.creating
   });
@@ -25,6 +22,8 @@ class AddCarForm extends StatefulWidget {
 }
 
 class _AddCarFormState extends State<AddCarForm> {
+  final _nameController = TextEditingController();
+  final _mileageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -42,13 +41,14 @@ class _AddCarFormState extends State<AddCarForm> {
                   autofocus: true,
                   validator: Validators.requireText(context),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onSaved: (value) => setState(() => widget.car.name = value ?? ''),
+                  controller: _nameController,
                 ),
-                CupertinoIntFormFieldRow(
+                CupertinoTextFormFieldRow(
                   prefix: Text(context.l10n.formMileageLabel),
                   validator: Validators.minInt(context, min: 0),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onSaved: (value) => setState(() => widget.car.mileage = value ?? 0),
+                  controller: _mileageController,
+                  keyboardType: TextInputType.number,
                 ),
               ]
             ),
@@ -73,7 +73,11 @@ class _AddCarFormState extends State<AddCarForm> {
   _submit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      widget.onSubmit();
+      widget.onSubmit(Car(
+        userId: '123',
+        name: _nameController.value.text,
+        mileage: int.tryParse(_mileageController.value.text)!
+      ));
     }
   }
 }

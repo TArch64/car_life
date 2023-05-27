@@ -6,7 +6,6 @@ mixin InitStateDependenciesMixin<T extends StatefulWidget> on State<T> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     if (!_initialized) {
       didInitDependencies();
       _initialized = true;

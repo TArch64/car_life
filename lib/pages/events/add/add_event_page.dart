@@ -1,9 +1,9 @@
+import 'package:car_life/models/Event.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/theme.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/models/car_model.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../events_group_data.dart';
@@ -22,21 +22,7 @@ class AddEventPage extends StatefulWidget {
 }
 
 class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesMixin {
-  late EventCollectionReference _eventsRef;
-  late EventModel _creatingEvent;
   bool _creating = false;
-
-  @override
-  void didInitDependencies() {
-    super.didInitDependencies();
-    _creatingEvent = EventModel(
-        mileage: EventMileageModel(
-          recurrence: EventMileageRecurrence.single,
-          value: widget.focusedGroupData.fromMileage,
-        ),
-    );
-    _eventsRef = context.inject<CarDocumentReference>().events;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +34,16 @@ class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesM
       ),
       child: AddEventForm(
         creating: _creating,
-        event: _creatingEvent,
-        onSubmit: () => _addCar(context)
+        initialMileage: widget.focusedGroupData.fromMileage,
+        onSubmit: (event) => _addCar(context, event)
       ),
     );
   }
 
-  _addCar(BuildContext context) async {
+  _addCar(BuildContext context, Event creatingEvent) async {
     setState(() => _creating = true);
-    await _eventsRef.add(_creatingEvent);
+    await Amplify.DataStore.save(creatingEvent);
+    await Amplify.DataStore.save(creatingEvent.mileage);
     Navigator.pop(context);
   }
 }

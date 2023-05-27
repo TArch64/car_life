@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:car_life/core/provider.dart';
+import 'package:car_life/core/amplify_query.dart';
+import 'package:car_life/models/Car.dart';
 
 import 'pages/base/page_loader.dart';
-import 'models/car_model.dart';
 
 class CarHandler extends StatelessWidget {
   CarHandler({
@@ -15,26 +14,23 @@ class CarHandler extends StatelessWidget {
 
   final WidgetBuilder buildCreateCar;
   final WidgetBuilder buildActiveCar;
-  final _carsRef = CarCollectionReference();
 
   @override
   Widget build(BuildContext context) {
-    return FirestoreBuilder(
-      ref: _carsRef.whereUserId(isEqualTo: context.inject<User>().uid),
-      builder: (_, snapshot, __) {
+    final userId = '123';
+    return AmplifyQuery(
+      type: Car.classType,
+      where: Car.USERID.eq(userId),
+      builder: (context, snapshot) {
         if (snapshot.data == null) {
           return const CupertinoPageScaffold(child: PageLoader());
         }
-        if (snapshot.data!.snapshot.size == 0) {
+        if (snapshot.data!.items.isEmpty) {
           return buildCreateCar(context);
         }
-        var ref = snapshot.data!.snapshot.docs.first;
-        return MultiProvider(
-          providers: [
-            Provider.value(value: CarDocumentReference(ref.reference)),
-            Provider.value(value: ref.data()),
-          ],
-          child: buildActiveCar(context),
+        return Provider.value(
+          value: snapshot.data!.items.first,
+          builder: (context, child) => buildActiveCar(context),
         );
       },
     );

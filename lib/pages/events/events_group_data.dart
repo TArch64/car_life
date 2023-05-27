@@ -1,4 +1,6 @@
-import 'package:car_life/models/car_model.dart';
+import 'package:car_life/models/Event.dart';
+import 'package:car_life/models/EventMileageRecurrence.dart';
+import 'package:car_life/models/EventMileageRecurrenceEnds.dart';
 
 class EventsGroupData {
   static const step = 500;
@@ -13,10 +15,11 @@ class EventsGroupData {
   int get fromMileage => index * step;
   int get toMileage => (index + 1) * step;
 
-  bool eventInGroup(EventModel event) {
-    final mileage = event.mileage!;
+  bool eventInGroup(Event event) {
+    final mileage = event.mileage;
+    final isRecurring = mileage.recurrence == EventMileageRecurrence.RECURRING;
 
-    if (!mileage.isRecurring) {
+    if (!isRecurring) {
       return inGroup(mileage.value);
     }
 
@@ -30,7 +33,8 @@ class EventsGroupData {
       if (recurringValue > toMileage) {
         return false;
       }
-      if (mileage.isEnds && recurringIteration >= mileage.recurrenceCount) {
+      final isEnds = mileage.recurrenceEnds == EventMileageRecurrenceEnds.AFTER_COUNT;
+      if (isEnds && recurringIteration >= mileage.recurrenceCount) {
         return false;
       }
       recurringIteration++;

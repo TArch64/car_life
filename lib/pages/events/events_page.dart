@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
+import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
-import 'package:car_life/models/car_model.dart';
+import 'package:car_life/models/Car.dart';
+import 'package:car_life/models/Event.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
 
@@ -24,9 +25,8 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   void didInitDependencies() {
     super.didInitDependencies();
-    final car = context.inject<CarModel>();
+    final car = context.inject<Car>();
     final groupData = EventsGroupData.fromMileage(car.mileage);
-
     _scrollController = ScrollController(
       initialScrollOffset: _indexToScrollOffset(context, groupData.index)
     );
@@ -46,9 +46,8 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   @override
   Widget build(BuildContext context) {
-    final car = context.inject<CarModel>();
+    final car = context.inject<Car>();
     final borderColor = EventsGroupCell.accentColor(context);
-
     return PageLayout(
       navigationTitle: car.name,
       navigationAppend: CupertinoButton(
@@ -56,9 +55,10 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
         onPressed: () => _initiateAddEvent(context),
         child: const Icon(CupertinoIcons.add),
       ),
-      child: FirestoreBuilder(
-        ref: context.inject<CarDocumentReference>().events,
-        builder: (context, snapshot, child) => ListView.builder(
+      child: AmplifyQuery(
+        type: Event.classType,
+        where: Event.CARID.eq(car.id),
+        builder: (context, snapshot) => ListView.builder(
           reverse: true,
           controller: _scrollController,
           itemBuilder: (_, index) {
@@ -77,24 +77,23 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
             );
           },
         ),
-      )
+      ),
     );
   }
 
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
     final group = EventsGroupData(index);
-    final carRef = context.inject<CarDocumentReference>(listen: false);
-
+    final car = context.inject<Car>(listen: false);
     Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
-        value: carRef,
+        value: car,
         child: AddEventPage(focusedGroupData: group),
       ),
     ));
   }
 
-  List<EventQueryDocumentSnapshot> _selectGroupEvents(EventsGroupData group, EventQuerySnapshot? snapshot) {
-    return snapshot?.docs.where((event) => group.eventInGroup(event.data)).toList() ?? [];
+  List<Event> _selectGroupEvents(EventsGroupData group, QuerySnapshot<Event>? snapshot) {
+    return snapshot?.items.where((event) => group.eventInGroup(event)).toList() ?? [];
   }
 }

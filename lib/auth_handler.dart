@@ -1,37 +1,52 @@
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:car_life/pages/base/page_loader.dart';
 
 import 'core/provider.dart';
+import 'auth_api.dart';
 
 class AuthHandler extends StatefulWidget {
-  const AuthHandler({super.key, required this.build});
+  final WidgetBuilder buildAuth;
+  final WidgetBuilder buildApp;
 
-  final WidgetBuilder build;
+  const AuthHandler({
+    super.key,
+    required this.buildAuth,
+    required this.buildApp,
+  });
 
   @override
   State<AuthHandler> createState() => _AuthHandlerState();
 }
 
 class _AuthHandlerState extends State<AuthHandler> {
+  final auth = AuthAPI();
+
   @override
   void initState() {
     super.initState();
-    FirebaseAuth.instance.signInAnonymously();
+    auth.update();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      initialData: null,
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (_, snapshot) {
+      stream: auth.sessionChanges,
+      builder: (context, snapshot) {
         if (snapshot.data == null) {
           return const CupertinoPageScaffold(child: PageLoader());
         }
-        return Provider<User>.value(
-          value: snapshot.data!,
-          child: widget.build(context),
+        if (!snapshot.data!.isSignedIn) {
+          return Provider.value(
+            value: auth,
+            builder: (context, _) => widget.buildAuth(context),
+          );
+        }
+        return MultiProvider(
+          providers: [
+            Provider.value(value: auth),
+            Provider.value(value: snapshot.data!)
+          ],
+          builder: (context, _) => widget.buildApp(context),
         );
       },
     );

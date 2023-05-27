@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:car_life/core/confirm.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/models/Event.dart';
 import 'package:car_life/pages/events/edit/edit_event_page.dart';
-import 'package:car_life/models/car_model.dart';
 
 typedef GroupDetailsItemDelete = Function();
 
 class GroupDetailsItem extends StatelessWidget {
-  final EventQueryDocumentSnapshot event;
+  final Event event;
   final GroupDetailsItemDelete onDelete;
 
   const GroupDetailsItem({
@@ -45,7 +45,7 @@ class GroupDetailsItem extends StatelessWidget {
         ],
       ),
       child: CupertinoListTile(
-        title: Text(event.data.name),
+        title: Text(event.name),
       ),
     );
   }

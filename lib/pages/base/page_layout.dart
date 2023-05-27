@@ -26,7 +26,6 @@ class PageLayout extends StatelessWidget {
     var navigationBarOffset = navigationBar?.preferredSize.height ?? 0;
     var inlineNavigationTitle = _buildInlineNavigationTitle(context);
     var screenPadding = MediaQuery.of(context).padding;
-
     return CupertinoPageScaffold(
       navigationBar: navigationBar,
       backgroundColor: backgroundColor,
@@ -46,7 +45,6 @@ class PageLayout extends StatelessWidget {
   ObstructingPreferredSizeWidget? _buildNavigationBar() {
     if (navigationTitle == null) return null;
     if (inlineNavigationTitle) return null;
-
     return CupertinoNavigationBar(
       middle: Text(navigationTitle!),
       previousPageTitle: backTitle,
@@ -57,12 +55,10 @@ class PageLayout extends StatelessWidget {
   Widget? _buildInlineNavigationTitle(BuildContext context) {
     if (navigationTitle == null) return null;
     if (!inlineNavigationTitle) return null;
-
     var theme = CupertinoTheme.of(context).textTheme;
     var style = theme.navLargeTitleTextStyle.copyWith(
       fontSize: theme.navLargeTitleTextStyle.fontSize! - 5,
     );
-
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, bottom: 15),
       child: Text(navigationTitle!, style: style),

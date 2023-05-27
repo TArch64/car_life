@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/provider.dart';
-import 'package:car_life/models/car_model.dart';
+import 'package:car_life/models/Event.dart';
+import 'package:car_life/models/Car.dart';
 
 import 'events_group_data.dart';
 import 'events_group_cell.dart';
@@ -10,7 +11,7 @@ import 'group_details/group_details_page.dart';
 
 class EventsGroup extends StatelessWidget {
   final EventsGroupData group;
-  final List<EventQueryDocumentSnapshot> events;
+  final List<Event> events;
 
   const EventsGroup({
     super.key,
@@ -20,13 +21,12 @@ class EventsGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final carRef = context.inject<CarDocumentReference>();
     return GestureDetector(
       child: Container(
         decoration: const BoxDecoration(color: CupertinoColors.systemBackground),
         child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
       ),
-      onTap: () => events.isEmpty ? _openAdd(context, carRef) : _openDetails(context),
+      onTap: () => events.isEmpty ? _openAdd(context) : _openDetails(context),
     );
   }
 
@@ -39,12 +39,12 @@ class EventsGroup extends StatelessWidget {
     );
   }
 
-  List<Widget> _eventWidgets(BuildContext context, List<EventQueryDocumentSnapshot> events) {
+  List<Widget> _eventWidgets(BuildContext context, List<Event> events) {
     if (events.isEmpty) {
       return [EventsGroupCell.none(size: 2)];
     }
     if (events.length == 1) {
-      return [EventsGroupCell.text(events[0].data.name, size: 2)];
+      return [EventsGroupCell.text(events[0].name, size: 2)];
     }
     final decoration = BoxDecoration(
       border: Border(
@@ -56,31 +56,31 @@ class EventsGroup extends StatelessWidget {
     );
     if (events.length == 2) {
       return [
-        EventsGroupCell.text(events[0].data.name, size: 1, decoration: decoration),
-        EventsGroupCell.text(events[1].data.name, size: 1)
+        EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
+        EventsGroupCell.text(events[1].name, size: 1)
       ];
     }
     return [
-      EventsGroupCell.text(events[0].data.name, size: 1, decoration: decoration),
+      EventsGroupCell.text(events[0].name, size: 1, decoration: decoration),
       EventsGroupCell.text(context.l10n.eventsMoreCollapsed(events.length - 1), size: 1),
     ];
   }
 
-  _openAdd(BuildContext context, CarDocumentReference carRef) {
+  _openAdd(BuildContext context) {
+    final car = context.inject<Car>(listen: false);
     return Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
-        value: carRef,
+        value: car,
         child: AddEventPage(focusedGroupData: group),
       ),
     ));
   }
 
   _openDetails(BuildContext context) {
-    final carRef = context.inject<CarDocumentReference>(listen: false);
-
+    final car = context.inject<Car>(listen: false);
     Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
-        value: carRef,
+        value: car,
         child: GroupDetailsPage(group: group),
       )
     ));

@@ -1,8 +1,7 @@
-import 'package:car_life/models/car_model.dart';
-import 'package:car_life/core/localization.dart';
-import 'package:car_life/core/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:car_life/core/localization.dart';
+import 'package:car_life/models/Car.dart';
 
 import '../../base/page_layout.dart';
 import 'add_car_form.dart';
@@ -15,8 +14,6 @@ class AddCarPage extends StatefulWidget {
 }
 
 class _AddCarPageState extends State<AddCarPage> {
-  final _carsRef = CarCollectionReference();
-  final _creatingCar = CarModel();
   bool _creating = false;
 
   @override
@@ -26,16 +23,14 @@ class _AddCarPageState extends State<AddCarPage> {
       inlineNavigationTitle: true,
       backgroundColor: CupertinoColors.secondarySystemBackground,
       child: AddCarForm(
-        car: _creatingCar,
         creating: _creating,
-        onSubmit: () => _addCar(context.inject<User>(listen: false)),
+        onSubmit: (car) => _addCar(car),
       ),
     );
   }
 
-  _addCar(User user) async {
+  _addCar(Car car) async {
     setState(() => _creating = true);
-    _creatingCar.userId = user.uid;
-    await _carsRef.add(_creatingCar);
+    await Amplify.DataStore.save(car);
   }
 }
