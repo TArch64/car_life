@@ -11,6 +11,31 @@
   "@signInIncorrectCredentials": {
     "description": "Sign In page > errors > incorrect credentials"
   },
+  "signInSignUpLink": "Sign Up",
+  "@signInSignUpLink": {
+    "description": "Sign In page > sign up link"
+  },
+  "signInActionDividerText": "or",
+  "@signInActionDividerText": {
+    "description": "Sign In page > action divider text"
+  },
+
+  "signUpNavigationTitle": "Sign Up",
+  "@signUpNavigationTitle": {
+    "description": "Sign Up page > navigation title"
+  },
+  "signUpFormSubmit": "Sign Up",
+  "@signUpFormSubmit": {
+    "description": "Sign Up page > form submit"
+  },
+  "signUpSignInLink": "Sign In",
+  "@signUpSignInLink": {
+    "description": "Sign In page > sign in link"
+  },
+  "signUpActionDividerText": "or",
+  "@signUpActionDividerText": {
+    "description": "Sign Up page > action divider text"
+  },
 
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {

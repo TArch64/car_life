@@ -2,6 +2,13 @@
   "signInNavigationTitle": "Увійти",
   "signInFormSubmit": "Увійти",
   "signInIncorrectCredentials": "Не вірна пошта або пароль",
+  "signInSignUpLink": "Створити профіль",
+  "signInActionDividerText": "або",
+
+  "signUpNavigationTitle": "Новий профіль",
+  "signUpFormSubmit": "Створити",
+  "signUpSignInLink": "Увійти",
+  "signUpActionDividerText": "або",
 
   "addCarNavigationTitle": "Додайте ваше авто",
   "addCarFormSubmit": "Додати",

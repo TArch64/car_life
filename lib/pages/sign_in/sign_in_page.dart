@@ -38,7 +38,7 @@ class _SignInPageState extends State<SignInPage> {
     } on UserNotFoundException catch (_) {
       setState(() => _signingIn = false);
       Alert.showError(context: context, text: context.l10n.signInIncorrectCredentials);
-    } catch(_) {
+    } catch(error) {
       setState(() => _signingIn = false);
       Alert.showError(context: context);
     }
