@@ -5,6 +5,7 @@ import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
+import '../sing_up_confirm/sign_up_confirm_page.dart';
 import 'sign_up_form.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -35,7 +36,13 @@ class _SignUpPageState extends State<SignUpPage> {
     final auth = context.inject<AuthAPI>(listen: false);
     try {
       await auth.signUp(data);
-    } catch(_) {
+      await Navigator.pushReplacement(context, CupertinoPageRoute(
+        builder: (_) => Provider.value(
+          value: auth,
+          child: SignUpConfirmPage(authData: data),
+        ),
+      ));
+    } catch(error) {
       setState(() => _signingUp = false);
       Alert.showError(context: context);
     }

@@ -20,6 +20,8 @@
     "description": "Sign In page > action divider text"
   },
 
+
+
   "signUpNavigationTitle": "Sign Up",
   "@signUpNavigationTitle": {
     "description": "Sign Up page > navigation title"
@@ -37,6 +39,23 @@
     "description": "Sign Up page > action divider text"
   },
 
+
+
+  "confirmSignUpNavigationTitle": "Confirm Profile",
+  "@confirmSignUpNavigationTitle": {
+    "description": "Confirm Sign Up > navigation title"
+  },
+  "confirmSignUpDescription": "Verification code sent to your email",
+  "@confirmSignUpDescription": {
+    "description": "Confirm Sign Up > description"
+  },
+  "confirmSignUpSubmit": "Confirm",
+  "@confirmSignUpSubmit": {
+    "description": "Confirm Sign Up > form submit"
+  },
+
+
+
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"
@@ -45,6 +64,8 @@
   "@addCarFormSubmit": {
     "description": "Add car page > add car button"
   },
+
+
 
   "addEventNavigationTitle": "Add event",
   "@addEventNavigationTitle": {
@@ -55,10 +76,14 @@
     "description": "Add event page > add event button"
   },
 
+
+
   "eventsMoreCollapsed": "and {count}",
   "@eventsMoreCollapsed": {
     "description": "events page > label to display collapsed items in event group"
   },
+
+
 
   "eventsGroupDetailsBackTitle": "Events",
   "@eventsGroupDetailsBackTitle": {
@@ -69,6 +94,8 @@
     "description": "Events group details > delete confirm item name"
   },
 
+
+
   "editEventNavigationTitle": "Edit \"{name}\"",
   "@editEventNavigationTitle": {
     "description": "Edit event page > navigation title"
@@ -78,6 +105,8 @@
     "description": "Edit event page > edit event button"
   },
 
+
+
   "formEmailLabel": "Email",
   "@formEmailLabel": {
     "description": "Form > email field label"
@@ -86,12 +115,14 @@
   "@formPasswordLabel": {
     "description": "Form > password field label"
   },
-
+  "formCodeLabel": "Code",
+  "@formCodeLabel": {
+    "description": "Form > code field label"
+  },
   "formNameLabel": "Name",
   "@formNameLabel": {
     "description": "Form > name field label"
   },
-
   "formMileageLabel": "Mileage",
   "@formMileageLabel": {
     "description": "Form > mileage field label"
@@ -121,6 +152,8 @@
     "description": "Form > mileage recurrence count label"
   },
 
+
+
   "formRequired": "Required field",
   "@formRequired": {
     "description": "Form > validations > required field"
@@ -138,6 +171,8 @@
     "description": "Form > validations > min number value"
   },
 
+
+
   "confirmDeleteTitle": "Confirm",
   "@confirmDeleteTitle": {
     "description": "Confirm delete > modal title"
@@ -154,6 +189,8 @@
   "@confirmDeleteAction": {
     "description": "Confirm delete > delete button title"
   },
+
+
 
   "alertOk": "Ok",
   "@alertOk": {

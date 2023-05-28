@@ -5,31 +5,38 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 
 export 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
-abstract class _AuthData {
+abstract class AuthData {
   final String email;
   final String password;
 
-  const _AuthData({required this.email, required this.password});
+  const AuthData({required this.email, required this.password});
 }
 
-class SignUpData extends _AuthData {
+class SignUpData extends AuthData {
   const SignUpData({required super.email, required super.password});
 }
 
-class SignInData extends _AuthData {
+class SignInData extends AuthData {
   const SignInData({required super.email, required super.password});
 }
 
-class AuthSession {
+class ConfirmSignUpData {
+  final AuthData auth;
+  final String code;
+
+  const ConfirmSignUpData({required this.auth, required this.code});
+}
+
+class AppSession {
   final AuthUser? user;
   bool get isSignedIn => user != null;
 
-  AuthSession._(this.user);
+  AppSession._(this.user);
 }
 
 class AuthAPI {
-  final _sessionChangesController = StreamController<AuthSession>();
-  Stream<AuthSession> get sessionChanges => _sessionChangesController.stream;
+  final _sessionChangesController = StreamController<AppSession>();
+  Stream<AppSession> get sessionChanges => _sessionChangesController.stream;
 
   signUp(SignUpData data) async {
     await Amplify.Auth.signUp(
@@ -38,10 +45,20 @@ class AuthAPI {
       options: CognitoSignUpOptions(
         userAttributes: {
           CognitoUserAttributeKey.email: data.email,
-        }
-      )
+        },
+      ),
     );
-    await update();
+  }
+
+  confirmSignUp(ConfirmSignUpData data) async {
+    await Amplify.Auth.confirmSignUp(
+      username: data.auth.email,
+      confirmationCode: data.code,
+    );
+    await signIn(SignInData(
+      email: data.auth.email,
+      password: data.auth.password,
+    ));
   }
 
   signIn(SignInData data) async {
@@ -59,6 +76,6 @@ class AuthAPI {
   update() async {
     final session = await Amplify.Auth.fetchAuthSession();
     final user = session.isSignedIn ? await Amplify.Auth.getCurrentUser() : null;
-    _sessionChangesController.add(AuthSession._(user));
+    _sessionChangesController.add(AppSession._(user));
   }
 }

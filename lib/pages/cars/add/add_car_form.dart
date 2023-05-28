@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/auth_api.dart';
+import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
@@ -56,7 +58,7 @@ class _AddCarFormState extends State<AddCarForm> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: CupertinoButton.filled(
-                onPressed: _submit,
+                onPressed: () => _submit(context),
                 child: ButtonLoader(
                   visible: widget.creating,
                   color: context.theme.primaryContrastingColor,
@@ -70,11 +72,12 @@ class _AddCarFormState extends State<AddCarForm> {
     );
   }
 
-  _submit() {
+  _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      final session = context.inject<AppSession>();
       widget.onSubmit(Car(
-        userId: '123',
+        userId: session.user!.userId,
         name: _nameController.value.text,
         mileage: int.tryParse(_mileageController.value.text)!
       ));

@@ -10,6 +10,10 @@
   "signUpSignInLink": "Увійти",
   "signUpActionDividerText": "або",
 
+  "confirmSignUpNavigationTitle": "Підтерження Профайлу",
+  "confirmSignUpDescription": "Код підтвердження було відправлено на вашу пошту",
+  "confirmSignUpSubmit": "Підтвердити",
+
   "addCarNavigationTitle": "Додайте ваше авто",
   "addCarFormSubmit": "Додати",
 
@@ -26,6 +30,7 @@
 
   "formEmailLabel": "Пошта",
   "formPasswordLabel": "Пароль",
+  "formCodeLabel": "Код",
   "formNameLabel": "Назва",
   "formMileageLabel": "Пробіг",
   "formMileageRecurrenceSwitchLabel": "Повторювати",

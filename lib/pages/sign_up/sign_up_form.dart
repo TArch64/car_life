@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/auth_api.dart';
+import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
 import 'package:car_life/core/localization.dart';
@@ -74,11 +75,9 @@ class _SignUpFormState extends State<SignUpForm> {
                     child: Text(context.l10n.signUpActionDividerText),
                   ),
                   CupertinoButton(
-                    onPressed: () => Navigator.push(context, CupertinoPageRoute(
-                      builder: (context) => const SignInPage(),
-                    )),
+                    onPressed: () => _openSignIn(context),
                     child: Text(context.l10n.signUpSignInLink, style: const TextStyle(
-                        fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.bold
                     )),
                   ),
                 ],
@@ -98,5 +97,15 @@ class _SignUpFormState extends State<SignUpForm> {
         password: _passwordController.value.text
       ));
     }
+  }
+
+  _openSignIn(BuildContext context) {
+    final auth = context.inject<AuthAPI>(listen: false);
+    Navigator.pushReplacement(context, CupertinoPageRoute(
+      builder: (_) => Provider.value(
+        value: auth,
+        child: const SignInPage(),
+      ),
+    ));
   }
 }

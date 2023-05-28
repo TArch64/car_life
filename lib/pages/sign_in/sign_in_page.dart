@@ -5,6 +5,7 @@ import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
+import '../sing_up_confirm/sign_up_confirm_page.dart';
 import 'sign_in_form.dart';
 
 class SignInPage extends StatefulWidget {
@@ -37,7 +38,17 @@ class _SignInPageState extends State<SignInPage> {
       await auth.signIn(data);
     } on UserNotFoundException catch (_) {
       setState(() => _signingIn = false);
-      Alert.showError(context: context, text: context.l10n.signInIncorrectCredentials);
+      Alert.showError(
+        context: context,
+        text: context.l10n.signInIncorrectCredentials
+      );
+    } on UserNotConfirmedException catch (_) {
+      await Navigator.pushReplacement(context, CupertinoPageRoute(
+        builder: (_) => Provider.value(
+          value: auth,
+          child: SignUpConfirmPage(authData: data),
+        ),
+      ));
     } catch(error) {
       setState(() => _signingIn = false);
       Alert.showError(context: context);

@@ -101,8 +101,8 @@ class _SignInFormState extends State<SignInForm> {
 
   _openSignUp(BuildContext context) {
     final auth = context.inject<AuthAPI>(listen: false);
-    Navigator.push(context, CupertinoPageRoute(
-      builder: (context) => Provider.value(
+    Navigator.pushReplacement(context, CupertinoPageRoute(
+      builder: (_) => Provider.value(
         value: auth,
         child: const SignUpPage(),
       ),

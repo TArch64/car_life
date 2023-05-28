@@ -33,7 +33,7 @@ class _AmplifyQueryState<TModel extends Model> extends State<AmplifyQuery> {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<QuerySnapshot<TModel>>(
       stream: _stream,
       builder: widget.builder,
     );
