@@ -1,4 +1,17 @@
 {
+  "signInNavigationTitle": "Sign In",
+  "@signInNavigationTitle": {
+    "description": "Sign In page > navigation title"
+  },
+  "signInFormSubmit": "Sign In",
+  "@signInFormSubmit": {
+    "description": "Sign In page > form submit"
+  },
+  "signInIncorrectCredentials": "Email or password is not correct",
+  "@signInIncorrectCredentials": {
+    "description": "Sign In page > errors > incorrect credentials"
+  },
+
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"
@@ -40,6 +53,15 @@
     "description": "Edit event page > edit event button"
   },
 
+  "formEmailLabel": "Email",
+  "@formEmailLabel": {
+    "description": "Form > email field label"
+  },
+  "formPasswordLabel": "Password",
+  "@formPasswordLabel": {
+    "description": "Form > password field label"
+  },
+
   "formNameLabel": "Name",
   "@formNameLabel": {
     "description": "Form > name field label"
@@ -78,6 +100,14 @@
   "@formRequired": {
     "description": "Form > validations > required field"
   },
+  "formEmailFormat": "The email has invalid format",
+  "@formEmailFormat": {
+    "description": "Form > validations > email field"
+  },
+  "formMinLength": "Should has at least {value} symbols",
+  "@formMinLength": {
+    "description": "Form > validations > email field"
+  },
   "formMinNumber": "Can't be less than {value}",
   "@formMinNumber": {
     "description": "Form > validations > min number value"
@@ -98,5 +128,18 @@
   "confirmDeleteAction": "Delete",
   "@confirmDeleteAction": {
     "description": "Confirm delete > delete button title"
+  },
+
+  "alertOk": "Ok",
+  "@alertOk": {
+    "description": "alert > ok action"
+  },
+  "alertTitleError": "Error",
+  "@alertTitleError": {
+    "description": "alert > common titles > error"
+  },
+  "alertCommonError": "Something went wrong",
+  "@alertCommonError": {
+    "description": "alert > common messages > error"
   }
 }

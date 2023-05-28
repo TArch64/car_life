@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 
+export 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+
 abstract class _AuthData {
   final String email;
   final String password;

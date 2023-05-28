@@ -1,4 +1,8 @@
 {
+  "signInNavigationTitle": "Увійти",
+  "signInFormSubmit": "Увійти",
+  "signInIncorrectCredentials": "Не вірна пошта або пароль",
+
   "addCarNavigationTitle": "Додайте ваше авто",
   "addCarFormSubmit": "Додати",
 
@@ -13,6 +17,8 @@
   "editEventNavigationTitle": "Оновити \"{name}\"",
   "editEventFormSubmit": "Оновити",
 
+  "formEmailLabel": "Пошта",
+  "formPasswordLabel": "Пароль",
   "formNameLabel": "Назва",
   "formMileageLabel": "Пробіг",
   "formMileageRecurrenceSwitchLabel": "Повторювати",
@@ -23,10 +29,16 @@
   "formMileageRecurrenceEndsAfterCountLabel": "Повторень",
 
   "formRequired": "Обовʼязкове поле",
+  "formEmailFormat": "Не правильний формат пошти",
+  "formMinLength": "Повинно бути не менш ніж {value} символів",
   "formMinNumber": "Не може бути менше ніж {value}",
 
   "confirmDeleteTitle": "Видалити?",
   "confirmDeleteCancelAction": "Відмінити",
   "confirmDeleteQuestion": "Ви впевнені що хочете видалити {name}?",
-  "confirmDeleteAction": "Видалити"
+  "confirmDeleteAction": "Видалити",
+
+  "alertOk": "Зрозуміло",
+  "alertTitleError": "Помилка",
+  "alertCommonError": "Щось пішло не так"
 }

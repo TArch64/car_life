@@ -27,7 +27,7 @@ class EventMileageField extends FormField<EventMileage> {
     return CupertinoTextFormFieldRow(
       prefix: Text(state.context.l10n.formMileageLabel),
       validator: Validators.minInt(state.context, min: 0),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: state.widget.autovalidateMode,
       keyboardType: TextInputType.number,
       initialValue: state.value?.value.toString(),
       onSaved: (newValue) {
@@ -65,7 +65,7 @@ class EventMileageField extends FormField<EventMileage> {
     return CupertinoTextFormFieldRow(
       prefix: Text(state.context.l10n.formMileageRecurrenceIntervalLabel),
       validator: Validators.minInt(state.context, min: 500),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: state.widget.autovalidateMode,
       keyboardType: TextInputType.number,
       initialValue: state.value!.recurrenceInterval.toString(),
       onChanged: (newValue) {
@@ -103,7 +103,7 @@ class EventMileageField extends FormField<EventMileage> {
     return CupertinoTextFormFieldRow(
       prefix: Text(state.context.l10n.formMileageRecurrenceEndsAfterCountLabel),
       validator: Validators.minInt(state.context, min: 2),
-      autovalidateMode: AutovalidateMode.onUserInteraction,
+      autovalidateMode: state.widget.autovalidateMode,
       keyboardType: TextInputType.number,
       initialValue: state.value!.recurrenceCount.toString(),
       onChanged: (newValue) {
