@@ -75,7 +75,7 @@ class _AddCarFormState extends State<AddCarForm> {
   _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final session = context.inject<AppSession>();
+      final session = context.inject<AppSession>(listen: false);
       widget.onSubmit(Car(
         userId: session.user!.userId,
         name: _nameController.value.text,

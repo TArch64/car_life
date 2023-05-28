@@ -23,17 +23,20 @@ class _AmplifyQueryState<TModel extends Model> extends State<AmplifyQuery> {
   late Stream<QuerySnapshot<TModel>> _stream;
 
   @override
+  AmplifyQuery<TModel> get widget => super.widget as AmplifyQuery<TModel>;
+
+  @override
   void initState() {
     super.initState();
-    _stream = Amplify.DataStore.observeQuery<TModel>(
-      widget.type as ModelType<TModel>,
+    _stream = Amplify.DataStore.observeQuery(
+      widget.type,
       where: widget.where,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot<TModel>>(
+    return StreamBuilder(
       stream: _stream,
       builder: widget.builder,
     );
