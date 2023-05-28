@@ -1,24 +1,26 @@
 import 'package:flutter/cupertino.dart';
 
 class PageLayout extends StatelessWidget {
+  final String? navigationTitle;
+  final String? backTitle;
+  final bool inlineNavigationTitle;
+  final Widget? navigationAppend;
+  final Widget? navigationPrepend;
+  final Color? backgroundColor;
+  final bool bottomScreenSafeOffset;
+  final Widget child;
+
   const PageLayout({
     super.key,
     this.navigationTitle,
     this.backTitle,
     this.navigationAppend,
+    this.navigationPrepend,
     this.inlineNavigationTitle = false,
     this.backgroundColor,
     this.bottomScreenSafeOffset = true,
     required this.child,
   });
-
-  final String? navigationTitle;
-  final String? backTitle;
-  final bool inlineNavigationTitle;
-  final Widget? navigationAppend;
-  final Color? backgroundColor;
-  final bool bottomScreenSafeOffset;
-  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class PageLayout extends StatelessWidget {
     return CupertinoNavigationBar(
       middle: Text(navigationTitle!),
       previousPageTitle: backTitle,
+      leading: navigationPrepend,
       trailing: navigationAppend
     );
   }

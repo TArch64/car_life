@@ -56,6 +56,13 @@
 
 
 
+  "signOutTitle": "Sign Out",
+  "@signOutTitle": {
+    "description": "Sign Out > action title"
+  },
+
+
+
   "addCarNavigationTitle": "Add your car",
   "@addCarNavigationTitle": {
     "description": "Add car page > navigation title"

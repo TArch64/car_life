@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:car_life/auth_api.dart';
+import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/Car.dart';
 import 'package:car_life/models/Event.dart';
 import 'package:car_life/pages/base/page_layout.dart';
+import 'package:car_life/pages/base/button_dropdown.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
 
 import 'events_group.dart';
@@ -47,9 +50,21 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   Widget build(BuildContext context) {
     final car = context.inject<Car>();
+    final auth = context.inject<AuthAPI>();
     final borderColor = EventsGroupCell.accentColor(context);
     return PageLayout(
       navigationTitle: car.name,
+      navigationPrepend: ButtonDropdown(
+        padding: const EdgeInsets.all(4),
+        actions: [
+          ButtonDropdownAction(
+            isDestructiveAction: true,
+            child: Text(context.l10n.signOutTitle),
+            onPressed: () => auth.signOut(),
+          ),
+        ],
+        child: const Icon(CupertinoIcons.ellipsis_vertical),
+      ),
       navigationAppend: CupertinoButton(
         padding: const EdgeInsets.all(4),
         onPressed: () => _initiateAddEvent(context),
