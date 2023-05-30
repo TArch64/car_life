@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/auth_api.dart';
+import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/theme.dart';

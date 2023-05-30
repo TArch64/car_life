@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/auth_api.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/Car.dart';
 import 'package:car_life/models/Event.dart';
+import 'package:car_life/pages/app_screen.dart';
+import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 import 'package:car_life/pages/base/button_dropdown.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
@@ -50,7 +51,6 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   Widget build(BuildContext context) {
     final car = context.inject<Car>();
-    final auth = context.inject<AuthAPI>();
     final borderColor = EventsGroupCell.accentColor(context);
     return PageLayout(
       navigationTitle: car.name,
@@ -60,7 +60,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
           ButtonDropdownAction(
             isDestructiveAction: true,
             child: Text(context.l10n.signOutTitle),
-            onPressed: () => auth.signOut(),
+            onPressed: () => _signOut(context),
           ),
         ],
         child: const Icon(CupertinoIcons.ellipsis_vertical),
@@ -110,5 +110,13 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   List<Event> _selectGroupEvents(EventsGroupData group, QuerySnapshot<Event>? snapshot) {
     return snapshot?.items.where((event) => group.eventInGroup(event)).toList() ?? [];
+  }
+
+  _signOut(BuildContext context) async {
+    final auth = context.inject<AuthAPI>(listen: false);
+    await auth.signOut();
+    await Navigator.pushReplacement(context, CupertinoPageRoute(
+      builder: (_) => const AppScreen(),
+    ));
   }
 }

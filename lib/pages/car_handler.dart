@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/auth_api.dart';
+import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/models/Car.dart';
 
-import 'pages/base/page_loader.dart';
+import 'base/page_loader.dart';
 
 class CarHandler extends StatelessWidget {
   CarHandler({

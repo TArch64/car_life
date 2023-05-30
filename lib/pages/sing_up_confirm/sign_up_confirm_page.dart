@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/auth_api.dart';
 import 'package:car_life/core/alert.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/pages/app_screen.dart';
+import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import 'sign_up_confirm_form.dart';
@@ -42,6 +43,9 @@ class _SignUpConfirmPageState extends State<SignUpConfirmPage> {
       await auth.confirmSignUp(ConfirmSignUpData(
         auth: widget.authData,
         code: code
+      ));
+      await Navigator.pushReplacement(context, CupertinoPageRoute(
+        builder: (_) => const AppScreen(),
       ));
     } catch(error) {
       setState(() => _confirming = false);

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/auth_api.dart';
 import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
+import 'package:car_life/pages/app_screen.dart';
+import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../sing_up_confirm/sign_up_confirm_page.dart';
@@ -42,6 +43,9 @@ class _SignInPageState extends State<SignInPage> {
         context: context,
         text: context.l10n.signInIncorrectCredentials
       );
+      await Navigator.pushReplacement(context, CupertinoPageRoute(
+        builder: (_) => const AppScreen(),
+      ));
     } on UserNotConfirmedException catch (_) {
       await Navigator.pushReplacement(context, CupertinoPageRoute(
         builder: (_) => Provider.value(

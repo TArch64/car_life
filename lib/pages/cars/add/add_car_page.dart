@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/models/Car.dart';
 
 import '../../base/page_layout.dart';
@@ -32,5 +33,8 @@ class _AddCarPageState extends State<AddCarPage> {
   _addCar(Car car) async {
     setState(() => _creating = true);
     await Amplify.DataStore.save(car);
+    await Navigator.pushReplacement(context, CupertinoPageRoute(
+      builder: (_) => const AppScreen(),
+    ));
   }
 }

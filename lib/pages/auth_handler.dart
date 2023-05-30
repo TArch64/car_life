@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/pages/base/page_loader.dart';
 
-import 'core/provider.dart';
+import '../core/provider.dart';
 import 'auth_api.dart';
 
 class AuthHandler extends StatefulWidget {
