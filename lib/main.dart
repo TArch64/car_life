@@ -4,6 +4,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'amplifyconfiguration.dart';
 import 'core/localization.dart';
@@ -28,12 +29,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'CarLife',
-      theme: AppTheme.create(),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: const AppScreen(),
+    return MultiBlocProvider(
+      providers: [
+
+      ],
+      child: CupertinoApp(
+        title: 'CarLife',
+        theme: AppTheme.create(),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        home: const AppScreen(),
+      )
     );
   }
 }

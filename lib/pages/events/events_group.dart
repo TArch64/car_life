@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/Event.dart';
 import 'package:car_life/models/Car.dart';
 
@@ -67,7 +67,7 @@ class EventsGroup extends StatelessWidget {
   }
 
   _openAdd(BuildContext context) {
-    final car = context.inject<Car>(listen: false);
+    final car = Provider.of<Car>(context, listen: false);
     return Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
         value: car,
@@ -77,7 +77,7 @@ class EventsGroup extends StatelessWidget {
   }
 
   _openDetails(BuildContext context) {
-    final car = context.inject<Car>(listen: false);
+    final car = Provider.of<Car>(context, listen: false);
     Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
         value: car,

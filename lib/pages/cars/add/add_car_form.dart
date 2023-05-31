@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/pages/auth_api.dart';
-import 'package:car_life/core/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
 import 'package:car_life/models/Car.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/base/button_loader.dart';
 
 typedef AddCarSubmitForm = Function(Car car);
@@ -75,9 +75,9 @@ class _AddCarFormState extends State<AddCarForm> {
   _submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      final session = context.inject<AppSession>(listen: false);
+      final auth = context.read<AuthCubit>();
       widget.onSubmit(Car(
-        userId: session.user!.userId,
+        userId: auth.state.user!.userId,
         name: _nameController.value.text,
         mileage: int.tryParse(_mileageController.value.text)!
       ));

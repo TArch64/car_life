@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/pages/auth_api.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/validators.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/base/button_loader.dart';
 
 import '../sign_up/sign_up_page.dart';
 
-typedef OnSignIn = Function(SignInData data);
+typedef OnSignIn = Function(AuthCredentials data);
 
 class SignInForm extends StatefulWidget {
   final bool signingIn;
@@ -92,7 +91,7 @@ class _SignInFormState extends State<SignInForm> {
   _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      widget.onSignIn(SignInData(
+      widget.onSignIn(AuthCredentials(
         email: _emailController.value.text,
         password: _passwordController.value.text
       ));
@@ -100,12 +99,8 @@ class _SignInFormState extends State<SignInForm> {
   }
 
   _openSignUp(BuildContext context) {
-    final auth = context.inject<AuthAPI>(listen: false);
     Navigator.pushReplacement(context, CupertinoPageRoute(
-      builder: (_) => Provider.value(
-        value: auth,
-        child: const SignUpPage(),
-      ),
+      builder: (_) => const SignUpPage(),
     ));
   }
 }

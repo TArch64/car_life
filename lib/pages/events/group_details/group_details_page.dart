@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/pages/base/page_layout.dart';
@@ -35,7 +35,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> with InitStateDepen
   }
 
   _listenGroupEvents(BuildContext context) {
-    final car = context.inject<Car>();
+    final car = Provider.of<Car>(context, listen: false);
     final eventsQuery = Amplify.DataStore.observeQuery(
       Event.classType,
       where: Event.CARID.eq(car.id)

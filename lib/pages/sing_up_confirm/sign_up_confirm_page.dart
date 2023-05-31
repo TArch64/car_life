@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/alert.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/app_screen.dart';
-import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import 'sign_up_confirm_form.dart';
 
 class SignUpConfirmPage extends StatefulWidget {
-  final AuthData authData;
+  final AuthCredentials credentials;
 
   const SignUpConfirmPage({
     super.key,
-    required this.authData
+    required this.credentials
   });
 
   @override
@@ -38,10 +38,10 @@ class _SignUpConfirmPageState extends State<SignUpConfirmPage> {
 
   _confirm(BuildContext context, String code) async {
     setState(() => _confirming = true);
-    final auth = context.inject<AuthAPI>(listen: false);
+    final auth = context.read<AuthCubit>();
     try {
       await auth.confirmSignUp(ConfirmSignUpData(
-        auth: widget.authData,
+        credentials: widget.credentials,
         code: code
       ));
       await Navigator.pushReplacement(context, CupertinoPageRoute(

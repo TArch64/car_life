@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/core/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/app_screen.dart';
-import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../sing_up_confirm/sign_up_confirm_page.dart';
@@ -32,11 +33,11 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  _signIn(BuildContext context, SignInData data) async {
+  _signIn(BuildContext context, AuthCredentials credentials) async {
     setState(() => _signingIn = true);
-    final auth = context.inject<AuthAPI>(listen: false);
+    final auth = context.read<AuthCubit>();
     try {
-      await auth.signIn(data);
+      await auth.signIn(credentials);
     } on UserNotFoundException catch (_) {
       setState(() => _signingIn = false);
       Alert.showError(
@@ -48,10 +49,7 @@ class _SignInPageState extends State<SignInPage> {
       ));
     } on UserNotConfirmedException catch (_) {
       await Navigator.pushReplacement(context, CupertinoPageRoute(
-        builder: (_) => Provider.value(
-          value: auth,
-          child: SignUpConfirmPage(authData: data),
-        ),
+        builder: (_) => SignUpConfirmPage(credentials: credentials),
       ));
     } catch(error) {
       setState(() => _signingIn = false);

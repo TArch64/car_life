@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
-import 'package:car_life/core/provider.dart';
 import 'package:car_life/models/Car.dart';
 import 'package:car_life/models/Event.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/app_screen.dart';
-import 'package:car_life/pages/auth_api.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 import 'package:car_life/pages/base/button_dropdown.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
@@ -29,7 +29,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   @override
   void didInitDependencies() {
     super.didInitDependencies();
-    final car = context.inject<Car>();
+    final car = Provider.of<Car>(context, listen: false);
     final groupData = EventsGroupData.fromMileage(car.mileage);
     _scrollController = ScrollController(
       initialScrollOffset: _indexToScrollOffset(context, groupData.index)
@@ -50,7 +50,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   @override
   Widget build(BuildContext context) {
-    final car = context.inject<Car>();
+    final car = Provider.of<Car>(context, listen: false);
     final borderColor = EventsGroupCell.accentColor(context);
     return PageLayout(
       navigationTitle: car.name,
@@ -99,7 +99,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
     final group = EventsGroupData(index);
-    final car = context.inject<Car>(listen: false);
+    final car = Provider.of<Car>(context, listen: false);
     Navigator.push(context, CupertinoPageRoute(
       builder: (_) => Provider.value(
         value: car,
@@ -113,8 +113,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
   }
 
   _signOut(BuildContext context) async {
-    final auth = context.inject<AuthAPI>(listen: false);
-    await auth.signOut();
+    await context.read<AuthCubit>().signOut();
     await Navigator.pushReplacement(context, CupertinoPageRoute(
       builder: (_) => const AppScreen(),
     ));

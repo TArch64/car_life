@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:car_life/pages/auth_api.dart';
-import 'package:car_life/core/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
+import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../sing_up_confirm/sign_up_confirm_page.dart';
@@ -31,16 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  _signUp(BuildContext context, SignUpData data) async {
+  _signUp(BuildContext context, AuthCredentials credentials) async {
     setState(() => _signingUp = true);
-    final auth = context.inject<AuthAPI>(listen: false);
+    final auth = context.read<AuthCubit>();
     try {
-      await auth.signUp(data);
+      await auth.signUp(credentials);
       await Navigator.pushReplacement(context, CupertinoPageRoute(
-        builder: (_) => Provider.value(
-          value: auth,
-          child: SignUpConfirmPage(authData: data),
-        ),
+        builder: (_) => SignUpConfirmPage(credentials: credentials),
       ));
     } catch(error) {
       setState(() => _signingUp = false);
