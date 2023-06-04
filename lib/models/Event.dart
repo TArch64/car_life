@@ -34,7 +34,6 @@ class Event extends Model {
   final EventMileage? _mileage;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
-  final String? _eventMileageId;
 
   @override
   getInstanceType() => classType;
@@ -96,28 +95,14 @@ class Event extends Model {
     return _updatedAt;
   }
   
-  String get eventMileageId {
-    try {
-      return _eventMileageId!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
+  const Event._internal({required this.id, required name, required carId, required mileage, createdAt, updatedAt}): _name = name, _carId = carId, _mileage = mileage, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  const Event._internal({required this.id, required name, required carId, required mileage, createdAt, updatedAt, required eventMileageId}): _name = name, _carId = carId, _mileage = mileage, _createdAt = createdAt, _updatedAt = updatedAt, _eventMileageId = eventMileageId;
-  
-  factory Event({String? id, required String name, required String carId, required EventMileage mileage, required String eventMileageId}) {
+  factory Event({String? id, required String name, required String carId, required EventMileage mileage}) {
     return Event._internal(
       id: id == null ? UUID.getUUID() : id,
       name: name,
       carId: carId,
-      mileage: mileage,
-      eventMileageId: eventMileageId);
+      mileage: mileage);
   }
   
   bool equals(Object other) {
@@ -131,8 +116,7 @@ class Event extends Model {
       id == other.id &&
       _name == other._name &&
       _carId == other._carId &&
-      _mileage == other._mileage &&
-      _eventMileageId == other._eventMileageId;
+      _mileage == other._mileage;
   }
   
   @override
@@ -146,21 +130,20 @@ class Event extends Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("carId=" + "$_carId" + ", ");
+    buffer.write("mileage=" + (_mileage != null ? _mileage!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null") + ", ");
-    buffer.write("eventMileageId=" + "$_eventMileageId");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  Event copyWith({String? name, String? carId, EventMileage? mileage, String? eventMileageId}) {
+  Event copyWith({String? name, String? carId, EventMileage? mileage}) {
     return Event._internal(
       id: id,
       name: name ?? this.name,
       carId: carId ?? this.carId,
-      mileage: mileage ?? this.mileage,
-      eventMileageId: eventMileageId ?? this.eventMileageId);
+      mileage: mileage ?? this.mileage);
   }
   
   Event.fromJson(Map<String, dynamic> json)  
@@ -171,25 +154,21 @@ class Event extends Model {
         ? EventMileage.fromJson(new Map<String, dynamic>.from(json['mileage']['serializedData']))
         : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null,
-      _eventMileageId = json['eventMileageId'];
+      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'carId': _carId, 'mileage': _mileage?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format(), 'eventMileageId': _eventMileageId
+    'id': id, 'name': _name, 'carId': _carId, 'mileage': _mileage?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'name': _name, 'carId': _carId, 'mileage': _mileage, 'createdAt': _createdAt, 'updatedAt': _updatedAt, 'eventMileageId': _eventMileageId
+    'id': id, 'name': _name, 'carId': _carId, 'mileage': _mileage, 'createdAt': _createdAt, 'updatedAt': _updatedAt
   };
 
   static final QueryModelIdentifier<EventModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<EventModelIdentifier>();
   static final QueryField ID = QueryField(fieldName: "id");
   static final QueryField NAME = QueryField(fieldName: "name");
   static final QueryField CARID = QueryField(fieldName: "carId");
-  static final QueryField MILEAGE = QueryField(
-    fieldName: "mileage",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: 'EventMileage'));
-  static final QueryField EVENTMILEAGEID = QueryField(fieldName: "eventMileageId");
+  static final QueryField MILEAGE = QueryField(fieldName: "mileage");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Event";
     modelSchemaDefinition.pluralName = "Events";
@@ -223,11 +202,10 @@ class Event extends Model {
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasOne(
-      key: Event.MILEAGE,
+    modelSchemaDefinition.addField(ModelFieldDefinition.embedded(
+      fieldName: 'mileage',
       isRequired: true,
-      ofModelName: 'EventMileage',
-      associatedKey: EventMileage.ID
+      ofType: ModelFieldType(ModelFieldTypeEnum.embedded, ofCustomTypeName: 'EventMileage')
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -242,12 +220,6 @@ class Event extends Model {
       isRequired: false,
       isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Event.EVENTMILEAGEID,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }

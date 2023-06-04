@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/models/Event.dart';
-import 'package:car_life/models/Car.dart';
+import 'package:car_life/bloc/events_group_data.dart';
 
-import 'events_group_data.dart';
 import 'events_group_cell.dart';
 import 'add/add_event_page.dart';
 import 'group_details/group_details_page.dart';
@@ -67,22 +65,14 @@ class EventsGroup extends StatelessWidget {
   }
 
   _openAdd(BuildContext context) {
-    final car = Provider.of<Car>(context, listen: false);
     return Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => Provider.value(
-        value: car,
-        child: AddEventPage(focusedGroupData: group),
-      ),
+      builder: (_) => AddEventPage(focusedGroupData: group),
     ));
   }
 
   _openDetails(BuildContext context) {
-    final car = Provider.of<Car>(context, listen: false);
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => Provider.value(
-        value: car,
-        child: GroupDetailsPage(group: group),
-      )
+      builder: (_) => GroupDetailsPage(group: group)
     ));
   }
 }

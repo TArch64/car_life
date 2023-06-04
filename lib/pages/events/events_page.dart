@@ -1,18 +1,17 @@
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/core/amplify_query.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
-import 'package:car_life/models/Car.dart';
-import 'package:car_life/models/Event.dart';
 import 'package:car_life/bloc/auth_cubit.dart';
+import 'package:car_life/bloc/car_cubit.dart';
+import 'package:car_life/bloc/event_cubit.dart';
+import 'package:car_life/bloc/events_group_data.dart';
 import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 import 'package:car_life/pages/base/button_dropdown.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
 
 import 'events_group.dart';
-import 'events_group_data.dart';
 import 'add/add_event_page.dart';
 
 class EventsPage extends StatefulWidget {
@@ -28,12 +27,12 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   @override
   void didInitDependencies() {
-    super.didInitDependencies();
-    final car = Provider.of<Car>(context, listen: false);
+    final car = context.read<CarCubit>().state.car!;
     final groupData = EventsGroupData.fromMileage(car.mileage);
     _scrollController = ScrollController(
       initialScrollOffset: _indexToScrollOffset(context, groupData.index)
     );
+    context.read<EventCubit>().listen(car: car);
   }
 
   double _screenOffset(BuildContext context) {
@@ -50,66 +49,58 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   @override
   Widget build(BuildContext context) {
-    final car = Provider.of<Car>(context, listen: false);
-    final borderColor = EventsGroupCell.accentColor(context);
-    return PageLayout(
-      navigationTitle: car.name,
-      navigationPrepend: ButtonDropdown(
-        padding: const EdgeInsets.all(4),
-        actions: [
-          ButtonDropdownAction(
-            isDestructiveAction: true,
-            child: Text(context.l10n.signOutTitle),
-            onPressed: () => _signOut(context),
+    return BlocBuilder<CarCubit, CarCubitState>(
+      builder: (context, carState) {
+        final borderColor = EventsGroupCell.accentColor(context);
+        return PageLayout(
+          navigationTitle: carState.car!.name,
+          navigationPrepend: ButtonDropdown(
+            padding: const EdgeInsets.all(4),
+            actions: [
+              ButtonDropdownAction(
+                isDestructiveAction: true,
+                child: Text(context.l10n.signOutTitle),
+                onPressed: () => _signOut(context),
+              ),
+            ],
+            child: const Icon(CupertinoIcons.ellipsis_vertical),
           ),
-        ],
-        child: const Icon(CupertinoIcons.ellipsis_vertical),
-      ),
-      navigationAppend: CupertinoButton(
-        padding: const EdgeInsets.all(4),
-        onPressed: () => _initiateAddEvent(context),
-        child: const Icon(CupertinoIcons.add),
-      ),
-      child: AmplifyQuery(
-        type: Event.classType,
-        where: Event.CARID.eq(car.id),
-        builder: (context, snapshot) => ListView.builder(
-          reverse: true,
-          controller: _scrollController,
-          itemBuilder: (_, index) {
-            final group = EventsGroupData(index);
-            return Container(
-              height: _groupHeight,
-              decoration: BoxDecoration(
-                border: index == 0 ? null : Border(
-                  bottom: BorderSide(width: 3, color: borderColor)
-                )
-              ),
-              child: EventsGroup(
-                group: group,
-                events: _selectGroupEvents(group, snapshot.data)
-              ),
-            );
-          },
-        ),
-      ),
+          navigationAppend: CupertinoButton(
+            padding: const EdgeInsets.all(4),
+            onPressed: () => _initiateAddEvent(context),
+            child: const Icon(CupertinoIcons.add),
+          ),
+          child: BlocBuilder<EventCubit, EventCubitState>(
+            builder: (_, eventsState) => ListView.builder(
+              reverse: true,
+              controller: _scrollController,
+              itemBuilder: (_, index) {
+                final group = EventsGroupData(index);
+                return Container(
+                  height: _groupHeight,
+                  decoration: BoxDecoration(
+                    border: index == 0 ? null : Border(
+                      bottom: BorderSide(width: 3, color: borderColor)
+                    )
+                  ),
+                  child: EventsGroup(
+                    group: group,
+                    events: group.selectEvents(eventsState.events),
+                  ),
+                );
+              },
+            ),
+          )
+        );
+      },
     );
   }
 
   _initiateAddEvent(BuildContext context) {
     final index = _scrollOffsetToIndex(context, _scrollController.offset);
-    final group = EventsGroupData(index);
-    final car = Provider.of<Car>(context, listen: false);
     Navigator.push(context, CupertinoPageRoute(
-      builder: (_) => Provider.value(
-        value: car,
-        child: AddEventPage(focusedGroupData: group),
-      ),
+      builder: (_) => AddEventPage(focusedGroupData: EventsGroupData(index)),
     ));
-  }
-
-  List<Event> _selectGroupEvents(EventsGroupData group, QuerySnapshot<Event>? snapshot) {
-    return snapshot?.items.where((event) => group.eventInGroup(event)).toList() ?? [];
   }
 
   _signOut(BuildContext context) async {

@@ -1,12 +1,11 @@
-import 'package:car_life/models/Event.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/core/theme.dart';
 import 'package:car_life/core/localization.dart';
+import 'package:car_life/models/Event.dart';
+import 'package:car_life/bloc/events_group_data.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
-import '../events_group_data.dart';
 import 'add_event_form.dart';
 
 class AddEventPage extends StatefulWidget {
@@ -21,7 +20,7 @@ class AddEventPage extends StatefulWidget {
   State<AddEventPage> createState() => _AddEventPageState();
 }
 
-class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesMixin {
+class _AddEventPageState extends State<AddEventPage> {
   bool _creating = false;
 
   @override
@@ -43,7 +42,6 @@ class _AddEventPageState extends State<AddEventPage> with InitStateDependenciesM
   _addCar(BuildContext context, Event creatingEvent) async {
     setState(() => _creating = true);
     await Amplify.DataStore.save(creatingEvent);
-    await Amplify.DataStore.save(creatingEvent.mileage);
     Navigator.pop(context);
   }
 }

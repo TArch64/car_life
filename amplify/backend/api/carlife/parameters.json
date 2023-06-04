@@ -2,5 +2,11 @@
   "AppSyncApiName": "carlife",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2023-05-26T18:21:43.739Z"
+  "AuthModeLastUpdated": "2023-06-04T16:17:10.359Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authcarlife",
+      "Outputs.UserPoolId"
+    ]
+  }
 }

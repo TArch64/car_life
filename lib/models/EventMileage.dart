@@ -26,30 +26,13 @@ import 'package:flutter/foundation.dart';
 
 /** This is an auto generated class representing the EventMileage type in your schema. */
 @immutable
-class EventMileage extends Model {
-  static const classType = const _EventMileageModelType();
-  final String id;
+class EventMileage {
   final EventMileageRecurrence? _recurrence;
   final int? _value;
   final int? _recurrenceInterval;
   final EventMileageRecurrenceEnds? _recurrenceEnds;
   final int? _recurrenceCount;
-  final TemporalDateTime? _createdAt;
-  final TemporalDateTime? _updatedAt;
 
-  @override
-  getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
-  @override
-  String getId() => id;
-  
-  EventMileageModelIdentifier get modelIdentifier {
-      return EventMileageModelIdentifier(
-        id: id
-      );
-  }
-  
   EventMileageRecurrence get recurrence {
     try {
       return _recurrence!;
@@ -115,19 +98,10 @@ class EventMileage extends Model {
     }
   }
   
-  TemporalDateTime? get createdAt {
-    return _createdAt;
-  }
+  const EventMileage._internal({required recurrence, required value, required recurrenceInterval, required recurrenceEnds, required recurrenceCount}): _recurrence = recurrence, _value = value, _recurrenceInterval = recurrenceInterval, _recurrenceEnds = recurrenceEnds, _recurrenceCount = recurrenceCount;
   
-  TemporalDateTime? get updatedAt {
-    return _updatedAt;
-  }
-  
-  const EventMileage._internal({required this.id, required recurrence, required value, required recurrenceInterval, required recurrenceEnds, required recurrenceCount, createdAt, updatedAt}): _recurrence = recurrence, _value = value, _recurrenceInterval = recurrenceInterval, _recurrenceEnds = recurrenceEnds, _recurrenceCount = recurrenceCount, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory EventMileage({String? id, required EventMileageRecurrence recurrence, required int value, required int recurrenceInterval, required EventMileageRecurrenceEnds recurrenceEnds, required int recurrenceCount}) {
+  factory EventMileage({required EventMileageRecurrence recurrence, required int value, required int recurrenceInterval, required EventMileageRecurrenceEnds recurrenceEnds, required int recurrenceCount}) {
     return EventMileage._internal(
-      id: id == null ? UUID.getUUID() : id,
       recurrence: recurrence,
       value: value,
       recurrenceInterval: recurrenceInterval,
@@ -143,7 +117,6 @@ class EventMileage extends Model {
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is EventMileage &&
-      id == other.id &&
       _recurrence == other._recurrence &&
       _value == other._value &&
       _recurrenceInterval == other._recurrenceInterval &&
@@ -159,14 +132,11 @@ class EventMileage extends Model {
     var buffer = new StringBuffer();
     
     buffer.write("EventMileage {");
-    buffer.write("id=" + "$id" + ", ");
     buffer.write("recurrence=" + (_recurrence != null ? enumToString(_recurrence)! : "null") + ", ");
     buffer.write("value=" + (_value != null ? _value!.toString() : "null") + ", ");
     buffer.write("recurrenceInterval=" + (_recurrenceInterval != null ? _recurrenceInterval!.toString() : "null") + ", ");
     buffer.write("recurrenceEnds=" + (_recurrenceEnds != null ? enumToString(_recurrenceEnds)! : "null") + ", ");
-    buffer.write("recurrenceCount=" + (_recurrenceCount != null ? _recurrenceCount!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("recurrenceCount=" + (_recurrenceCount != null ? _recurrenceCount!.toString() : "null"));
     buffer.write("}");
     
     return buffer.toString();
@@ -174,7 +144,6 @@ class EventMileage extends Model {
   
   EventMileage copyWith({EventMileageRecurrence? recurrence, int? value, int? recurrenceInterval, EventMileageRecurrenceEnds? recurrenceEnds, int? recurrenceCount}) {
     return EventMileage._internal(
-      id: id,
       recurrence: recurrence ?? this.recurrence,
       value: value ?? this.value,
       recurrenceInterval: recurrenceInterval ?? this.recurrenceInterval,
@@ -183,147 +152,52 @@ class EventMileage extends Model {
   }
   
   EventMileage.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _recurrence = enumFromString<EventMileageRecurrence>(json['recurrence'], EventMileageRecurrence.values),
+    : _recurrence = enumFromString<EventMileageRecurrence>(json['recurrence'], EventMileageRecurrence.values),
       _value = (json['value'] as num?)?.toInt(),
       _recurrenceInterval = (json['recurrenceInterval'] as num?)?.toInt(),
       _recurrenceEnds = enumFromString<EventMileageRecurrenceEnds>(json['recurrenceEnds'], EventMileageRecurrenceEnds.values),
-      _recurrenceCount = (json['recurrenceCount'] as num?)?.toInt(),
-      _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
+      _recurrenceCount = (json['recurrenceCount'] as num?)?.toInt();
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'recurrence': enumToString(_recurrence), 'value': _value, 'recurrenceInterval': _recurrenceInterval, 'recurrenceEnds': enumToString(_recurrenceEnds), 'recurrenceCount': _recurrenceCount, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'recurrence': enumToString(_recurrence), 'value': _value, 'recurrenceInterval': _recurrenceInterval, 'recurrenceEnds': enumToString(_recurrenceEnds), 'recurrenceCount': _recurrenceCount
   };
   
   Map<String, Object?> toMap() => {
-    'id': id, 'recurrence': _recurrence, 'value': _value, 'recurrenceInterval': _recurrenceInterval, 'recurrenceEnds': _recurrenceEnds, 'recurrenceCount': _recurrenceCount, 'createdAt': _createdAt, 'updatedAt': _updatedAt
+    'recurrence': _recurrence, 'value': _value, 'recurrenceInterval': _recurrenceInterval, 'recurrenceEnds': _recurrenceEnds, 'recurrenceCount': _recurrenceCount
   };
 
-  static final QueryModelIdentifier<EventMileageModelIdentifier> MODEL_IDENTIFIER = QueryModelIdentifier<EventMileageModelIdentifier>();
-  static final QueryField ID = QueryField(fieldName: "id");
-  static final QueryField RECURRENCE = QueryField(fieldName: "recurrence");
-  static final QueryField VALUE = QueryField(fieldName: "value");
-  static final QueryField RECURRENCEINTERVAL = QueryField(fieldName: "recurrenceInterval");
-  static final QueryField RECURRENCEENDS = QueryField(fieldName: "recurrenceEnds");
-  static final QueryField RECURRENCECOUNT = QueryField(fieldName: "recurrenceCount");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "EventMileage";
     modelSchemaDefinition.pluralName = "EventMileages";
     
-    modelSchemaDefinition.authRules = [
-      AuthRule(
-        authStrategy: AuthStrategy.PUBLIC,
-        operations: [
-          ModelOperation.CREATE,
-          ModelOperation.UPDATE,
-          ModelOperation.DELETE,
-          ModelOperation.READ
-        ])
-    ];
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.id());
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EventMileage.RECURRENCE,
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'recurrence',
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EventMileage.VALUE,
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'value',
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EventMileage.RECURRENCEINTERVAL,
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'recurrenceInterval',
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EventMileage.RECURRENCEENDS,
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'recurrenceEnds',
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.enumeration)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: EventMileage.RECURRENCECOUNT,
+    modelSchemaDefinition.addField(ModelFieldDefinition.customTypeField(
+      fieldName: 'recurrenceCount',
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
   });
-}
-
-class _EventMileageModelType extends ModelType<EventMileage> {
-  const _EventMileageModelType();
-  
-  @override
-  EventMileage fromJson(Map<String, dynamic> jsonData) {
-    return EventMileage.fromJson(jsonData);
-  }
-  
-  @override
-  String modelName() {
-    return 'EventMileage';
-  }
-}
-
-/**
- * This is an auto generated class representing the model identifier
- * of [EventMileage] in your schema.
- */
-@immutable
-class EventMileageModelIdentifier implements ModelIdentifier<EventMileage> {
-  final String id;
-
-  /** Create an instance of EventMileageModelIdentifier using [id] the primary key. */
-  const EventMileageModelIdentifier({
-    required this.id});
-  
-  @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
-  @override
-  List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
-  @override
-  String serializeAsString() => serializeAsMap().values.join('#');
-  
-  @override
-  String toString() => 'EventMileageModelIdentifier(id: $id)';
-  
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) {
-      return true;
-    }
-    
-    return other is EventMileageModelIdentifier &&
-      id == other.id;
-  }
-  
-  @override
-  int get hashCode =>
-    id.hashCode;
 }

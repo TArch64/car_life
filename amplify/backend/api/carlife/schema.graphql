@@ -1,3 +1,11 @@
+type EventMileage {
+  recurrence: EventMileageRecurrence!
+  value: Int!
+  recurrenceInterval: Int!
+  recurrenceEnds: EventMileageRecurrenceEnds!
+  recurrenceCount: Int!
+}
+
 enum EventMileageRecurrenceEnds {
   NEVER
   AFTER_COUNT
@@ -8,20 +16,11 @@ enum EventMileageRecurrence {
   RECURRING
 }
 
-type EventMileage @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  recurrence: EventMileageRecurrence!
-  value: Int!
-  recurrenceInterval: Int!
-  recurrenceEnds: EventMileageRecurrenceEnds!
-  recurrenceCount: Int!
-}
-
 type Event @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   carId: ID! @index(name: "byCar")
-  mileage: EventMileage! @hasOne
+  mileage: EventMileage!
 }
 
 type Car @model @auth(rules: [{allow: public}]) {

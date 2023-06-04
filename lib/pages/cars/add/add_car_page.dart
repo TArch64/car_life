@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/models/Car.dart';
+import 'package:car_life/bloc/car_cubit.dart';
 
 import '../../base/page_layout.dart';
 import 'add_car_form.dart';
@@ -25,14 +26,14 @@ class _AddCarPageState extends State<AddCarPage> {
       backgroundColor: CupertinoColors.secondarySystemBackground,
       child: AddCarForm(
         creating: _creating,
-        onSubmit: (car) => _addCar(car),
+        onSubmit: (car) => _addCar(context, car),
       ),
     );
   }
 
-  _addCar(Car car) async {
+  _addCar(BuildContext context, Car car) async {
     setState(() => _creating = true);
-    await Amplify.DataStore.save(car);
+    await context.read<CarCubit>().updateCar(car);
     await Navigator.pushReplacement(context, CupertinoPageRoute(
       builder: (_) => const AppScreen(),
     ));

@@ -27,11 +27,14 @@ class AuthCubitState {
   final bool isInited;
   bool get isSignedIn => user != null;
 
-  const AuthCubitState._(this.user, this.isInited);
+  const AuthCubitState._({
+    this.user,
+    this.isInited = true
+  });
 }
 
 class AuthCubit extends Cubit<AuthCubitState> {
-  AuthCubit(): super(const AuthCubitState._(null, false));
+  AuthCubit(): super(const AuthCubitState._(isInited: false));
 
   signUp(AuthCredentials credentials) async {
     await Amplify.Auth.signUp(
@@ -68,6 +71,6 @@ class AuthCubit extends Cubit<AuthCubitState> {
   update() async {
     final session = await Amplify.Auth.fetchAuthSession();
     final user = session.isSignedIn ? await Amplify.Auth.getCurrentUser() : null;
-    emit(AuthCubitState._(user, true));
+    emit(AuthCubitState._(user: user));
   }
 }

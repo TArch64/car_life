@@ -32,12 +32,12 @@ export 'EventMileageRecurrenceEnds.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "6c0b05c7f6edb5d38be69070316e1417";
+  String version = "4f74cc776540ec0481e10b957fe357bb";
   @override
-  List<ModelSchema> modelSchemas = [Car.schema, Event.schema, EventMileage.schema];
+  List<ModelSchema> modelSchemas = [Car.schema, Event.schema];
   static final ModelProvider _instance = ModelProvider();
   @override
-  List<ModelSchema> customTypeSchemas = [];
+  List<ModelSchema> customTypeSchemas = [EventMileage.schema];
 
   static ModelProvider get instance => _instance;
   
@@ -47,8 +47,6 @@ class ModelProvider implements ModelProviderInterface {
         return Car.classType;
       case "Event":
         return Event.classType;
-      case "EventMileage":
-        return EventMileage.classType;
       default:
         throw Exception("Failed to find model in model provider for model name: " + modelName);
     }

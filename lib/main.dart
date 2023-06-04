@@ -1,15 +1,15 @@
-import 'package:car_life/pages/app_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'amplifyconfiguration.dart';
 import 'core/localization.dart';
 import 'core/theme.dart';
 import 'models/ModelProvider.dart';
+import 'bloc/app_bloc_provider.dart';
+import 'pages/app_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-
-      ],
+    return AppBlocProvider(
       child: CupertinoApp(
         title: 'CarLife',
         theme: AppTheme.create(),

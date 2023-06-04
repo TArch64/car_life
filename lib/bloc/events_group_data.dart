@@ -15,17 +15,18 @@ class EventsGroupData {
   int get fromMileage => index * step;
   int get toMileage => (index + 1) * step;
 
-  bool eventInGroup(Event event) {
+  List<Event> selectEvents(List<Event> events) {
+    return events.where((event) => isEventInGroup(event)).toList();
+  }
+
+  bool isEventInGroup(Event event) {
     final mileage = event.mileage;
     final isRecurring = mileage.recurrence == EventMileageRecurrence.RECURRING;
-
     if (!isRecurring) {
       return inGroup(mileage.value);
     }
-
     int recurringValue = mileage.value;
     int recurringIteration = 1;
-
     while(true) {
       if (inGroup(recurringValue)) {
         return true;
