@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:car_life/bloc/auth_cubit.dart';
-import 'package:car_life/bloc/car_cubit.dart';
 
-import 'base/page_loader.dart';
+import 'bloc/auth_cubit.dart';
+import 'bloc/car_cubit.dart';
+import 'pages/base/page_loader.dart';
+import 'application_wrapper.dart';
 
 class CarHandler extends StatefulWidget {
   const CarHandler({
@@ -28,16 +29,22 @@ class _CarHandlerState extends State<CarHandler> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return BlocBuilder<CarCubit, CarCubitState>(
-      builder: (_, state) {
+      builder: (context, state) {
         if (!state.isInited) {
-          return const CupertinoPageScaffold(child: PageLoader());
+          return const ApplicationWrapper(
+            child: CupertinoPageScaffold(child: PageLoader()),
+          );
         }
         if (state.car == null) {
-          return widget.buildCreateCar(context);
+          return ApplicationWrapper(
+            child: widget.buildCreateCar(context),
+          );
         }
-        return widget.buildActiveCar(context);
+        return ApplicationWrapper(
+          child: widget.buildActiveCar(context),
+        );
       },
     );
   }

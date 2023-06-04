@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/models/Car.dart';
 import 'package:car_life/bloc/car_cubit.dart';
 
@@ -34,8 +33,5 @@ class _AddCarPageState extends State<AddCarPage> {
   _addCar(BuildContext context, Car car) async {
     setState(() => _creating = true);
     await context.read<CarCubit>().updateCar(car);
-    await Navigator.pushReplacement(context, CupertinoPageRoute(
-      builder: (_) => const AppScreen(),
-    ));
   }
 }

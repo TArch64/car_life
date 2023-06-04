@@ -23,12 +23,12 @@ class EventsGroupData {
     final mileage = event.mileage;
     final isRecurring = mileage.recurrence == EventMileageRecurrence.RECURRING;
     if (!isRecurring) {
-      return inGroup(mileage.value);
+      return isInGroup(mileage.value);
     }
     int recurringValue = mileage.value;
     int recurringIteration = 1;
     while(true) {
-      if (inGroup(recurringValue)) {
+      if (isInGroup(recurringValue)) {
         return true;
       }
       if (recurringValue > toMileage) {
@@ -43,7 +43,7 @@ class EventsGroupData {
     }
   }
 
-  bool inGroup(int mileage) {
+  bool isInGroup(int mileage) {
     return mileage >= fromMileage && mileage < toMileage;
   }
 

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:car_life/core/localization.dart';
-import 'package:car_life/bloc/event_cubit.dart';
+import 'package:car_life/bloc/events_cubit.dart';
 import 'package:car_life/bloc/events_group_data.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
@@ -23,7 +23,7 @@ class GroupDetailsPage extends StatefulWidget {
 }
 
 class _GroupDetailsPageState extends State<GroupDetailsPage> {
-  late StreamSubscription<EventCubitState> _eventsSubscription;
+  late StreamSubscription<EventsCubitState> _eventsSubscription;
 
   @override
   void initState() {
@@ -32,7 +32,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
   }
 
   _listenGroupEvents(BuildContext context) {
-    _eventsSubscription = context.read<EventCubit>().stream.listen((state) {
+    _eventsSubscription = context.read<EventsCubit>().stream.listen((state) {
       if (state.events.isEmpty) {
         Navigator.pop(context);
       }
@@ -52,7 +52,7 @@ class _GroupDetailsPageState extends State<GroupDetailsPage> {
     return PageLayout(
       navigationTitle: "$fromMileage - $toMileage",
       backTitle: context.l10n.eventsGroupDetailsBackTitle,
-      child: BlocBuilder<EventCubit, EventCubitState>(
+      child: BlocBuilder<EventsCubit, EventsCubitState>(
         builder: (_, state) {
           if (state.events.isEmpty) {
             return Container();

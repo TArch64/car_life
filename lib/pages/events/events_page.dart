@@ -4,9 +4,8 @@ import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/init_state_dependencies.dart';
 import 'package:car_life/bloc/auth_cubit.dart';
 import 'package:car_life/bloc/car_cubit.dart';
-import 'package:car_life/bloc/event_cubit.dart';
+import 'package:car_life/bloc/events_cubit.dart';
 import 'package:car_life/bloc/events_group_data.dart';
-import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 import 'package:car_life/pages/base/button_dropdown.dart';
 import 'package:car_life/pages/events/events_group_cell.dart';
@@ -32,7 +31,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
     _scrollController = ScrollController(
       initialScrollOffset: _indexToScrollOffset(context, groupData.index)
     );
-    context.read<EventCubit>().listen(car: car);
+    context.read<EventsCubit>().listen(car: car);
   }
 
   double _screenOffset(BuildContext context) {
@@ -70,7 +69,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
             onPressed: () => _initiateAddEvent(context),
             child: const Icon(CupertinoIcons.add),
           ),
-          child: BlocBuilder<EventCubit, EventCubitState>(
+          child: BlocBuilder<EventsCubit, EventsCubitState>(
             builder: (_, eventsState) => ListView.builder(
               reverse: true,
               controller: _scrollController,
@@ -86,6 +85,7 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
                   child: EventsGroup(
                     group: group,
                     events: group.selectEvents(eventsState.events),
+                    car: carState.car!,
                   ),
                 );
               },
@@ -105,8 +105,5 @@ class _EventsPageState extends State<EventsPage> with InitStateDependenciesMixin
 
   _signOut(BuildContext context) async {
     await context.read<AuthCubit>().signOut();
-    await Navigator.pushReplacement(context, CupertinoPageRoute(
-      builder: (_) => const AppScreen(),
-    ));
   }
 }

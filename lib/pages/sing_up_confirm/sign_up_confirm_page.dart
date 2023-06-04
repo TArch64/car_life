@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/core/alert.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/bloc/auth_cubit.dart';
-import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import 'sign_up_confirm_form.dart';
@@ -43,9 +42,6 @@ class _SignUpConfirmPageState extends State<SignUpConfirmPage> {
       await auth.confirmSignUp(ConfirmSignUpData(
         credentials: widget.credentials,
         code: code
-      ));
-      await Navigator.pushReplacement(context, CupertinoPageRoute(
-        builder: (_) => const AppScreen(),
       ));
     } catch(error) {
       setState(() => _confirming = false);

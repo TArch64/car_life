@@ -4,7 +4,6 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/core/alert.dart';
 import 'package:car_life/bloc/auth_cubit.dart';
-import 'package:car_life/pages/app_screen.dart';
 import 'package:car_life/pages/base/page_layout.dart';
 
 import '../sing_up_confirm/sign_up_confirm_page.dart';
@@ -35,18 +34,14 @@ class _SignInPageState extends State<SignInPage> {
 
   _signIn(BuildContext context, AuthCredentials credentials) async {
     setState(() => _signingIn = true);
-    final auth = context.read<AuthCubit>();
     try {
-      await auth.signIn(credentials);
+      await context.read<AuthCubit>().signIn(credentials);
     } on UserNotFoundException catch (_) {
       setState(() => _signingIn = false);
       Alert.showError(
         context: context,
         text: context.l10n.signInIncorrectCredentials
       );
-      await Navigator.pushReplacement(context, CupertinoPageRoute(
-        builder: (_) => const AppScreen(),
-      ));
     } on UserNotConfirmedException catch (_) {
       await Navigator.pushReplacement(context, CupertinoPageRoute(
         builder: (_) => SignUpConfirmPage(credentials: credentials),

@@ -5,16 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:car_life/models/Car.dart';
 import 'package:car_life/models/Event.dart';
 
-class EventCubitState {
+class EventsCubitState {
   final List<Event> events;
 
-  const EventCubitState._({ required this.events });
+  const EventsCubitState._({ required this.events });
 }
 
-class EventCubit extends Cubit<EventCubitState> {
+class EventsCubit extends Cubit<EventsCubitState> {
   StreamSubscription<QuerySnapshot<Event>>? _subscription;
 
-  EventCubit(): super(const EventCubitState._(events: []));
+  EventsCubit(): super(const EventsCubitState._(events: []));
 
   listen({ required Car car }) async {
     _subscription?.cancel();
@@ -23,7 +23,7 @@ class EventCubit extends Cubit<EventCubitState> {
       where: Event.CARID.eq(car.id),
     );
     _subscription = stream.listen((snapshot) async {
-      emit(EventCubitState._(events: snapshot.items));
+      emit(EventsCubitState._(events: snapshot.items));
     });
   }
 }

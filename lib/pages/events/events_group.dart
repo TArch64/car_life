@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:car_life/core/localization.dart';
 import 'package:car_life/models/Event.dart';
+import 'package:car_life/models/Car.dart';
 import 'package:car_life/bloc/events_group_data.dart';
 
 import 'events_group_cell.dart';
@@ -9,26 +10,35 @@ import 'group_details/group_details_page.dart';
 
 class EventsGroup extends StatelessWidget {
   final EventsGroupData group;
+  final Car car;
   final List<Event> events;
 
   const EventsGroup({
     super.key,
     required this.group,
-    required this.events
+    required this.car,
+    required this.events,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        decoration: const BoxDecoration(color: CupertinoColors.systemBackground),
-        child: Row(children: _eventWidgets(context, events) + [_mileageWidget(context)])
+        decoration: BoxDecoration(color: _rowBackground),
+        child: Row(children: _eventCells(context) + [_mileageCell(context)]),
       ),
       onTap: () => events.isEmpty ? _openAdd(context) : _openDetails(context),
     );
   }
 
-  Widget _mileageWidget(BuildContext context) {
+  Color get _rowBackground {
+    if (group.isInGroup(car.mileage)) {
+      return CupertinoColors.systemFill.withOpacity(0.05);
+    }
+    return CupertinoColors.systemBackground;
+  }
+
+  Widget _mileageCell(BuildContext context) {
     return EventsGroupCell.text(EventsGroupData.formatMileage(group.fromMileage),
       size: 1,
       decoration: BoxDecoration(
@@ -37,7 +47,7 @@ class EventsGroup extends StatelessWidget {
     );
   }
 
-  List<Widget> _eventWidgets(BuildContext context, List<Event> events) {
+  List<Widget> _eventCells(BuildContext context) {
     if (events.isEmpty) {
       return [EventsGroupCell.none(size: 2)];
     }

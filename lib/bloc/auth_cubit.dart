@@ -61,14 +61,15 @@ class AuthCubit extends Cubit<AuthCubitState> {
       username: credentials.email,
       password: credentials.password,
     );
-    await update();
+    await sync();
   }
 
   signOut() async {
     await Amplify.Auth.signOut();
+    await sync();
   }
 
-  update() async {
+  sync() async {
     final session = await Amplify.Auth.fetchAuthSession();
     final user = session.isSignedIn ? await Amplify.Auth.getCurrentUser() : null;
     emit(AuthCubitState._(user: user));

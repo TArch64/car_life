@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:car_life/bloc/auth_cubit.dart';
-import 'package:car_life/pages/base/page_loader.dart';
+
+import 'bloc/auth_cubit.dart';
+import 'pages/base/page_loader.dart';
+import 'application_wrapper.dart';
 
 class AuthHandler extends StatefulWidget {
   final WidgetBuilder buildAuth;
@@ -21,20 +23,26 @@ class _AuthHandlerState extends State<AuthHandler> {
   @override
   void initState() {
     super.initState();
-    context.read<AuthCubit>().update();
+    context.read<AuthCubit>().sync();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext _) {
     return BlocBuilder<AuthCubit, AuthCubitState>(
       builder: (context, state) {
         if (!state.isInited) {
-          return const CupertinoPageScaffold(child: PageLoader());
+          return const ApplicationWrapper(
+            child: CupertinoPageScaffold(child: PageLoader()),
+          );
         }
         if (!state.isSignedIn) {
-          return widget.buildAuth(context);
+          return ApplicationWrapper(
+            child: widget.buildAuth(context)
+          );
         }
-        return widget.buildApp(context);
+        return ApplicationWrapper(
+          child: widget.buildApp(context)
+        );
       },
     );
   }
